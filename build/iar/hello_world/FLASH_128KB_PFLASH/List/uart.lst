@@ -1,0 +1,220 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:17 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers #
+#                    \uart\uart.c                                             #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\driver #
+#                    s\uart\uart.c" -D IAR -D TOWER -D TWR_K20D50M -lCN       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\uart.lst              #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\uart.o                 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers\uart\uart.c
+      1          /****************************************************************************************************/
+      2          /**
+      3          Copyright (c) 2011 Freescale Semiconductor
+      4          Freescale Confidential Proprietary
+      5          \file        uart.c
+      6          \brief      Provide common UART routines for serial IO
+      7          \author     Freescale Semiconductor
+      8          \author     
+      9          \version    1.0
+     10          \date       Sep 14, 2011
+     11          */
+     12          
+     13          /*****************************************************************************************************
+     14          * Include files
+     15          *****************************************************************************************************/
+     16          #include "common.h"
+     17          #include "uart.h"
+     18          
+     19          
+     20          /*****************************************************************************************************
+     21          * Code of project wide FUNCTIONS
+     22          *****************************************************************************************************/
+     23          
+     24          /**  
+     25           * \brief   Initialize the UART for 8N1 operation, interrupts disabled, and 
+     26           * \brief    no hardware flow-control
+     27          
+     28          
+     29           * \author   
+     30           * \param 
+     31           *         uartch      UART channel to initialize
+     32           *         sysclk      UART module Clock in kHz(used to calculate baud)
+     33           *         baud        UART baud rate
+     34           * \return 
+     35                 none
+     36           * \todo    
+     37           * \warning  Since the UARTs are pinned out in multiple locations on most
+     38           *       Kinetis devices, this driver does not enable UART pin functions.
+     39           *       The desired pins should be enabled before calling this init function. 
+     40           */
+     41          void uart_init (UART_MemMapPtr uartch, int sysclk, int baud)
+     42          {
+     43              register uint16 sbr, brfa;
+     44              uint8 temp;
+     45              
+     46          	/* Enable the clock to the selected UART */    
+     47              if(uartch == UART0_BASE_PTR)
+     48          		SIM_SCGC4 |= SIM_SCGC4_UART0_MASK;
+     49              else
+     50              	if (uartch == UART1_BASE_PTR)
+     51          			SIM_SCGC4 |= SIM_SCGC4_UART1_MASK;
+     52              	else
+     53              		if (uartch == UART2_BASE_PTR)
+     54              			SIM_SCGC4 |= SIM_SCGC4_UART2_MASK;
+     55          #if 0
+     56              		else
+     57              			if(uartch == UART3_BASE_PTR)
+     58              				SIM_SCGC4 |= SIM_SCGC4_UART3_MASK;
+     59              			else
+     60              				if(uartch == UART4_BASE_PTR)
+     61              					SIM_SCGC1 |= SIM_SCGC1_UART4_MASK;
+     62              				else
+     63              					SIM_SCGC1 |= SIM_SCGC1_UART5_MASK;
+     64          #endif
+     65              /* Make sure that the transmitter and receiver are disabled while we 
+     66               * change settings.
+     67               */
+     68              UART_C2_REG(uartch) &= ~(UART_C2_TE_MASK
+     69          				| UART_C2_RE_MASK );
+     70          
+     71              /* Configure the UART for 8-bit mode, no parity */
+     72              UART_C1_REG(uartch) = 0;	/* We need all default settings, so entire register is cleared */
+     73              
+     74              /* Calculate baud settings */
+     75              sbr = (uint16)((sysclk*1000)/(baud * 16));
+     76                  
+     77              /* Save off the current value of the UARTx_BDH except for the SBR field */
+     78              temp = UART_BDH_REG(uartch) & ~(UART_BDH_SBR(0x1F));
+     79              
+     80              UART_BDH_REG(uartch) = temp |  UART_BDH_SBR(((sbr & 0x1F00) >> 8));
+     81              UART_BDL_REG(uartch) = (uint8)(sbr & UART_BDL_SBR_MASK);
+     82              
+     83              /* Determine if a fractional divider is needed to get closer to the baud rate */
+     84              brfa = (((sysclk*32000)/(baud * 16)) - (sbr * 32));
+     85              
+     86              /* Save off the current value of the UARTx_C4 register except for the BRFA field */
+     87              temp = UART_C4_REG(uartch) & ~(UART_C4_BRFA(0x1F));
+     88              
+     89              UART_C4_REG(uartch) = temp |  UART_C4_BRFA(brfa);    
+     90          
+     91              /* Enable receiver and transmitter */
+     92          	UART_C2_REG(uartch) |= (UART_C2_TE_MASK
+     93          				| UART_C2_RE_MASK );
+     94          }
+     95          
+     96          
+     97          
+     98          
+     99          
+    100          
+    101          /**  
+    102           * \brief   Wait for a character to be received on the specified UART
+    103           * \author   
+    104           * \param    channel      UART channel to read from
+    105           * \return   the received character
+    106           * \todo    
+    107           * \warning
+    108           */
+    109          char uart_getchar (UART_MemMapPtr channel)
+    110          {
+    111              /* Wait until character has been received */
+    112              while (!(UART_S1_REG(channel) & UART_S1_RDRF_MASK));
+    113              
+    114              /* Return the 8-bit data from the receiver */
+    115              return UART_D_REG(channel);
+    116          }
+    117          
+    118          
+    119          /**  
+    120           * \brief   Wait for space in the UART Tx FIFO and then send a character
+    121           * \author   
+    122           * \param    channel  UART channel to send to
+    123          *  \param    ch	     character to send
+    124           * \return   none
+    125           * \todo    
+    126           * \warning
+    127           */
+    128          void uart_putchar (UART_MemMapPtr channel, char ch)
+    129          {
+    130              /* Wait until space is available in the FIFO */
+    131              while(!(UART_S1_REG(channel) & UART_S1_TDRE_MASK));
+    132              
+    133              /* Send the character */
+    134              UART_D_REG(channel) = (uint8)ch;
+    135           }
+    136          
+    137          
+    138          /**  
+    139           * \brief   Check to see if a character has been received
+    140           * \author   
+    141           * \param    channel      UART channel to check for a character
+    142          *  \param    ch	     character to send
+    143           * \return    0       No character received
+    144           * \return    1       Character has been received
+    145           * \todo    
+    146           * \warning
+    147           */
+    148          int uart_getchar_present (UART_MemMapPtr channel)
+    149          {
+    150              return (UART_S1_REG(channel) & UART_S1_RDRF_MASK);
+    151          }
+    152          /********************************************************************/
+    153              
+
+Errors: 1
+Warnings: none

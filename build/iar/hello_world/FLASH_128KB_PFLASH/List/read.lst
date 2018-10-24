@@ -1,0 +1,133 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:19 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\semihos #
+#                    ting\iar\read.c                                          #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\semiho #
+#                    sting\iar\read.c" -D IAR -D TOWER -D TWR_K20D50M -lCN    #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\read.lst              #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\read.o                 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\semihosting\iar\read.c
+      1          /*******************
+      2           *
+      3           * Copyright 1998-2010 IAR Systems AB.  
+      4           *
+      5           * This is a template implementation of the "__read" function used by
+      6           * the standard library.  Replace it with a system-specific
+      7           * implementation.
+      8           *
+      9           * The "__read" function reads a number of bytes, at most "size" into
+     10           * the memory area pointed to by "buffer".  It returns the number of
+     11           * bytes read, 0 at the end of the file, or _LLIO_ERROR if failure
+     12           * occurs.
+     13           *
+     14           * The template implementation below assumes that the application
+     15           * provides the function "MyLowLevelGetchar".  It should return a
+     16           * character value, or -1 on failure.
+     17           *
+     18           ********************/
+     19          
+     20          #include <yfuns.h>
+     21          #include "common.h"
+     22          #include "uart.h"
+     23          
+     24          #ifndef CONSOLE_SUPPORT
+     25          _STD_BEGIN
+     26          
+     27          #pragma module_name = "?__read"
+     28          
+     29          char uart_getchar (UART_MemMapPtr);
+     30          
+     31          size_t __read(int handle, unsigned char * buffer, size_t size)
+     32          {
+     33            /* Remove the #if #endif pair to enable the implementation */
+     34          #if 1    
+     35          
+     36            int nChars = 0;
+     37          
+     38            /* This template only reads from "standard in", for all other file
+     39             * handles it returns failure. */
+     40            if (handle != _LLIO_STDIN)
+     41            {
+     42              return _LLIO_ERROR;
+     43            }
+     44          
+     45            for (/* Empty */; size > 0; --size)
+     46            {
+     47              int c = uart_getchar(TERM_PORT);
+     48              if (c < 0)
+     49                break;
+     50          
+     51              *buffer++ = c;
+     52              ++nChars;
+     53            }
+     54          
+     55            return nChars;
+     56          
+     57          #else
+     58          
+     59            /* Always return error code when implementation is disabled. */
+     60            return _LLIO_ERROR;
+     61          
+     62          #endif
+     63          }
+     64          
+     65          _STD_END
+     66          #endif
+
+Errors: 1
+Warnings: none

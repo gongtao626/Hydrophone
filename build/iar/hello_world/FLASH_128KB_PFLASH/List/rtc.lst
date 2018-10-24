@@ -1,0 +1,159 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:19 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers #
+#                    \rtc\rtc.c                                               #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\driver #
+#                    s\rtc\rtc.c" -D IAR -D TOWER -D TWR_K20D50M -lCN         #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\rtc.lst               #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\rtc.o                  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers\rtc\rtc.c
+      1          /*
+      2           * File:        rtc.c
+      3           * Purpose:     Provide common RTC routines
+      4           *
+      5           * Notes:       
+      6           *              
+      7           */
+      8          
+      9          
+     10          #include "common.h"
+     11          #include "rtc.h"
+     12          #include "arm_cm4.h"
+     13          
+     14          /********************************************************************/
+     15          /*
+     16           * Initialize the RTC
+     17           *
+     18           *
+     19           * Parameters:
+     20           *  seconds         Start value of seconds register
+     21           *  alarm           Time in seconds of first alarm. Set to 0xFFFFFFFF to effectively disable alarm
+     22           *  c_interval      Interval at which to apply time compensation can range from 1 second (0x0) to 256 (0xFF)
+     23           *  c_value         Compensation value ranges from -127 32kHz cycles to +128 32 kHz cycles
+     24           *                  80h Time prescaler register overflows every 32896 clock cycles.
+     25           *                  FFh Time prescaler register overflows every 32769 clock cycles.
+     26           *                  00h Time prescaler register overflows every 32768 clock cycles.
+     27           *                  01h Time prescaler register overflows every 32767 clock cycles.
+     28           *                  7Fh Time prescaler register overflows every 32641 clock cycles.
+     29           *  interrupt       TRUE or FALSE
+     30           */
+     31          
+     32          void rtc_init(uint32 seconds, uint32 alarm, uint8 c_interval, uint8 c_value, uint8 interrupt) 
+     33          {
+     34            int i;
+     35            
+     36            /*enable the clock to SRTC module register space*/
+     37            SIM_SCGC6 |= SIM_SCGC6_RTC_MASK;
+     38            
+     39            /*Only VBAT_POR has an effect on the SRTC, RESET to the part does not, so you must manually reset the SRTC to make sure everything is in a known state*/
+     40            /*clear the software reset bit*/
+     41            RTC_CR  = RTC_CR_SWR_MASK;
+     42            RTC_CR  &= ~RTC_CR_SWR_MASK;  
+     43            
+     44            /*Enable the interrupt*/
+     45            if(interrupt)
+     46              enable_irq(66);
+     47            
+     48            /*Enable the oscillator*/
+     49            RTC_CR |= RTC_CR_OSCE_MASK;
+     50            
+     51            /*Wait to all the 32 kHz to stabilize, refer to the crystal startup time in the crystal datasheet*/
+     52            for(i=0;i<0x600000;i++);
+     53            
+     54            /*Set time compensation parameters*/
+     55            RTC_TCR = RTC_TCR_CIR(c_interval) | RTC_TCR_TCR(c_value);
+     56            
+     57            /*Configure the timer seconds and alarm registers*/
+     58            RTC_TSR = seconds;
+     59            RTC_TAR = alarm;
+     60            
+     61            /*Enable the counter*/
+     62            RTC_SR |= RTC_SR_TCE_MASK;
+     63            
+     64          }
+     65          
+     66          void rtc_isr(void) 
+     67          {
+     68             
+     69             if((RTC_SR & RTC_SR_TIF_MASK)== 0x01)
+     70               {
+     71                 printf("SRTC time invalid interrupt entered...\r\n");
+     72             	   RTC_SR &= 0x07;  //clear TCE, or RTC_TSR can  not be written
+     73             	   RTC_TSR = 0x00000000;  //clear TIF 
+     74               }	
+     75             else if((RTC_SR & RTC_SR_TOF_MASK) == 0x02)
+     76             {
+     77             	   printf("SRTC time overflow interrupt entered...\r\n");
+     78             	   RTC_SR &= 0x07;  //clear TCE, or RTC_TSR can  not be written
+     79             	   RTC_TSR = 0x00000000;  //clear TOF
+     80             }	 	
+     81             else if((RTC_SR & RTC_SR_TAF_MASK) == 0x04)
+     82             {
+     83             	   printf("SRTC alarm interrupt entered...\r\n");
+     84                     printf("Time Seconds Register value is: %i\n", RTC_TSR);
+     85             	   RTC_TAR += 1;// Write new alarm value, to generate an alarm every second add 1
+     86             }	
+     87             else
+     88             {
+     89                     printf("No valid Flag was set!\n");
+     90             }
+     91             return;
+     92          }
+
+Errors: 1
+Warnings: none

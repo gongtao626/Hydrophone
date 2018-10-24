@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\..\adc_demo\adc_demo_tower.ewp</path>
+  </project>
+  <project>
+    <path>C:\Documents and Settings\kk\&#x684C;&#x9762;\KINETIS512_SC\build\iar\gpio\gpio_k40_tower.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\hello_boy_tower.ewp</path>
+  </project>
+  <batchBuild/>
+</workspace>
+
+

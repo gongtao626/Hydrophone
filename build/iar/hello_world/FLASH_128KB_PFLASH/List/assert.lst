@@ -1,0 +1,95 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:17 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\common\ #
+#                    assert.c                                                 #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\common #
+#                    \assert.c" -D IAR -D TOWER -D TWR_K20D50M -lCN           #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\assert.lst            #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\assert.o               #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\common\assert.c
+      1          /*
+      2           * File:        assert.c
+      3           * Purpose:     Provide macro for software assertions
+      4           *
+      5           * Notes:       ASSERT macro defined in assert.h calls assert_failed()
+      6           */
+      7          
+      8          #include "common.h"
+      9          
+     10          const char ASSERT_FAILED_STR[] = "Assertion failed in %s at line %d\n";
+     11          
+     12          /********************************************************************/
+     13          void
+     14          assert_failed(char *file, int line)
+     15          {
+     16              int i;
+     17              
+     18              printf(ASSERT_FAILED_STR, file, line);
+     19          
+     20              while (1)
+     21              {
+     22          //        platform_led_display(0xFF);
+     23                  for (i = 100000; i; i--) ;
+     24          //        platform_led_display(0x00);
+     25                  for (i = 100000; i; i--) ;
+     26              }
+     27          }
+     28          /********************************************************************/
+
+Errors: 1
+Warnings: none

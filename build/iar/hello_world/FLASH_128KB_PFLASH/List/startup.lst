@@ -1,0 +1,172 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:16 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\common\ #
+#                    startup.c                                                #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\common #
+#                    \startup.c" -D IAR -D TOWER -D TWR_K20D50M -lCN          #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\startup.lst           #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\startup.o              #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\common\startup.c
+      1          /*
+      2           * File:    startup.c
+      3           * Purpose: Generic Kinetis startup code
+      4           *
+      5           * Notes:
+      6           */
+      7          
+      8          #include "common.h"
+      9          
+     10          #if (defined(IAR))
+     11          	#pragma section = ".data"
+     12          	#pragma section = ".data_init"
+     13          	#pragma section = ".bss"
+     14          	#pragma section = "CodeRelocate"
+     15          	#pragma section = "CodeRelocateRam"
+     16          #endif
+     17          
+     18          /********************************************************************/
+     19          void
+     20          common_startup(void)
+     21          {
+     22          #if (defined(CW)|defined(IAR))
+     23          #if (defined(CW))	
+     24              extern char __START_BSS[];
+     25              extern char __END_BSS[];
+     26              extern uint32 __DATA_ROM[];
+     27              extern uint32 __DATA_RAM[];
+     28              extern char __DATA_END[];
+     29          #endif
+     30          
+     31              /* Declare a counter we'll use in all of the copy loops */
+     32              uint32 n;
+     33          
+     34              /* Declare pointers for various data sections. These pointers
+     35               * are initialized using values pulled in from the linker file
+     36               */
+     37              uint8 * data_ram, * data_rom, * data_rom_end;
+     38              uint8 * bss_start, * bss_end;
+     39          
+     40          
+     41              /* Addresses for VECTOR_TABLE and VECTOR_RAM come from the linker file */
+     42              extern uint32 __VECTOR_TABLE[];
+     43              extern uint32 __VECTOR_RAM[];
+     44          
+     45              /* Copy the vector table to RAM */
+     46              if (__VECTOR_RAM != __VECTOR_TABLE)
+     47              {
+     48                  for (n = 0; n < 0x400/4; n++)
+     49                      __VECTOR_RAM[n] = __VECTOR_TABLE[n];
+     50              }
+     51              /* Point the VTOR to the new copy of the vector table */
+     52              write_vtor((uint32)__VECTOR_RAM);
+     53          
+     54              /* Get the addresses for the .data section (initialized data section) */
+     55              #if (defined(CW))
+     56                  data_ram = (uint8 *)__DATA_RAM;
+     57          	data_rom = (uint8 *)__DATA_ROM;
+     58          	data_rom_end  = (uint8 *)__DATA_END; /* This is actually a RAM address in CodeWarrior */
+     59          	n = data_rom_end - data_ram;
+     60              #elif (defined(IAR))
+     61          	data_ram = __section_begin(".data");
+     62          	data_rom = __section_begin(".data_init");
+     63          	data_rom_end = __section_end(".data_init");
+     64          	n = data_rom_end - data_rom;
+     65              #endif		
+     66          		
+     67          	/* Copy initialized data from ROM to RAM */
+     68          	while (n--)
+     69          		*data_ram++ = *data_rom++;
+     70          	
+     71          	
+     72              /* Get the addresses for the .bss section (zero-initialized data) */
+     73              #if (defined(CW))
+     74          	bss_start = (uint8 *)__START_BSS;
+     75          	bss_end = (uint8 *)__END_BSS;
+     76              #elif (defined(IAR))
+     77          	bss_start = __section_begin(".bss");
+     78          	bss_end = __section_end(".bss");
+     79              #endif
+     80          	
+     81          
+     82              /* Clear the zero-initialized data section */
+     83              n = bss_end - bss_start;
+     84              while(n--)
+     85                *bss_start++ = 0;
+     86          
+     87              /* Get addresses for any code sections that need to be copied from ROM to RAM.
+     88               * The IAR tools have a predefined keyword that can be used to mark individual
+     89               * functions for execution from RAM. Add "__ramfunc" before the return type in
+     90               * the function prototype for any routines you need to execute from RAM instead
+     91               * of ROM. ex: __ramfunc void foo(void);
+     92               */
+     93              #if (defined(IAR))
+     94            	uint8* code_relocate_ram = __section_begin("CodeRelocateRam");
+     95          	uint8* code_relocate = __section_begin("CodeRelocate");
+     96                  uint8* code_relocate_end = __section_end("CodeRelocate");
+     97          
+     98                  /* Copy functions from ROM to RAM */
+     99                  n = code_relocate_end - code_relocate;
+    100                  while (n--)
+    101                    *code_relocate_ram++ = *code_relocate++;
+    102              #endif
+    103          #endif
+    104          }
+    105          /********************************************************************/
+
+Errors: 1
+Warnings: none

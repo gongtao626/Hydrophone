@@ -1,0 +1,2060 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:18 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers #
+#                    \mcg\mcg.c                                               #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\driver #
+#                    s\mcg\mcg.c" -D IAR -D TOWER -D TWR_K20D50M -lCN         #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\mcg.lst               #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\mcg.o                  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers\mcg\mcg.c
+      1          /*
+      2           * File:    mcg.c
+      3           *
+      4           * Notes:
+      5           * Assumes the MCG mode is in the default FEI mode out of reset
+      6           * Aug/30  update to use  header files MK20D5.h  Rev3   to use MCG0 references 
+      7           */
+      8          
+      9          #include "common.h"
+     10          #include "mcg.h"
+     11          #include "lptmr.h"
+     12          
+     13          // global variables
+     14          extern int core_clk_khz;
+     15          //extern int slow_irc_freq = 32768; // default slow irc frequency is 32768Hz
+     16          //extern int fast_irc_freq = 4000000; // default fast irc frequency is 4MHz
+     17          
+     18          extern char drs_val, dmx32_val;
+     19          
+     20          
+     21          
+     22          
+     23          
+     24          /*********************************************************************************************/
+     25          /* Functon name : pll_init
+     26           *
+     27           * Mode transition: Option to move from FEI to PEE mode or to just initialize the PLL
+     28           *
+     29           * This function initializess either PLL0 or PLL1. Either OSC0 or OSC1 can be selected for the
+     30           * reference clock source. The oscillators can be configured to use a crystal or take in an
+     31           * external square wave clock.
+     32           * NOTE : This driver does not presently (as of Sept 9 2011) support the use of OSC1 as the
+     33           * reference clock for the MCGOUT clock used for the system clocks.
+     34           * The PLL outputs a PLLCLK and PLLCLK2X. PLLCLK2X is the actual PLL frequency and PLLCLK is
+     35           * half this frequency. PLLCLK is used for MCGOUT and is also typically used by the
+     36           * peripherals that can select the PLL as a clock source. So the PLL frequency generated will
+     37           * be twice the desired frequency.
+     38           * Using the function parameter names the PLL frequency is calculated as follows:
+     39           * PLL freq = ((crystal_val / prdiv_val) * vdiv_val)
+     40           * Refer to the readme file in the mcg driver directory for examples of pll_init configurations.
+     41           * All parameters must be provided, for example crystal_val must be provided even if the
+     42           * oscillator associated with that parameter is already initialized.
+     43           * The various passed parameters are checked to ensure they are within the allowed range. If any
+     44           * of these checks fail the driver will exit and return a fail/error code. An error code will
+     45           * also be returned if any error occurs during the PLL initialization sequence. Refer to the
+     46           * readme file in the mcg driver directory for a list of all these codes.
+     47           *
+     48           * Parameters: crystal_val - external clock frequency in Hz either from a crystal or square
+     49           *                           wave clock source
+     50           *             hgo_val     - selects whether low power or high gain mode is selected
+     51           *                           for the crystal oscillator. This has no meaning if an
+     52           *                           external clock is used.
+     53           *             erefs_val   - selects external clock (=0) or crystal osc (=1)
+     54           *             prdiv_val   - value to divide the external clock source by to create the desired
+     55           *                           PLL reference clock frequency
+     56           *             vdiv_val    - value to multiply the PLL reference clock frequency by
+     57           *             mcgout_select  - 0 if the PLL is just to be enabled, non-zero if the PLL is used
+     58           *                              to provide the MCGOUT clock for the system.
+     59           *
+     60           * Return value : PLL frequency (Hz) divided by 2 or error code
+     61           */
+     62          
+     63          int pll_init(int crystal_val, unsigned char hgo_val, unsigned char erefs_val, signed char prdiv_val, signed char vdiv_val, unsigned char mcgout_select)
+     64          {
+     65            unsigned char frdiv_val;
+     66            unsigned char temp_reg;
+     67            unsigned char prdiv, vdiv;
+     68            short i;
+     69            int ref_freq;
+     70            int pll_freq;
+     71          
+     72            // check if in FEI mode
+     73            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) && // check CLKS mux has selcted FLL output
+     74                (MCG_S & MCG_S_IREFST_MASK) &&                                  // check FLL ref is internal ref clk
+     75                (!(MCG_S & MCG_S_PLLST_MASK))))                                 // check PLLS mux has selected FLL
+     76            {
+     77              return 0x1;                                                     // return error code
+     78            }
+     79          
+     80            // check external frequency is less than the maximum frequency
+     81            if  (crystal_val > 50000000) {return 0x21;}
+     82          
+     83            // check crystal frequency is within spec. if crystal osc is being used as PLL ref
+     84            if (erefs_val)
+     85            {
+     86              if ((crystal_val < 3000000) || (crystal_val > 32000000)) {return 0x22;} // return 1 if one of the available crystal options is not available
+     87            }
+     88          
+     89            // make sure HGO will never be greater than 1. Could return an error instead if desired.
+     90            if (hgo_val > 0)
+     91            {
+     92              hgo_val = 1; // force hgo_val to 1 if > 0
+     93            }
+     94          
+     95            // Check PLL divider settings are within spec.
+     96            if ((prdiv_val < 1) || (prdiv_val > 25)) {return 0x41;}
+     97            if ((vdiv_val < 24) || (vdiv_val > 55)) {return 0x42;}
+     98          
+     99            // Check PLL reference clock frequency is within spec.
+    100            ref_freq = crystal_val / prdiv_val;
+    101            if ((ref_freq < 2000000) || (ref_freq > 4000000)) {return 0x43;}
+    102          
+    103            // Check PLL output frequency is within spec.
+    104            pll_freq = (crystal_val / prdiv_val) * vdiv_val;
+    105            if ((pll_freq < 48000000) || (pll_freq > 100000000)) {return 0x45;}
+    106          
+    107            // configure the MCG_C2 register
+    108            // the RANGE value is determined by the external frequency. Since the RANGE parameter affects the FRDIV divide value
+    109            // it still needs to be set correctly even if the oscillator is not being used
+    110                
+    111            temp_reg = MCG_C2;
+    112            temp_reg &= ~(MCG_C2_RANGE0_MASK | MCG_C2_HGO0_MASK | MCG_C2_EREFS0_MASK); // clear fields before writing new values
+    113              
+    114            if (crystal_val <= 3000000)
+    115            {
+    116              temp_reg |= (MCG_C2_RANGE0(1) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+    117            }
+    118            else
+    119            {
+    120              temp_reg |= (MCG_C2_RANGE0(2) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+    121            }
+    122            MCG_C2 = temp_reg;
+    123            
+    124            // determine FRDIV based on reference clock frequency
+    125            // since the external frequency has already been checked only the maximum frequency for each FRDIV value needs to be compared here.
+    126            if (crystal_val <= 1250000) {frdiv_val = 0;}
+    127            else if (crystal_val <= 2500000) {frdiv_val = 1;}
+    128            else if (crystal_val <= 5000000) {frdiv_val = 2;}
+    129            else if (crystal_val <= 10000000) {frdiv_val = 3;}
+    130            else if (crystal_val <= 20000000) {frdiv_val = 4;}
+    131            else {frdiv_val = 5;}
+    132          
+    133            // Select external oscillator and Reference Divider and clear IREFS to start ext osc
+    134            // If IRCLK is required it must be enabled outside of this driver, existing state will be maintained
+    135            // CLKS=2, FRDIV=frdiv_val, IREFS=0, IRCLKEN=0, IREFSTEN=0
+    136            temp_reg = MCG_C1;
+    137            temp_reg &= ~(MCG_C1_CLKS_MASK | MCG_C1_FRDIV_MASK | MCG_C1_IREFS_MASK); // Clear values in these fields
+    138            temp_reg = MCG_C1_CLKS(2) | MCG_C1_FRDIV(frdiv_val); // Set the required CLKS and FRDIV values
+    139            MCG_C1 = temp_reg;
+    140          
+    141            // if the external oscillator is used need to wait for OSCINIT to set
+    142            if (erefs_val)
+    143            {
+    144              for (i = 0 ; i < 10000 ; i++)
+    145              {
+    146                if (MCG_S & MCG_S_OSCINIT0_MASK) break; // jump out early if OSCINIT sets before loop finishes
+    147              }
+    148            if (!(MCG_S & MCG_S_OSCINIT0_MASK)) return 0x23; // check bit is really set and return with error if not set
+    149            }
+    150          /* THIS CHECK IS REMOVED DUE TO BUG WITH SLOW IRC IN REV. 1.0
+    151            // wait for Reference clock Status bit to clear
+    152            for (i = 0 ; i < 2000 ; i++)
+    153            {
+    154              if (!(MCG_S & MCG_S_IREFST_MASK)) break; // jump out early if IREFST clears before loop finishes
+    155            }
+    156            if (MCG_S & MCG_S_IREFST_MASK) return 0x11; // check bit is really clear and return with error if not set
+    157          */
+    158            // Wait for clock status bits to show clock source is ext ref clk
+    159            for (i = 0 ; i < 2000 ; i++)
+    160            {
+    161              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) break; // jump out early if CLKST shows EXT CLK slected before loop finishes
+    162            }
+    163            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x2) return 0x1A; // check EXT CLK is really selected and return with error if not
+    164          
+    165            // Now in FBE
+    166            // It is recommended that the clock monitor is enabled when using an external clock as the clock source/reference.
+    167            // It is enabled here but can be removed if this is not required.
+    168            MCG_C6 |= MCG_C6_CME0_MASK;
+    169            
+    170            // Configure PLL
+    171            // Configure MCG_C5
+    172            // If the PLL is to run in STOP mode then the PLLSTEN bit needs to be OR'ed in here or in user code.
+    173            temp_reg = MCG_C5;
+    174            temp_reg &= ~MCG_C5_PRDIV0_MASK;
+    175            temp_reg |= MCG_C5_PRDIV0(prdiv_val - 1);    //set PLL ref divider
+    176            MCG_C5 = temp_reg;
+    177          
+    178            // Configure MCG_C6
+    179            // The PLLS bit is set to enable the PLL, MCGOUT still sourced from ext ref clk
+    180            // The loss of lock interrupt can be enabled by seperately OR'ing in the LOLIE bit in MCG_C6
+    181            temp_reg = MCG_C6; // store present C6 value
+    182            temp_reg &= ~MCG_C6_VDIV0_MASK; // clear VDIV settings
+    183            temp_reg |= MCG_C6_PLLS_MASK | MCG_C6_VDIV0(vdiv_val - 24); // write new VDIV and enable PLL
+    184            MCG_C6 = temp_reg; // update MCG_C6
+    185          
+    186            // wait for PLLST status bit to set
+    187            for (i = 0 ; i < 2000 ; i++)
+    188            {
+    189              if (MCG_S & MCG_S_PLLST_MASK) break; // jump out early if PLLST sets before loop finishes
+    190            }
+    191            if (!(MCG_S & MCG_S_PLLST_MASK)) return 0x16; // check bit is really set and return with error if not set
+    192          
+    193            // Wait for LOCK bit to set
+    194            for (i = 0 ; i < 2000 ; i++)
+    195            {
+    196              if (MCG_S & MCG_S_LOCK0_MASK) break; // jump out early if LOCK sets before loop finishes
+    197            }
+    198            if (!(MCG_S & MCG_S_LOCK0_MASK)) return 0x44; // check bit is really set and return with error if not set
+    199          
+    200            // Use actual PLL settings to calculate PLL frequency
+    201            prdiv = ((MCG_C5 & MCG_C5_PRDIV0_MASK) + 1);
+    202            vdiv = ((MCG_C6 & MCG_C6_VDIV0_MASK) + 24);
+    203          
+    204            // now in PBE
+    205          
+    206            MCG_C1 &= ~MCG_C1_CLKS_MASK; // clear CLKS to switch CLKS mux to select PLL as MCG_OUT
+    207          
+    208            // Wait for clock status bits to update
+    209            for (i = 0 ; i < 2000 ; i++)
+    210            {
+    211              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x3) break; // jump out early if CLKST = 3 before loop finishes
+    212            }
+    213            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x3) return 0x1B; // check CLKST is set correctly and return with error if not
+    214          
+    215            // Now in PEE
+    216            
+    217            return ((crystal_val / prdiv) * vdiv); //MCGOUT equals PLL output frequency
+    218          } // pll_init
+    219          
+    220          
+    221          unsigned char fll_rtc_init(unsigned char clk_option, unsigned char crystal_val)
+    222          {
+    223            unsigned char pll_freq;
+    224          
+    225            rtc_as_refclk();
+    226            pll_freq = 24;
+    227            return pll_freq;
+    228          }
+    229          
+    230          
+    231          
+    232          
+    233          
+    234          /********************************************************************/
+    235          
+    236          int pee_pbe(int crystal_val)
+    237          {
+    238            short i;
+    239            
+    240          // Check MCG is in PEE mode
+    241            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x3) && // check CLKS mux has selcted PLL output
+    242                (!(MCG_S & MCG_S_IREFST_MASK)) &&                               // check FLL ref is external ref clk
+    243                (MCG_S & MCG_S_PLLST_MASK)))                                    // check PLLS mux has selected PLL 
+    244            {
+    245              return 0x8;                                                       // return error code
+    246            } 
+    247            
+    248          // As we are running from the PLL by default the PLL and external clock settings are valid
+    249          // To move to PBE from PEE simply requires the switching of the CLKS mux to select the ext clock 
+    250          // As CLKS is already 0 the CLKS value can simply be OR'ed into the register 
+    251            MCG_C1 |= MCG_C1_CLKS(2); // switch CLKS mux to select external reference clock as MCG_OUT
+    252            
+    253          // Wait for clock status bits to update 
+    254            for (i = 0 ; i < 2000 ; i++)
+    255            {
+    256              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) break; // jump out early if CLKST shows EXT CLK slected before loop finishes
+    257            }
+    258            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x2) return 0x1A; // check EXT CLK is really selected and return with error if not
+    259          
+    260          // Now in PBE mode  
+    261            return crystal_val; // MCGOUT frequency equals external clock frequency
+    262          } // pee_pbe
+    263          
+    264          
+    265          int pbe_pee(int crystal_val)
+    266          {
+    267            unsigned char prdiv, vdiv;
+    268            short i;
+    269          
+    270            // Check MCG is in PBE mode
+    271            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) && // check CLKS mux has selcted external reference
+    272                (!(MCG_S & MCG_S_IREFST_MASK)) &&                               // check FLL ref is external ref clk
+    273                (MCG_S & MCG_S_PLLST_MASK) &&                                   // check PLLS mux has selected PLL
+    274                (!(MCG_C2 & MCG_C2_LP_MASK))))                                  // check MCG_C2[LP] bit is not set
+    275            {
+    276              return 0x7;                                                       // return error code
+    277            }
+    278          
+    279            // As the PLL settings have already been checked when PBE mode was enterred they are not checked here
+    280          
+    281            // Check the PLL state before transitioning to PEE mode
+    282            
+    283            // Check LOCK bit is set before transitioning MCG to PLL output (already checked in fbe_pbe but good practice
+    284            // to re-check before switch to use PLL)
+    285            for (i = 0 ; i < 2000 ; i++)
+    286            {
+    287              if (MCG_S & MCG_S_LOCK0_MASK) break; // jump out early if LOCK sets before loop finishes
+    288            }
+    289            if (!(MCG_S & MCG_S_LOCK0_MASK)) return 0x44; // check bit is really set and return with error if not set
+    290            // Use actual PLL settings to calculate PLL frequency
+    291            prdiv = ((MCG_C5 & MCG_C5_PRDIV0_MASK) + 1);
+    292            vdiv = ((MCG_C6 & MCG_C6_VDIV0_MASK) + 24);
+    293            
+    294            MCG_C1 &= ~MCG_C1_CLKS_MASK; // clear CLKS to switch CLKS mux to select PLL as MCG_OUT
+    295          
+    296            // Wait for clock status bits to update
+    297            for (i = 0 ; i < 2000 ; i++)
+    298            {
+    299              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x3) break; // jump out early if CLKST = 3 before loop finishes
+    300            }
+    301            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x3) return 0x1B; // check CLKST is set correctly and return with error if not
+    302          
+    303            // Now in PEE
+    304            return ((crystal_val / prdiv) * vdiv); //MCGOUT equals PLL output frequency
+    305            
+    306          }  // pbe_pee
+    307          
+    308          
+    309          int pbe_fbe(int crystal_val)
+    310          {
+    311            short i;
+    312            
+    313          // Check MCG is in PBE mode
+    314            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) && // check CLKS mux has selcted external reference
+    315                (!(MCG_S & MCG_S_IREFST_MASK)) &&                               // check FLL ref is external ref clk
+    316                (MCG_S & MCG_S_PLLST_MASK) &&                                   // check PLLS mux has selected PLL
+    317                (!(MCG_C2 & MCG_C2_LP_MASK))))                                  // check MCG_C2[LP] bit is not set   
+    318            {
+    319              return 0x7;                                                       // return error code
+    320            }
+    321          
+    322          // As we are running from the ext clock, by default the external clock settings are valid
+    323          // To move to FBE from PBE simply requires the switching of the PLLS mux to disable the PLL 
+    324            
+    325            MCG_C6 &= ~MCG_C6_PLLS_MASK; // clear PLLS to disable PLL, still clocked from ext ref clk
+    326            
+    327          // wait for PLLST status bit to set
+    328            for (i = 0 ; i < 2000 ; i++)
+    329            {
+    330              if (!(MCG_S & MCG_S_PLLST_MASK)) break; // jump out early if PLLST clears before loop finishes
+    331            }
+    332            if (MCG_S & MCG_S_PLLST_MASK) return 0x15; // check bit is really clear and return with error if not clear  
+    333          
+    334          // Now in FBE mode  
+    335            return crystal_val; // MCGOUT frequency equals external clock frequency 
+    336          } // pbe_fbe
+    337          
+    338          
+    339          /********************************************************************/
+    340          /* Functon name : fbe_pbe
+    341           *
+    342           * Mode transition: FBE to PBE mode
+    343           *
+    344           * This function transitions the MCG from FBE mode to PBE mode. 
+    345           * This function presently only supports OSC0 and PLL0. Support for OSC1 and PLL1 will be added soon 
+    346           * The function requires the desired OSC and PLL be passed in to it for compatibility with the
+    347           * future support of OSC/PLL selection
+    348           *
+    349           * Parameters: crystal_val - external clock frequency in Hz
+    350           *             prdiv_val   - value to divide the external clock source by to create the desired
+    351           *                           PLL reference clock frequency
+    352           *             vdiv_val    - value to multiply the PLL reference clock frequency by
+    353           *
+    354           * Return value : MCGCLKOUT frequency (Hz) or error code
+    355           */
+    356          int fbe_pbe(int crystal_val, signed char prdiv_val, signed char vdiv_val)
+    357          {
+    358            unsigned char temp_reg;
+    359            short i;
+    360            int pll_freq;
+    361            
+    362          // Check MCG is in FBE mode
+    363            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) && // check CLKS mux has selcted external reference
+    364                (!(MCG_S & MCG_S_IREFST_MASK)) &&                               // check FLL ref is external ref clk
+    365                (!(MCG_S & MCG_S_PLLST_MASK)) &&                                // check PLLS mux has selected FLL
+    366                (!(MCG_C2 & MCG_C2_LP_MASK))))                                  // check MCG_C2[LP] bit is not set   
+    367            {
+    368              return 0x4;                                                       // return error code
+    369            }
+    370            
+    371          // As the external frequency has already been checked when FBE mode was enterred it is not checked here
+    372          
+    373          // Check PLL divider settings are within spec.
+    374            if ((prdiv_val < 1) || (prdiv_val > 25)) {return 0x41;}
+    375            if ((vdiv_val < 24) || (vdiv_val > 55)) {return 0x42;} 
+    376            
+    377          // Check PLL reference clock frequency is within spec.
+    378            if (((crystal_val / prdiv_val) < 2000000) || ((crystal_val / prdiv_val) > 4000000)) {return 0x43;}
+    379                 
+    380          // Check PLL output frequency is within spec.
+    381            pll_freq = (crystal_val / prdiv_val) * vdiv_val;
+    382            if ((pll_freq < 48000000) || (pll_freq > 100000000)) {return 0x45;}
+    383          
+    384            // Configure MCG_C5
+    385            // If the PLL is to run in STOP mode then the PLLSTEN bit needs to be OR'ed in here or in user code.       
+    386            temp_reg = MCG_C5;
+    387            temp_reg &= ~MCG_C5_PRDIV0_MASK;
+    388            temp_reg |= MCG_C5_PRDIV(prdiv_val - 1);    //set PLL ref divider
+    389            MCG_C5 = temp_reg;
+    390          
+    391            // Configure MCG_C6
+    392            // The PLLS bit is set to enable the PLL, MCGOUT still sourced from ext ref clk 
+    393            // The clock monitor is not enabled here as it has likely been enabled previously and so the value of CME
+    394            // is not altered here.
+    395            // The loss of lock interrupt can be enabled by seperately OR'ing in the LOLIE bit in MCG_C6
+    396            temp_reg = MCG_C6; // store present C6 value
+    397            temp_reg &= ~MCG_C6_VDIV0_MASK; // clear VDIV settings
+    398            temp_reg |= MCG_C6_PLLS_MASK | MCG_C6_VDIV(vdiv_val - 24); // write new VDIV and enable PLL
+    399            MCG_C6 = temp_reg; // update MCG_C6
+    400            
+    401            // wait for PLLST status bit to set
+    402            for (i = 0 ; i < 2000 ; i++)
+    403            {
+    404              if (MCG_S & MCG_S_PLLST_MASK) break; // jump out early if PLLST sets before loop finishes
+    405            }
+    406            if (!(MCG_S & MCG_S_PLLST_MASK)) return 0x16; // check bit is really set and return with error if not set
+    407          
+    408            // Wait for LOCK bit to set
+    409            for (i = 0 ; i < 2000 ; i++)
+    410            {
+    411              if (MCG_S & MCG_S_LOCK0_MASK) break; // jump out early if LOCK sets before loop finishes
+    412            }
+    413            if (!(MCG_S & MCG_S_LOCK0_MASK)) return 0x44; // check bit is really set and return with error if not set
+    414              
+    415          // now in PBE 
+    416            return crystal_val; // MCGOUT frequency equals external clock frequency
+    417          } // fbe_pbe
+    418          
+    419          
+    420          int pbe_blpe(int crystal_val)
+    421          {
+    422          // Check MCG is in PBE mode
+    423            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) && // check CLKS mux has selcted external reference
+    424                (!(MCG_S & MCG_S_IREFST_MASK)) &&                               // check FLL ref is external ref clk
+    425                (MCG_S & MCG_S_PLLST_MASK) &&                                   // check PLLS mux has selected PLL
+    426                (!(MCG_C2 & MCG_C2_LP_MASK))))                                  // check MCG_C2[LP] bit is not set   
+    427            {
+    428              return 0x7;                                                       // return error code
+    429            }
+    430            
+    431          // To enter BLPE mode the LP bit must be set, disabling the PLL  
+    432            MCG_C2 |= MCG_C2_LP_MASK;
+    433            
+    434          // Now in BLPE mode
+    435            return crystal_val;  
+    436          } // pbe_blpe
+    437          
+    438          
+    439          // ************************************************************************************************
+    440          // Since PBE mode can be enterred via FBE -> BLPE modes, it cannot be assumed that the PLL has been 
+    441          // previously configured correctly. That is why this general purpose driver has the PLL settings as
+    442          // passed parameters.
+    443          // ************************************************************************************************
+    444          int blpe_pbe(int crystal_val, signed char prdiv_val, signed char vdiv_val)
+    445          {
+    446            unsigned char temp_reg;
+    447            short i;
+    448            
+    449          // Check MCG is in BLPE mode
+    450            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) && // check CLKS mux has selcted external reference
+    451                (!(MCG_S & MCG_S_IREFST_MASK)) &&                               // check FLL ref is external ref clk
+    452                (MCG_C2 & MCG_C2_LP_MASK)))                                     // check MCG_C2[LP] bit is set   
+    453            {
+    454              return 0x6;                                                       // return error code
+    455            }
+    456            
+    457          // As the external frequency has already been checked when FBE mode was enterred it is not checked here
+    458          
+    459          // Check PLL divider settings are within spec.
+    460            if ((prdiv_val < 1) || (prdiv_val > 25)) {return 0x41;}
+    461            if ((vdiv_val < 24) || (vdiv_val > 55)) {return 0x42;} 
+    462            
+    463          // Check PLL reference clock frequency is within spec.
+    464            if (((crystal_val / prdiv_val) < 2000000) || ((crystal_val / prdiv_val) > 4000000)) {return 0x43;}
+    465                 
+    466          // If PRDIV, VDIV and the PLL ref clock are in spec. then the PLL frequency is within spec.
+    467          
+    468          // Configure MCG_C5
+    469          // If the PLL is to run in STOP mode then the PLLSTEN bit needs to be OR'ed in here or in user code.       
+    470            temp_reg = MCG_C5;
+    471            temp_reg &= ~MCG_C5_PRDIV0_MASK;
+    472            temp_reg |= MCG_C5_PRDIV0(prdiv_val - 1);    //set PLL ref divider
+    473            MCG_C5 = temp_reg;
+    474          
+    475          // Configure MCG_C6
+    476          // The PLLS bit is set to enable the PLL, MCGOUT still sourced from ext ref clk 
+    477          // The clock monitor is not enabled here as it has likely been enabled previously and so the value of CME
+    478          // is not altered here.
+    479          // The loss of lock interrupt can be enabled by seperately OR'ing in the LOLIE bit in MCG_C6
+    480            temp_reg = MCG_C6; // store present C6 value
+    481            temp_reg &= ~MCG_C6_VDIV0_MASK; // clear VDIV settings
+    482            temp_reg |= MCG_C6_PLLS_MASK | MCG_C6_VDIV0(vdiv_val - 24); // write new VDIV and enable PLL
+    483            MCG_C6 = temp_reg; // update MCG_C6
+    484            
+    485          // Now that PLL is configured, LP is cleared to enable the PLL
+    486            MCG_C2 &= ~MCG_C2_LP_MASK;
+    487            
+    488          // wait for PLLST status bit to set
+    489            for (i = 0 ; i < 2000 ; i++)
+    490            {
+    491              if (MCG_S & MCG_S_PLLST_MASK) break; // jump out early if PLLST sets before loop finishes
+    492            }
+    493            if (!(MCG_S & MCG_S_PLLST_MASK)) return 0x16; // check bit is really set and return with error if not set
+    494          
+    495          // Wait for LOCK bit to set
+    496            for (i = 0 ; i < 2000 ; i++)
+    497            {
+    498              if (MCG_S & MCG_S_LOCK0_MASK) break; // jump out early if LOCK sets before loop finishes
+    499            }
+    500            if (!(MCG_S & MCG_S_LOCK0_MASK)) return 0x44; // check bit is really set and return with error if not set
+    501          
+    502          // now in PBE 
+    503            return crystal_val; // MCGOUT frequency equals external clock frequency  
+    504          } // blpe_pbe
+    505          
+    506          
+    507          int blpe_fbe(int crystal_val)
+    508          {
+    509            short i;
+    510            
+    511          // Check MCG is in BLPE mode
+    512            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) && // check CLKS mux has selcted external reference
+    513                (!(MCG_S & MCG_S_IREFST_MASK)) &&                               // check FLL ref is external ref clk
+    514                (MCG_C2 & MCG_C2_LP_MASK)))                                     // check MCG_C2[LP] bit is set   
+    515            {
+    516              return 0x6;                                                       // return error code
+    517            }
+    518           
+    519          // To move from BLPE to FBE the PLLS mux be set to select the FLL output and the LP bit must be cleared
+    520            MCG_C6 &= ~MCG_C6_PLLS_MASK; // clear PLLS to select the FLL
+    521            MCG_C2 &= ~MCG_C2_LP_MASK; // clear LP bit  
+    522          
+    523          // wait for PLLST status bit to set
+    524            for (i = 0 ; i < 2000 ; i++)
+    525            {
+    526              if (!(MCG_S & MCG_S_PLLST_MASK)) break; // jump out early if PLLST clears before loop finishes
+    527            }
+    528            if (MCG_S & MCG_S_PLLST_MASK) return 0x15; // check bit is really clear and return with error if not clear  
+    529            
+    530          // now in FBE mode
+    531            return crystal_val; // MCGOUT frequency equals external clock frequency     
+    532          } // blpe_fbe
+    533          
+    534          
+    535          int fbe_blpe(int crystal_val)
+    536          {
+    537          // Check MCG is in FBE mode
+    538            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) && // check CLKS mux has selcted external reference
+    539                (!(MCG_S & MCG_S_IREFST_MASK)) &&                               // check FLL ref is external ref clk
+    540                (!(MCG_S & MCG_S_PLLST_MASK)) &&                                // check PLLS mux has selected FLL
+    541                (!(MCG_C2 & MCG_C2_LP_MASK))))                                  // check MCG_C2[LP] bit is not set   
+    542            {
+    543              return 0x4;                                                       // return error code
+    544            }
+    545           
+    546          // To move from FBE to BLPE the LP bit must be set
+    547            MCG_C2 |= MCG_C2_LP_MASK; // set LP bit  
+    548           
+    549          // now in FBE mode
+    550            return crystal_val; // MCGOUT frequency equals external clock frequency     
+    551          } // fbe_blpe
+    552          
+    553          
+    554          int fbe_fei(int slow_irc_freq)
+    555          {
+    556            unsigned char temp_reg;
+    557            short i;
+    558            int mcg_out;
+    559            
+    560          // Check MCG is in FBE mode
+    561            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) && // check CLKS mux has selcted external reference
+    562                (!(MCG_S & MCG_S_IREFST_MASK)) &&                               // check FLL ref is external ref clk
+    563                (!(MCG_S & MCG_S_PLLST_MASK)) &&                                // check PLLS mux has selected FLL
+    564                (!(MCG_C2 & MCG_C2_LP_MASK))))                                  // check MCG_C2[LP] bit is not set   
+    565            {
+    566              return 0x4;                                                       // return error code
+    567            }
+    568          
+    569          // Check IRC frequency is within spec.
+    570            if ((slow_irc_freq < 31250) || (slow_irc_freq > 39063))
+    571            {
+    572              return 0x31;
+    573            }
+    574            
+    575          // Check resulting FLL frequency 
+    576            mcg_out = fll_freq(slow_irc_freq); 
+    577            if (mcg_out < 0x5B) {return mcg_out;} // If error code returned, return the code to calling function
+    578          
+    579          // Need to make sure the clockmonitor is disabled before moving to an "internal" clock mode
+    580            MCG_C6 &= ~MCG_C6_CME0_MASK; //This assumes OSC0 is used as the external clock source
+    581            
+    582          // Move to FEI by setting CLKS to 0 and enabling the slow IRC as the FLL reference clock
+    583            temp_reg = MCG_C1;
+    584            temp_reg &= ~MCG_C1_CLKS_MASK; // clear CLKS to select FLL output
+    585            temp_reg |= MCG_C1_IREFS_MASK; // select internal reference clock
+    586            MCG_C1 = temp_reg; // update MCG_C1 
+    587            
+    588          // wait for Reference clock Status bit to set
+    589            for (i = 0 ; i < 2000 ; i++)
+    590            {
+    591              if (MCG_S & MCG_S_IREFST_MASK) break; // jump out early if IREFST sets before loop finishes
+    592            }
+    593            if (!(MCG_S & MCG_S_IREFST_MASK)) return 0x12; // check bit is really set and return with error if not set
+    594            
+    595          // Wait for clock status bits to show clock source is ext ref clk
+    596            for (i = 0 ; i < 2000 ; i++)
+    597            {
+    598              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) break; // jump out early if CLKST shows EXT CLK slected before loop finishes
+    599            }
+    600            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x0) return 0x18; // check EXT CLK is really selected and return with error if not
+    601          
+    602          // Now in FEI mode
+    603            return mcg_out;
+    604          } // fbe_fei
+    605          
+    606          
+    607          /********************************************************************/
+    608          /* Functon name : fei_fbe
+    609           *
+    610           * Mode transition: FEI to FBE mode
+    611           *
+    612           * This function transitions the MCG from FEI mode to FBE mode. This is
+    613           * achieved by setting the MCG_C2[LP] bit. There is no status bit to 
+    614           * check so 0 is always returned if the function was called with the MCG
+    615           * in FBI mode. The MCGCLKOUT frequency does not change
+    616           *
+    617           * Parameters: crystal_val - external clock frequency in Hz
+    618           *             hgo_val     - selects whether low power or high gain mode is selected
+    619           *                           for the crystal oscillator. This has no meaning if an 
+    620           *                           external clock is used.
+    621           *             erefs_val   - selects external clock (=0) or crystal osc (=1)
+    622           *
+    623           * Return value : MCGCLKOUT frequency (Hz) or error code
+    624           */
+    625          int fei_fbe(int crystal_val, unsigned char hgo_val, unsigned char erefs_val)
+    626          {
+    627            unsigned char frdiv_val;
+    628            unsigned char temp_reg;
+    629            short i;
+    630            
+    631          // check if in FEI mode
+    632            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) && // check CLKS mux has selcted FLL output
+    633                (MCG_S & MCG_S_IREFST_MASK) &&                                  // check FLL ref is internal ref clk
+    634                (!(MCG_S & MCG_S_PLLST_MASK))))                                 // check PLLS mux has selected FLL
+    635            {
+    636              return 0x1;                                                     // return error code
+    637            }
+    638          
+    639          // check external frequency is less than the maximum frequency
+    640            if  (crystal_val > 60000000) {return 0x21;}
+    641            
+    642          // check crystal frequency is within spec. if crystal osc is being used
+    643            if (erefs_val)
+    644            {
+    645              if ((crystal_val < 30000) ||
+    646                  ((crystal_val > 40000) && (crystal_val < 3000000)) ||
+    647                  (crystal_val > 32000000)) {return 0x22;} // return error if one of the available crystal options is not available
+    648            }
+    649          
+    650          // make sure HGO will never be greater than 1. Could return an error instead if desired.  
+    651            if (hgo_val > 0)
+    652            {
+    653              hgo_val = 1; // force hgo_val to 1 if > 0
+    654            }
+    655          
+    656          // configure the MCG_C2 register
+    657          // the RANGE value is determined by the external frequency. Since the RANGE parameter affects the FRDIV divide value
+    658          // it still needs to be set correctly even if the oscillator is not being used
+    659            temp_reg = MCG_C2;
+    660            temp_reg &= ~(MCG_C2_RANGE0_MASK | MCG_C2_HGO0_MASK | MCG_C2_EREFS0_MASK); // clear fields before writing new values
+    661            if (crystal_val <= 40000)
+    662            {
+    663              temp_reg |= (MCG_C2_RANGE0(0) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+    664            }
+    665            else if (crystal_val <= 8000000)
+    666            {
+    667              temp_reg |= (MCG_C2_RANGE0(1) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+    668            }
+    669            else
+    670            {
+    671              temp_reg |= (MCG_C2_RANGE0(2) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+    672            }
+    673            MCG_C2 = temp_reg;
+    674          // determine FRDIV based on reference clock frequency
+    675          // since the external frequency has already been checked only the maximum frequency for each FRDIV value needs to be compared here.
+    676            if (crystal_val <= 1250000) {frdiv_val = 0;}
+    677            else if (crystal_val <= 2500000) {frdiv_val = 1;}
+    678            else if (crystal_val <= 5000000) {frdiv_val = 2;}
+    679            else if (crystal_val <= 10000000) {frdiv_val = 3;}
+    680            else if (crystal_val <= 20000000) {frdiv_val = 4;}
+    681            else {frdiv_val = 5;}
+    682            
+    683          // Select external oscilator and Reference Divider and clear IREFS to start ext osc
+    684          // If IRCLK is required it must be enabled outside of this driver, existing state will be maintained
+    685          // CLKS=2, FRDIV=frdiv_val, IREFS=0, IRCLKEN=0, IREFSTEN=0
+    686            temp_reg = MCG_C1;
+    687            temp_reg &= ~(MCG_C1_CLKS_MASK | MCG_C1_FRDIV_MASK | MCG_C1_IREFS_MASK); // Clear values in these fields
+    688            temp_reg = MCG_C1_CLKS(2) | MCG_C1_FRDIV(frdiv_val); // Set the required CLKS and FRDIV values
+    689            MCG_C1 = temp_reg;
+    690          
+    691          // if the external oscillator is used need to wait for OSCINIT to set
+    692            if (erefs_val)
+    693            {
+    694              for (i = 0 ; i < 10000 ; i++)
+    695              {
+    696                if (MCG_S & MCG_S_OSCINIT0_MASK) break; // jump out early if OSCINIT sets before loop finishes
+    697              }
+    698              if (!(MCG_S & MCG_S_OSCINIT0_MASK)) return 0x23; // check bit is really set and return with error if not set
+    699            }
+    700          
+    701          // wait for Reference clock Status bit to clear
+    702            for (i = 0 ; i < 2000 ; i++)
+    703            {
+    704              if (!(MCG_S & MCG_S_IREFST_MASK)) break; // jump out early if IREFST clears before loop finishes
+    705            }
+    706            if (MCG_S & MCG_S_IREFST_MASK) return 0x11; // check bit is really clear and return with error if not set
+    707            
+    708          // Wait for clock status bits to show clock source is ext ref clk
+    709            for (i = 0 ; i < 2000 ; i++)
+    710            {
+    711              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) break; // jump out early if CLKST shows EXT CLK slected before loop finishes
+    712            }
+    713            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x2) return 0x1A; // check EXT CLK is really selected and return with error if not
+    714           
+    715          // Now in FBE  
+    716          // It is recommended that the clock monitor is enabled when using an external clock as the clock source/reference.
+    717          // It is enabled here but can be removed if this is not required.
+    718            MCG_C6 |= MCG_C6_CME0_MASK;
+    719            
+    720            return crystal_val; // MCGOUT frequency equals external clock frequency
+    721          } // fei_fbe
+    722          
+    723          
+    724          int fbe_fee(int crystal_val)
+    725          {
+    726            short i, fll_ref_freq;
+    727            int mcg_out;
+    728          
+    729          // Check MCG is in FBE mode
+    730            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) && // check CLKS mux has selcted external reference
+    731                (!(MCG_S & MCG_S_IREFST_MASK)) &&                               // check FLL ref is external ref clk
+    732                (!(MCG_S & MCG_S_PLLST_MASK)) &&                                // check PLLS mux has selected FLL
+    733                (!(MCG_C2 & MCG_C2_LP_MASK))))                                  // check MCG_C2[LP] bit is not set   
+    734            {
+    735              return 0x4;                                                       // return error code
+    736            }
+    737            
+    738            // The FLL ref clk divide value depends on FRDIV and the RANGE value
+    739            if (((MCG_C2 & MCG_C2_RANGE0_MASK) >> MCG_C2_RANGE0_SHIFT) > 0)
+    740            {
+    741              fll_ref_freq = (crystal_val / (32 << ((MCG_C1 & MCG_C1_FRDIV_MASK) >> MCG_C1_FRDIV_SHIFT)));
+    742            }
+    743            else
+    744            {
+    745              fll_ref_freq = ((crystal_val) / (1 << (((MCG_C2 & MCG_C2_RANGE0_MASK) >> MCG_C2_RANGE0_SHIFT))));
+    746            }
+    747            
+    748          // Check resulting FLL frequency 
+    749            mcg_out = fll_freq(fll_ref_freq); // FLL reference frequency calculated from ext ref freq and FRDIV
+    750            if (mcg_out < 0x5B) {return mcg_out;} // If error code returned, return the code to calling function
+    751            
+    752          // Clear CLKS field to switch CLKS mux to select FLL output
+    753            MCG_C1 &= ~MCG_C1_CLKS_MASK; // clear CLKS to select FLL output
+    754          
+    755          // Wait for clock status bits to show clock source is FLL
+    756            for (i = 0 ; i < 2000 ; i++)
+    757            {
+    758              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) break; // jump out early if CLKST shows FLL selected before loop finishes
+    759            }
+    760            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x0) return 0x18; // check FLL is really selected and return with error if not
+    761            
+    762          // Now in FEE mode
+    763            return mcg_out;
+    764          } // fbe_fee
+    765          
+    766          
+    767          int fee_fbe(int crystal_val)
+    768          { 
+    769            short i;
+    770            
+    771          // Check MCG is in FEE mode
+    772            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) && // check CLKS mux has selcted FLL
+    773                (!(MCG_S & MCG_S_IREFST_MASK)) &&                               // check FLL ref is external ref clk
+    774                (!(MCG_S & MCG_S_PLLST_MASK))))                                 // check PLLS mux has selected FLL
+    775            {
+    776              return 0x2;                                                       // return error code
+    777            }
+    778            
+    779          // Set CLKS field to 2 to switch CLKS mux to select ext ref clock
+    780          // MCG is current in FEE mode so CLKS field = 0 so can just OR in new value
+    781            MCG_C1 |= MCG_C1_CLKS(2); // set CLKS to select ext ref clock
+    782          
+    783          /// Wait for clock status bits to show clock source is ext ref clk
+    784            for (i = 0 ; i < 2000 ; i++)
+    785            {
+    786              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) break; // jump out early if CLKST shows EXT CLK slected before loop finishes
+    787            }
+    788            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x2) return 0x1A; // check EXT CLK is really selected and return with error if not
+    789            
+    790          // Now in FBE mode
+    791            return crystal_val;
+    792          } // fee_fbe
+    793          
+    794          
+    795          int fbe_fbi(int irc_freq, unsigned char irc_select)
+    796          {
+    797            unsigned char temp_reg;
+    798            unsigned char fcrdiv_val;
+    799            short i;
+    800            
+    801          // Check MCG is in FBE mode
+    802            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) && // check CLKS mux has selcted external reference
+    803                (!(MCG_S & MCG_S_IREFST_MASK)) &&                               // check FLL ref is external ref clk
+    804                (!(MCG_S & MCG_S_PLLST_MASK)) &&                                // check PLLS mux has selected FLL
+    805                (!(MCG_C2 & MCG_C2_LP_MASK))))                                  // check MCG_C2[LP] bit is not set   
+    806            {
+    807              return 0x4;                                                       // return error code
+    808            }
+    809          
+    810          // Check that the irc frequency matches the selected IRC 
+    811            if (!(irc_select))
+    812            {    
+    813              if ((irc_freq < 31250) || (irc_freq > 39063)) {return 0x31;}
+    814            }
+    815            else
+    816            {
+    817              if ((irc_freq < 3000000) || (irc_freq > 5000000)) {return 0x32;} // Fast IRC freq
+    818            }
+    819            
+    820          // Select the required IRC
+    821            if (irc_select)
+    822            {
+    823              MCG_C2 |= MCG_C2_IRCS_MASK; // select fast IRC by setting IRCS
+    824            }
+    825            else
+    826            {
+    827              MCG_C2 &= ~MCG_C2_IRCS_MASK; // select slow IRC by clearing IRCS
+    828            }
+    829            
+    830          // Make sure the clock monitor is disabled before switching modes otherwise it will trigger
+    831            MCG_C6 &= ~MCG_C6_CME0_MASK;
+    832            
+    833          // Select the IRC as the CLKS mux selection
+    834            temp_reg = MCG_C1;
+    835            temp_reg &= ~MCG_C1_CLKS_MASK;
+    836            temp_reg |= MCG_C1_CLKS(1) | MCG_C1_IREFS_MASK; // select IRC as MCGOUT and enable IREFS
+    837            MCG_C1 = temp_reg; // update MCG_C1
+    838            
+    839          // wait until internal reference switches to requested irc.
+    840            if (!(irc_select))
+    841            {
+    842              for (i = 0 ; i < 2000 ; i++)
+    843              {
+    844                if (!(MCG_S & MCG_S_IRCST_MASK)) break; // jump out early if IRCST clears before loop finishes
+    845              }
+    846              if (MCG_S & MCG_S_IRCST_MASK) return 0x13; // check bit is really clear and return with error if set
+    847            }
+    848            else
+    849            {
+    850              for (i = 0 ; i < 2000 ; i++)
+    851              {
+    852                if (MCG_S & MCG_S_IRCST_MASK) break; // jump out early if IRCST sets before loop finishes
+    853              }
+    854              if (!(MCG_S & MCG_S_IRCST_MASK)) return 0x14; // check bit is really set and return with error if not set
+    855            }
+    856           
+    857          // Wait for clock status bits to update
+    858            for (i = 0 ; i < 2000 ; i++)
+    859            {
+    860              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x1) break; // jump out early if CLKST shows IRC slected before loop finishes
+    861            }
+    862            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x1) return 0x19; // check IRC is really selected and return with error if not
+    863           
+    864          //GPIOC_PSOR = 0x00020000; //set bit 17 of port C  
+    865            // wait for Reference clock Status bit to set
+    866            for (i = 0 ; i < 2000 ; i++)
+    867            {
+    868              if (MCG_S & MCG_S_IREFST_MASK) break; // jump out early if IREFST sets before loop finishes
+    869            }
+    870            if (!(MCG_S & MCG_S_IREFST_MASK)) return 0x12; // check bit is really set and return with error if not set
+    871          //GPIOC_PCOR = 0x00020000; // clear bit 17 of port C   
+    872          // Now in FBI mode
+    873            
+    874            if (irc_select)
+    875            {
+    876              fcrdiv_val = (1 << ((MCG_SC & MCG_SC_FCRDIV_MASK) >> MCG_SC_FCRDIV_SHIFT)); // calculate the fast IRC divder factor
+    877              return (irc_freq / fcrdiv_val); // MCGOUT frequency equals fast IRC frequency divided by FCRDIV factor
+    878            }
+    879            else
+    880            {
+    881              return irc_freq; // MCGOUT frequency equals slow IRC frequency
+    882            }
+    883          } //fbe_fbi
+    884          
+    885          
+    886          int fbi_fbe(int crystal_val, unsigned char hgo_val, unsigned char erefs_val)
+    887          {
+    888            unsigned char temp_reg;
+    889            unsigned char frdiv_val;
+    890            short i;
+    891            
+    892          // check if in FBI mode
+    893            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x1) && // check CLKS mux has selcted int ref clk
+    894                (MCG_S & MCG_S_IREFST_MASK) &&                                  // check FLL ref is internal ref clk
+    895                (!(MCG_S & MCG_S_PLLST_MASK)) &&                                // check PLLS mux has selected FLL
+    896                (!(MCG_C2 & MCG_C2_LP_MASK))))                                  // check LP bit is clear
+    897            {  
+    898              return 0x3;                                                       // MCG not in correct mode return fail code 
+    899            }
+    900           
+    901          // check external frequency is less than the maximum frequency
+    902            if  (crystal_val > 60000000) {return 0x21;}
+    903            
+    904          // check crystal frequency is within spec. if crystal osc is being used
+    905            if (erefs_val)
+    906            {
+    907              if ((crystal_val < 30000) ||
+    908                  ((crystal_val > 40000) && (crystal_val < 3000000)) ||
+    909                  (crystal_val > 32000000)) {return 0x22;} // return error if one of the available crystal options is not available
+    910            }
+    911          
+    912          // make sure HGO will never be greater than 1. Could return an error instead if desired.  
+    913            if (hgo_val > 0)
+    914            {
+    915              hgo_val = 1; // force hgo_val to 1 if > 0
+    916            }
+    917          
+    918          // configure the MCG_C2 register
+    919          // the RANGE value is determined by the external frequency. Since the RANGE parameter affects the FRDIV divide value
+    920          // it still needs to be set correctly even if the oscillator is not being used
+    921            temp_reg = MCG_C2;
+    922            temp_reg &= ~(MCG_C2_RANGE0_MASK | MCG_C2_HGO0_MASK | MCG_C2_EREFS0_MASK); // clear fields before writing new values
+    923            if (crystal_val <= 40000)
+    924            {
+    925              temp_reg |= (MCG_C2_RANGE0(0) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+    926            }
+    927            else if (crystal_val <= 8000000)
+    928            {
+    929              temp_reg |= (MCG_C2_RANGE0(1) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+    930            }
+    931            else
+    932            {
+    933              temp_reg |= (MCG_C2_RANGE0(2) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+    934            }
+    935            MCG_C2 = temp_reg;
+    936          
+    937          // determine FRDIV based on reference clock frequency
+    938          // since the external frequency has already been checked only the maximum frequency for each FRDIV value needs to be compared here.
+    939            if (crystal_val <= 1250000) {frdiv_val = 0;}
+    940            else if (crystal_val <= 2500000) {frdiv_val = 1;}
+    941            else if (crystal_val <= 5000000) {frdiv_val = 2;}
+    942            else if (crystal_val <= 10000000) {frdiv_val = 3;}
+    943            else if (crystal_val <= 20000000) {frdiv_val = 4;}
+    944            else {frdiv_val = 5;}
+    945            
+    946          // Select external oscilator and Reference Divider and clear IREFS to start ext osc
+    947          // If IRCLK is required it must be enabled outside of this driver, existing state will be maintained
+    948          // CLKS=2, FRDIV=frdiv_val, IREFS=0, IRCLKEN=0, IREFSTEN=0
+    949            temp_reg = MCG_C1;
+    950            temp_reg &= ~(MCG_C1_CLKS_MASK | MCG_C1_FRDIV_MASK | MCG_C1_IREFS_MASK); // Clear values in these fields
+    951            temp_reg = MCG_C1_CLKS(2) | MCG_C1_FRDIV(frdiv_val); // Set the required CLKS and FRDIV values
+    952            MCG_C1 = temp_reg;
+    953          
+    954          // if the external oscillator is used need to wait for OSCINIT to set
+    955            if (erefs_val)
+    956            {
+    957              for (i = 0 ; i < 10000 ; i++)
+    958              {
+    959                if (MCG_S & MCG_S_OSCINIT0_MASK) break; // jump out early if OSCINIT sets before loop finishes
+    960              }
+    961              if (!(MCG_S & MCG_S_OSCINIT0_MASK)) return 0x23; // check bit is really set and return with error if not set
+    962            }
+    963          
+    964          // wait for Reference clock Status bit to clear
+    965            for (i = 0 ; i < 2000 ; i++)
+    966            {
+    967              if (!(MCG_S & MCG_S_IREFST_MASK)) break; // jump out early if IREFST clears before loop finishes
+    968            }
+    969            if (MCG_S & MCG_S_IREFST_MASK) return 0x11; // check bit is really clear and return with error if not set
+    970            
+    971          // Wait for clock status bits to show clock source is ext ref clk
+    972            for (i = 0 ; i < 2000 ; i++)
+    973            {
+    974              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) break; // jump out early if CLKST shows EXT CLK slected before loop finishes
+    975            }
+    976            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x2) return 0x1A; // check EXT CLK is really selected and return with error if not
+    977           
+    978          // Now in FBE  
+    979          // It is recommended that the clock monitor is enabled when using an external clock as the clock source/reference.
+    980          // It is enabled here but can be removed if this is not required.
+    981            MCG_C6 |= MCG_C6_CME0_MASK;
+    982            
+    983            return crystal_val; // MCGOUT frequency equals external clock frequency  
+    984          } // fbi_fbe
+    985          
+    986          
+    987          /********************************************************************/
+    988          /* Functon name : fbi_blpi
+    989           *
+    990           * Mode transition: FBI to BLPI mode
+    991           *
+    992           * This function transitions the MCG from FBI mode to BLPI mode. This is
+    993           * achieved by setting the MCG_C2[LP] bit. There is no status bit to 
+    994           * check so 0 is always returned if the function was called with the MCG
+    995           * in FBI mode. 
+    996           *
+    997           * Parameters: irc_freq - internal reference clock frequency
+    998           *             ircs_select - 0 if slow irc, 1 if fast irc
+    999           *
+   1000           * Return value : MCGOUT frequency or error code 0x13
+   1001           */
+   1002          int fbi_blpi(int irc_freq, unsigned char irc_select)
+   1003          {
+   1004            unsigned char fcrdiv_val;
+   1005            
+   1006          // check if in FBI mode
+   1007            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x1) && // check CLKS mux has selcted int ref clk
+   1008                (MCG_S & MCG_S_IREFST_MASK) &&                                  // check FLL ref is internal ref clk
+   1009                (!(MCG_S & MCG_S_PLLST_MASK)) &&                                // check PLLS mux has selected FLL
+   1010                (!(MCG_C2 & MCG_C2_LP_MASK))))                                  // check LP bit is clear
+   1011            {  
+   1012              return 0x3;                                                       // MCG not in correct mode return fail code 
+   1013            }
+   1014          
+   1015          // Set LP bit to disable the FLL and enter BLPI
+   1016            MCG_C2 |= MCG_C2_LP_MASK;
+   1017            
+   1018          // Now in BLPI
+   1019            if (irc_select)
+   1020            {
+   1021              fcrdiv_val = (1 << ((MCG_SC & MCG_SC_FCRDIV_MASK) >> MCG_SC_FCRDIV_SHIFT)); // calculate the fast IRC divder factor
+   1022              return (irc_freq / fcrdiv_val); // MCGOUT frequency equals fast IRC frequency divided by 2
+   1023            }
+   1024            else
+   1025            {
+   1026              return irc_freq; // MCGOUT frequency equals slow IRC frequency
+   1027            }   
+   1028          } // fbi_blpi
+   1029          
+   1030          
+   1031          
+   1032          /********************************************************************/
+   1033          /* Functon name : blpi_fbi
+   1034           *
+   1035           * Mode transition: BLPI to FBI mode
+   1036           *
+   1037           * This function transitions the MCG from BLPI mode to FBI mode. This is
+   1038           * achieved by clearing the MCG_C2[LP] bit. There is no status bit to 
+   1039           * check so 0 is always returned if the function was called with the MCG
+   1040           * in BLPI mode. 
+   1041           *
+   1042           * Parameters: irc_freq - internal reference clock frequency
+   1043           *             ircs_select - 0 if slow irc, 1 if fast irc
+   1044           *
+   1045           * Return value : MCGOUT frequency or error code 0x15
+   1046           */
+   1047          int blpi_fbi(int irc_freq, unsigned char irc_select)
+   1048          {
+   1049            unsigned char fcrdiv_val;
+   1050            // check if in BLPI mode
+   1051            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x1) && // check CLKS mux has selcted int ref clk
+   1052                (MCG_S & MCG_S_IREFST_MASK) &&                                  // check FLL ref is internal ref clk
+   1053                (!(MCG_S & MCG_S_PLLST_MASK)) &&                                // check PLLS mux has selected FLL
+   1054                (MCG_C2 & MCG_C2_LP_MASK)))                                     // check LP bit is set
+   1055            {
+   1056              return 0x5;                                                       // MCG not in correct mode return fail code
+   1057            }
+   1058          
+   1059          // Clear LP bit to enable the FLL and enter FBI mode   
+   1060            MCG_C2 &= ~MCG_C2_LP_MASK;
+   1061            
+   1062          // Now in FBI mode
+   1063            if (irc_select)
+   1064            {
+   1065              fcrdiv_val = (1 << ((MCG_SC & MCG_SC_FCRDIV_MASK) >> MCG_SC_FCRDIV_SHIFT)); // calculate the fast IRC divder factor
+   1066              return (irc_freq / fcrdiv_val); // MCGOUT frequency equals fast IRC frequency divided by 2
+   1067            }
+   1068            else
+   1069            {
+   1070              return irc_freq; // MCGOUT frequency equals slow IRC frequency
+   1071            }
+   1072          } // blpi_fbi
+   1073          
+   1074          
+   1075          int fbi_fee(int crystal_val, unsigned char hgo_val, unsigned char erefs_val)
+   1076          {
+   1077            unsigned char temp_reg;
+   1078            unsigned char frdiv_val;
+   1079            short i;
+   1080            int mcg_out, fll_ref_freq;
+   1081          
+   1082          // check if in FBI mode
+   1083            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x1) && // check CLKS mux has selcted int ref clk
+   1084                (MCG_S & MCG_S_IREFST_MASK) &&                                  // check FLL ref is internal ref clk
+   1085                (!(MCG_S & MCG_S_PLLST_MASK)) &&                                // check PLLS mux has selected FLL
+   1086                (!(MCG_C2 & MCG_C2_LP_MASK))))                                  // check LP bit is clear
+   1087            {  
+   1088              return 0x3;                                                       // MCG not in correct mode return fail code 
+   1089            }
+   1090            
+   1091          // check external frequency is less than the maximum frequency
+   1092            if  (crystal_val > 60000000) {return 0x21;}
+   1093            
+   1094          // check crystal frequency is within spec. if crystal osc is being used
+   1095            if (erefs_val)
+   1096            {
+   1097              if ((crystal_val < 30000) ||
+   1098                  ((crystal_val > 40000) && (crystal_val < 3000000)) ||
+   1099                  (crystal_val > 32000000)) {return 0x22;} // return error if one of the available crystal options is not available
+   1100            }
+   1101          
+   1102          // make sure HGO will never be greater than 1. Could return an error instead if desired.  
+   1103            if (hgo_val > 0)
+   1104            {
+   1105              hgo_val = 1; // force hgo_val to 1 if > 0
+   1106            }
+   1107          
+   1108          // configure the MCG_C2 register
+   1109          // the RANGE value is determined by the external frequency. Since the RANGE parameter affects the FRDIV divide value
+   1110          // it still needs to be set correctly even if the oscillator is not being used
+   1111            temp_reg = MCG_C2;
+   1112            temp_reg &= ~(MCG_C2_RANGE0_MASK | MCG_C2_HGO0_MASK | MCG_C2_EREFS0_MASK); // clear fields before writing new values
+   1113            if (crystal_val <= 40000)
+   1114            {
+   1115              temp_reg |= (MCG_C2_RANGE0(0) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+   1116            }
+   1117            else if (crystal_val <= 8000000)
+   1118            {
+   1119              temp_reg |= (MCG_C2_RANG0E(1) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+   1120            }
+   1121            else
+   1122            {
+   1123              temp_reg |= (MCG_C2_RANGE0(2) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+   1124            }
+   1125            MCG_C2 = temp_reg;
+   1126          
+   1127          // determine FRDIV based on reference clock frequency
+   1128          // since the external frequency has already been checked only the maximum frequency for each FRDIV value needs to be compared here.
+   1129            if (crystal_val <= 1250000) {frdiv_val = 0;}
+   1130            else if (crystal_val <= 2500000) {frdiv_val = 1;}
+   1131            else if (crystal_val <= 5000000) {frdiv_val = 2;}
+   1132            else if (crystal_val <= 10000000) {frdiv_val = 3;}
+   1133            else if (crystal_val <= 20000000) {frdiv_val = 4;}
+   1134            else {frdiv_val = 5;}
+   1135          // The FLL ref clk divide value depends on FRDIV and the RANGE value
+   1136            if (((MCG_C2 & MCG_C2_RANGE0_MASK) >> MCG_C2_RANGE0_SHIFT) > 0)
+   1137            {
+   1138              fll_ref_freq = ((crystal_val) / (32 << frdiv_val));
+   1139            }
+   1140            else
+   1141            {
+   1142              fll_ref_freq = ((crystal_val) / (1 << frdiv_val));
+   1143            }
+   1144            
+   1145          // Check resulting FLL frequency 
+   1146            mcg_out = fll_freq(fll_ref_freq); // FLL reference frequency calculated from ext ref freq and FRDIV
+   1147            if (mcg_out < 0x5B) {return mcg_out;} // If error code returned, return the code to calling function
+   1148            
+   1149          // Select external oscilator and Reference Divider and clear IREFS to start ext osc
+   1150          // If IRCLK is required it must be enabled outside of this driver, existing state will be maintained
+   1151          // CLKS=0, FRDIV=frdiv_val, IREFS=0, IRCLKEN=?, IREFSTEN=?
+   1152            temp_reg = MCG_C1;
+   1153            temp_reg &= ~(MCG_C1_CLKS_MASK | MCG_C1_FRDIV_MASK | MCG_C1_IREFS_MASK); // Clear CLKS, FRDIV and IREFS fields
+   1154            temp_reg = MCG_C1_CLKS(0) | MCG_C1_FRDIV(frdiv_val); // Set the required CLKS and FRDIV values
+   1155            MCG_C1 = temp_reg;
+   1156          
+   1157          // if the external oscillator is used need to wait for OSCINIT to set
+   1158            if (erefs_val)
+   1159            {
+   1160              for (i = 0 ; i < 10000 ; i++)
+   1161              {
+   1162                if (MCG_S & MCG_S_OSCINIT0_MASK) break; // jump out early if OSCINIT sets before loop finishes
+   1163              }
+   1164              if (!(MCG_S & MCG_S_OSCINIT0_MASK)) return 0x23; // check bit is really set and return with error if not set
+   1165            }
+   1166          
+   1167          // wait for Reference clock Status bit to clear
+   1168            for (i = 0 ; i < 2000 ; i++)
+   1169            {
+   1170              if (!(MCG_S & MCG_S_IREFST_MASK)) break; // jump out early if IREFST clears before loop finishes
+   1171            }
+   1172            if (MCG_S & MCG_S_IREFST_MASK) return 0x11; // check bit is really clear and return with error if not set
+   1173            
+   1174          // Wait for clock status bits to show clock source is ext ref clk
+   1175            for (i = 0 ; i < 2000 ; i++)
+   1176            {
+   1177              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) break; // jump out early if CLKST shows FLL selected before loop finishes
+   1178            }
+   1179            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x0) return 0x18; // check FLLK is really selected and return with error if not
+   1180           
+   1181          // Now in FEE  
+   1182          // It is recommended that the clock monitor is enabled when using an external clock as the clock source/reference.
+   1183          // It is enabled here but can be removed if this is not required.
+   1184          // The clock monitor MUST be disabled when returning to a non-external clock mode (FEI, FBI and BLPI)
+   1185            MCG_C6 |= MCG_C6_CME0_MASK;
+   1186            
+   1187            return mcg_out; // MCGOUT frequency equals FLL frequency
+   1188          } //fbi_fee
+   1189          
+   1190          
+   1191          int fee_fbi(int irc_freq, unsigned char irc_select)
+   1192          { 
+   1193            unsigned char fcrdiv_val;
+   1194            short i;
+   1195            
+   1196          // Check MCG is in FEE mode
+   1197            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) && // check CLKS mux has selcted FLL output
+   1198                (!(MCG_S & MCG_S_IREFST_MASK)) &&                             // check FLL ref is external ref clk
+   1199                (!(MCG_S & MCG_S_PLLST_MASK))))                               // check PLLS mux has selected FLL
+   1200            {
+   1201              return 0x2;                                                     // return error code
+   1202            }
+   1203            
+   1204            // Check that the irc frequency matches the selected IRC 
+   1205            if (!(irc_select))
+   1206            {    
+   1207              if ((irc_freq < 31250) || (irc_freq > 39063)) {return 0x31;}
+   1208            }
+   1209            else
+   1210            {
+   1211              if ((irc_freq < 3000000) || (irc_freq > 5000000)) {return 0x32;} // Fast IRC freq
+   1212            }
+   1213            
+   1214          // Select the required IRC
+   1215            if (irc_select)
+   1216            {
+   1217              MCG_C2 |= MCG_C2_IRCS_MASK; // select fast IRC by setting IRCS
+   1218            }
+   1219            else
+   1220            {
+   1221              MCG_C2 &= ~MCG_C2_IRCS_MASK; // select slow IRC by clearing IRCS
+   1222            }
+   1223            
+   1224          // Make sure the clock monitor is disabled before switching modes otherwise it will trigger
+   1225            MCG_C6 &= ~MCG_C6_CME0_MASK;
+   1226            
+   1227          // Select the IRC as the CLKS mux selection
+   1228            MCG_C1 |= MCG_C1_CLKS(1) | MCG_C1_IREFS_MASK; // set IREFS and select IRC as MCGOUT
+   1229           
+   1230          // wait until internal reference switches to requested irc.
+   1231            if (!(irc_select))
+   1232            {
+   1233              for (i = 0 ; i < 2000 ; i++)
+   1234              {
+   1235                if (!(MCG_S & MCG_S_IRCST_MASK)) break; // jump out early if IRCST clears before loop finishes
+   1236              }
+   1237              if (MCG_S & MCG_S_IRCST_MASK) return 0x13; // check bit is really clear and return with error if set
+   1238            }
+   1239            else
+   1240            {
+   1241              for (i = 0 ; i < 2000 ; i++)
+   1242              {
+   1243                if (MCG_S & MCG_S_IRCST_MASK) break; // jump out early if IRCST sets before loop finishes
+   1244              }
+   1245              if (!(MCG_S & MCG_S_IRCST_MASK)) return 0x14; // check bit is really set and return with error if not set
+   1246            }
+   1247            
+   1248          // Wait for clock status bits to update
+   1249            for (i = 0 ; i < 2000 ; i++)
+   1250            {
+   1251              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x1) break; // jump out early if CLKST shows IRC slected before loop finishes
+   1252            }
+   1253            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x1) return 0x19; // check IRC is really selected and return with error if not
+   1254            
+   1255          // wait for Reference clock Status bit to set
+   1256            for (i = 0 ; i < 2000 ; i++)
+   1257            {
+   1258              if (MCG_S & MCG_S_IREFST_MASK) break; // jump out early if IREFST sets before loop finishes
+   1259            }
+   1260            if (!(MCG_S & MCG_S_IREFST_MASK)) return 0x12; // check bit is really set and return with error if not set  
+   1261            
+   1262          // Now in FBI mode
+   1263            if (irc_select)
+   1264            {
+   1265              fcrdiv_val = (1 << ((MCG_SC & MCG_SC_FCRDIV_MASK) >> MCG_SC_FCRDIV_SHIFT)); // calculate the fast IRC divder factor
+   1266              return (irc_freq / fcrdiv_val); // MCGOUT frequency equals fast IRC frequency divided by 2
+   1267            }
+   1268            else
+   1269            {
+   1270              return irc_freq; // MCGOUT frequency equals slow IRC frequency
+   1271            }
+   1272          } // fee_fbi 
+   1273          
+   1274          
+   1275          int fbi_fei(int slow_irc_freq)
+   1276          {
+   1277            unsigned char temp_reg;
+   1278            short i;
+   1279            int mcg_out;
+   1280          
+   1281          // check if in FBI mode
+   1282            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x1) && // check CLKS mux has selcted int ref clk
+   1283                (MCG_S & MCG_S_IREFST_MASK) &&                                  // check FLL ref is internal ref clk
+   1284                (!(MCG_S & MCG_S_PLLST_MASK)) &&                                // check PLLS mux has selected FLL
+   1285                (!(MCG_C2 & MCG_C2_LP_MASK))))                                  // check LP bit is clear
+   1286            {  
+   1287              return 0x3;                                                       // MCG not in correct mode return fail code 
+   1288            }
+   1289          
+   1290          // Check IRC frequency is within spec.
+   1291            if ((slow_irc_freq < 31250) || (slow_irc_freq > 39063))
+   1292            {
+   1293              return 0x31;
+   1294            }
+   1295          
+   1296          // Check resulting FLL frequency 
+   1297            mcg_out = fll_freq(slow_irc_freq); 
+   1298            if (mcg_out < 0x5B) {return mcg_out;} // If error code returned, return the code to calling function
+   1299            
+   1300          // Change the CLKS mux to select the FLL output as MCGOUT  
+   1301            temp_reg = MCG_C1;
+   1302            temp_reg &= ~MCG_C1_CLKS_MASK; // clear CLKS field
+   1303            temp_reg |= MCG_C1_CLKS(0); // select FLL as MCGOUT
+   1304            temp_reg |= MCG_C1_IREFS_MASK; // make sure IRC is FLL reference
+   1305            MCG_C1 = temp_reg; // update MCG_C1
+   1306            
+   1307          // wait for Reference clock Status bit to clear
+   1308            for (i = 0 ; i < 2000 ; i++)
+   1309            {
+   1310              if (MCG_S & MCG_S_IREFST_MASK) break; // jump out early if IREFST clears before loop finishes
+   1311            }
+   1312            if (!(MCG_S & MCG_S_IREFST_MASK)) return 0x12; // check bit is really set and return with error if not set
+   1313            
+   1314          // Wait for clock status bits to show clock source is ext ref clk
+   1315            for (i = 0 ; i < 2000 ; i++)
+   1316            {
+   1317              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) break; // jump out early if CLKST shows FLL slected before loop finishes
+   1318            }
+   1319            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x0) return 0x18; // check FLL is really selected and return with error if not
+   1320          
+   1321          // Now in FEI mode
+   1322            return mcg_out;  
+   1323          } // fbi_fei
+   1324          
+   1325          
+   1326          int fei_fbi(int irc_freq, unsigned char irc_select)
+   1327          {
+   1328            unsigned char temp_reg;
+   1329            unsigned char fcrdiv_val;
+   1330            short i;
+   1331            
+   1332          // Check MCG is in FEI mode
+   1333            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) && // check CLKS mux has selcted FLL output
+   1334                (MCG_S & MCG_S_IREFST_MASK) &&                                  // check FLL ref is internal ref clk
+   1335                (!(MCG_S & MCG_S_PLLST_MASK))))                                 // check PLLS mux has selected FLL
+   1336            {
+   1337              return 0x1;                                                       // return error code
+   1338            } 
+   1339          
+   1340          // Check that the irc frequency matches the selected IRC 
+   1341            if (!(irc_select))
+   1342            {    
+   1343              if ((irc_freq < 31250) || (irc_freq > 39063)) {return 0x31;}
+   1344            }
+   1345            else
+   1346            {
+   1347              if ((irc_freq < 3000000) || (irc_freq > 5000000)) {return 0x32;} // Fast IRC freq
+   1348            }
+   1349            
+   1350          // Select the desired IRC
+   1351            if (irc_select)
+   1352            {
+   1353              MCG_C2 |= MCG_C2_IRCS_MASK; // select fast IRCS
+   1354            }
+   1355            else
+   1356            {
+   1357              MCG_C2 &= ~MCG_C2_IRCS_MASK; // select slow IRCS
+   1358            }
+   1359            
+   1360          // Change the CLKS mux to select the IRC as the MCGOUT
+   1361            temp_reg = MCG_C1;
+   1362            temp_reg &= ~MCG_C1_CLKS_MASK; // clear CLKS
+   1363            temp_reg |= MCG_C1_CLKS(1); // select IRC as the MCG clock sourse
+   1364            MCG_C1 = temp_reg;
+   1365          
+   1366          // wait until internal reference switches to requested irc.
+   1367            if (!(irc_select))
+   1368            {
+   1369              for (i = 0 ; i < 2000 ; i++)
+   1370              {
+   1371                if (!(MCG_S & MCG_S_IRCST_MASK)) break; // jump out early if IRCST clears before loop finishes
+   1372              }
+   1373              if (MCG_S & MCG_S_IRCST_MASK) return 0x13; // check bit is really clear and return with error if set
+   1374            }
+   1375            else
+   1376            {
+   1377              for (i = 0 ; i < 2000 ; i++)
+   1378              {
+   1379                if (MCG_S & MCG_S_IRCST_MASK) break; // jump out early if IRCST sets before loop finishes
+   1380              }
+   1381              if (!(MCG_S & MCG_S_IRCST_MASK)) return 0x14; // check bit is really set and return with error if not set
+   1382            }
+   1383            
+   1384          // Wait for clock status bits to update
+   1385            for (i = 0 ; i < 2000 ; i++)
+   1386            {
+   1387              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x1) break; // jump out early if CLKST shows IRC slected before loop finishes
+   1388            }
+   1389            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x1) return 0x19; // check IRC is really selected and return with error if not
+   1390            
+   1391          // Now in FBI mode
+   1392            if (irc_select)
+   1393            {
+   1394              fcrdiv_val = (1 << ((MCG_SC & MCG_SC_FCRDIV_MASK) >> MCG_SC_FCRDIV_SHIFT)); // calculate the fast IRC divder factor
+   1395              return (irc_freq / fcrdiv_val); // MCGOUT frequency equals fast IRC frequency divided by 2
+   1396            }
+   1397            else
+   1398            {
+   1399              return irc_freq; // MCGOUT frequency equals slow IRC frequency
+   1400            }   
+   1401          } // fei_fbi
+   1402          
+   1403          
+   1404          /********************************************************************/
+   1405          /* Functon name : fei_fee
+   1406           *
+   1407           * Mode transition: FEI to FEE mode
+   1408           *
+   1409           * This function transitions the MCG from FEI mode to FEE mode. This is
+   1410           * achieved by setting the MCG_C2[LP] bit. There is no status bit to 
+   1411           * check so 0 is always returned if the function was called with the MCG
+   1412           * in FBI mode. The MCGCLKOUT frequency does not change
+   1413           *
+   1414           * Parameters: crystal_val - external clock frequency in Hz
+   1415           *             hgo_val     - selects whether low power or high gain mode is selected
+   1416           *                           for the crystal oscillator. This has no meaning if an 
+   1417           *                           external clock is used.
+   1418           *             erefs_val   - selects external clock (=0) or crystal osc (=1)
+   1419           *
+   1420           * Return value : MCGCLKOUT frequency (Hz) or error code
+   1421           */
+   1422          int fei_fee(int crystal_val, unsigned char hgo_val, unsigned char erefs_val)
+   1423          {
+   1424            unsigned char frdiv_val;
+   1425            unsigned char temp_reg;
+   1426           // short i;
+   1427            int mcg_out, fll_ref_freq, i;
+   1428            
+   1429          // check if in FEI mode
+   1430            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) && // check CLKS mux has selcted FLL output
+   1431                (MCG_S & MCG_S_IREFST_MASK) &&                                  // check FLL ref is internal ref clk
+   1432                (!(MCG_S & MCG_S_PLLST_MASK))))                                 // check PLLS mux has selected FLL
+   1433            {
+   1434              return 0x1;                                                     // return error code
+   1435            }
+   1436          
+   1437          // check external frequency is less than the maximum frequency
+   1438            if  (crystal_val > 60000000) {return 0x21;}
+   1439            
+   1440          // check crystal frequency is within spec. if crystal osc is being used
+   1441            if (erefs_val)
+   1442            {
+   1443              if ((crystal_val < 30000) ||
+   1444                  ((crystal_val > 40000) && (crystal_val < 3000000)) ||
+   1445                  (crystal_val > 32000000)) {return 0x22;} // return error if one of the available crystal options is not available
+   1446            }
+   1447          
+   1448          // make sure HGO will never be greater than 1. Could return an error instead if desired.  
+   1449            if (hgo_val > 0)
+   1450            {
+   1451              hgo_val = 1; // force hgo_val to 1 if > 0
+   1452            }
+   1453          
+   1454          // configure the MCG_C2 register
+   1455          // the RANGE value is determined by the external frequency. Since the RANGE parameter affects the FRDIV divide value
+   1456          // it still needs to be set correctly even if the oscillator is not being used
+   1457            temp_reg = MCG_C2;
+   1458            temp_reg &= ~(MCG_C2_RANGE0_MASK | MCG_C2_HGO0_MASK | MCG_C2_EREFS0_MASK); // clear fields before writing new values
+   1459            if (crystal_val <= 40000)
+   1460            {
+   1461              temp_reg |= (MCG_C2_RANGE0(0) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+   1462            }
+   1463            else if (crystal_val <= 8000000)
+   1464            {
+   1465              temp_reg |= (MCG_C2_RANGE0(1) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+   1466            }
+   1467            else
+   1468            {
+   1469              temp_reg |= (MCG_C2_RANGE0(2) | (hgo_val << MCG_C2_HGO0_SHIFT) | (erefs_val << MCG_C2_EREFS0_SHIFT));
+   1470            }
+   1471            MCG_C2 = temp_reg;
+   1472          
+   1473          // determine FRDIV based on reference clock frequency
+   1474          // since the external frequency has already been checked only the maximum frequency for each FRDIV value needs to be compared here.
+   1475            if (crystal_val <= 1250000) {frdiv_val = 0;}
+   1476            else if (crystal_val <= 2500000) {frdiv_val = 1;}
+   1477            else if (crystal_val <= 5000000) {frdiv_val = 2;}
+   1478            else if (crystal_val <= 10000000) {frdiv_val = 3;}
+   1479            else if (crystal_val <= 20000000) {frdiv_val = 4;}
+   1480            else {frdiv_val = 5;}
+   1481             
+   1482            // The FLL ref clk divide value depends on FRDIV and the RANGE value
+   1483            if (((MCG_C2 & MCG_C2_RANGE0_MASK) >> MCG_C2_RANGE0_SHIFT) > 0)
+   1484            {
+   1485              fll_ref_freq = ((crystal_val) / (32 << frdiv_val));
+   1486            }
+   1487            else
+   1488            {
+   1489              fll_ref_freq = ((crystal_val) / (1 << frdiv_val));
+   1490            }
+   1491            
+   1492          // Check resulting FLL frequency 
+   1493            mcg_out = fll_freq(fll_ref_freq); // FLL reference frequency calculated from ext ref freq and FRDIV
+   1494            if (mcg_out < 0x5B) {return mcg_out;} // If error code returned, return the code to calling function
+   1495            
+   1496          // Select external oscilator and Reference Divider and clear IREFS to start ext osc
+   1497          // If IRCLK is required it must be enabled outside of this driver, existing state will be maintained
+   1498          // CLKS=0, FRDIV=frdiv_val, IREFS=0, IRCLKEN=0, IREFSTEN=0
+   1499            temp_reg = MCG_C1;
+   1500            temp_reg &= ~(MCG_C1_CLKS_MASK | MCG_C1_FRDIV_MASK | MCG_C1_IREFS_MASK); // Clear values in these fields
+   1501            temp_reg = MCG_C1_CLKS(0) | MCG_C1_FRDIV(frdiv_val); // Set the required CLKS and FRDIV values
+   1502            MCG_C1 = temp_reg;
+   1503          
+   1504          // if the external oscillator is used need to wait for OSCINIT to set
+   1505            if (erefs_val)
+   1506            {
+   1507              for (i = 0 ; i < 20000000 ; i++)
+   1508              {
+   1509                if (MCG_S & MCG_S_OSCINIT0_MASK) break; // jump out early if OSCINIT sets before loop finishes
+   1510              }
+   1511              if (!(MCG_S & MCG_S_OSCINIT0_MASK)) return 0x23; // check bit is really set and return with error if not set
+   1512            }
+   1513          
+   1514          // wait for Reference clock Status bit to clear
+   1515            for (i = 0 ; i < 2000 ; i++)
+   1516            {
+   1517              if (!(MCG_S & MCG_S_IREFST_MASK)) break; // jump out early if IREFST clears before loop finishes
+   1518            }
+   1519            if (MCG_S & MCG_S_IREFST_MASK) return 0x11; // check bit is really clear and return with error if not set
+   1520            
+   1521          // Now in FBE  
+   1522          // It is recommended that the clock monitor is enabled when using an external clock as the clock source/reference.
+   1523          // It is enabled here but can be removed if this is not required.
+   1524            MCG_C6 |= MCG_C6_CME0_MASK;
+   1525            
+   1526            return mcg_out; // MCGOUT frequency equals FLL frequency
+   1527          } // fei_fee
+   1528          
+   1529          
+   1530          int fee_fei(int slow_irc_freq)
+   1531          {
+   1532            short i;
+   1533            int mcg_out;
+   1534          
+   1535          // Check MCG is in FEE mode
+   1536            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) && // check CLKS mux has selcted FLL
+   1537                (!(MCG_S & MCG_S_IREFST_MASK)) &&                             // check FLL ref is external ref clk
+   1538                (!(MCG_S & MCG_S_PLLST_MASK))))                               // check PLLS mux has selected FLL
+   1539            {
+   1540              return 0x2;                                                     // return error code
+   1541            } 
+   1542                
+   1543          // Check IRC frequency is within spec.
+   1544            if ((slow_irc_freq < 31250) || (slow_irc_freq > 39063))
+   1545            {
+   1546              return 0x31;
+   1547            }
+   1548          
+   1549            // Check resulting FLL frequency 
+   1550            mcg_out = fll_freq(slow_irc_freq); 
+   1551            if (mcg_out < 0x5B) {return mcg_out;} // If error code returned, return the code to calling function
+   1552            
+   1553          // Ensure clock monitor is disabled before switching to FEI otherwise a loss of clock will trigger
+   1554            MCG_C6 &= ~MCG_C6_CME0_MASK;
+   1555          
+   1556          // Change FLL reference clock from external to internal by setting IREFS bit
+   1557            MCG_C1 |= MCG_C1_IREFS_MASK; // select internal reference
+   1558            
+   1559          // wait for Reference clock to switch to internal reference 
+   1560            for (i = 0 ; i < 2000 ; i++)
+   1561            {
+   1562              if (MCG_S & MCG_S_IREFST_MASK) break; // jump out early if IREFST sets before loop finishes
+   1563            }
+   1564            if (!(MCG_S & MCG_S_IREFST_MASK)) return 0x12; // check bit is really set and return with error if not set  
+   1565            
+   1566          // Now in FEI mode  
+   1567            return mcg_out;  
+   1568          } // fee_fei
+   1569          
+   1570          
+   1571          
+   1572          unsigned char atc(unsigned char irc_select, int irc_freq, int mcg_out_freq)
+   1573          {
+   1574            unsigned char mcg_mode;
+   1575            unsigned short atcv;
+   1576            int bus_clock_freq;
+   1577            int  bus_clk_div_val;
+   1578            int orig_div;
+   1579            int temp_reg;
+   1580            
+   1581            if (irc_select > 0) // force irc to 1 if greater than 0
+   1582            {
+   1583              irc_select = 1;
+   1584            }
+   1585            
+   1586            mcg_mode = what_mcg_mode(); // get present MCG mode
+   1587            if ((mcg_mode != PEE) && (mcg_mode != PBE) && (mcg_mode != FBE))
+   1588            {
+   1589              return 1; // return error code if not in PEE, PBE or FBE modes
+   1590            }
+   1591            
+   1592            orig_div = SIM_CLKDIV1; //store present clock divider values
+   1593            
+   1594            bus_clk_div_val = mcg_out_freq / 16000000; // calculate bus clock divider to generate fastest allowed bus clock for autotrim
+   1595            temp_reg = SIM_CLKDIV1;
+   1596            temp_reg &= ~(SIM_CLKDIV1_OUTDIV2_MASK | SIM_CLKDIV1_OUTDIV4_MASK); // clear dividers except core
+   1597            // set all bus and flash dividers to same value to ensure clocking restrictions are met
+   1598            temp_reg |= (SIM_CLKDIV1_OUTDIV2(bus_clk_div_val) | SIM_CLKDIV1_OUTDIV4(bus_clk_div_val));
+   1599            SIM_CLKDIV1 = temp_reg; // set actual dividers
+   1600            
+   1601            bus_clock_freq = mcg_out_freq / (((SIM_CLKDIV1 & SIM_CLKDIV1_OUTDIV2_MASK) >> 24)+ 1);
+   1602            if ((bus_clock_freq < 8000000) || (bus_clock_freq > 16000000))
+   1603            {
+   1604              SIM_CLKDIV1 = orig_div; // set SIM_CLKDIV1 back to original value
+   1605              return 3; // error, bus clock frequency is not within 8MHz to 16MHz
+   1606            }
+   1607                          
+   1608            if(!irc_select) //determine if slow or fast IRC to be trimmed
+   1609            {
+   1610              if (irc_freq < 31250) // check frequency is above min spec.
+   1611              {
+   1612                SIM_CLKDIV1 = orig_div; // set SIM_CLKDIV1 back to original value
+   1613                return 4;
+   1614              }
+   1615              if (irc_freq > 39062) // check frequency is below max spec.
+   1616              {
+   1617                SIM_CLKDIV1 = orig_div; // set SIM_CLKDIV1 back to original value
+   1618                return 5;
+   1619              }         
+   1620            }
+   1621            else
+   1622            {
+   1623              if (irc_freq < 3000000) // check frequency is above min spec.
+   1624              {
+   1625                SIM_CLKDIV1 = orig_div; // set SIM_CLKDIV1 back to original value
+   1626                return 6;
+   1627              }
+   1628              if (irc_freq > 5000000) // check frequency is below max spec.
+   1629              {
+   1630                SIM_CLKDIV1 = orig_div; // set SIM_CLKDIV1 back to original value
+   1631                return 7;
+   1632              }            
+   1633            } // if
+   1634                  
+   1635          // Set up autocal registers, must use floating point calculation
+   1636            if (irc_select) 
+   1637              atcv = (unsigned short)(128.0f * (21.0f * (bus_clock_freq / (float)irc_freq)));
+   1638            else
+   1639              atcv = (unsigned short)(21.0f * (bus_clock_freq / (float)irc_freq));
+   1640                  
+   1641            MCG_ATCVL = (atcv & 0xFF); //Set ATCVL to lower 8 bits of count value
+   1642            MCG_ATCVH = ((atcv & 0xFF00) >> 8); // Set ATCVH to upper 8 bits of count value
+   1643          
+   1644          // Enable autocal
+   1645            MCG_SC &= ~(MCG_SC_ATME_MASK | MCG_SC_ATMS_MASK |MCG_SC_ATMF_MASK); // clear auto trim settings
+   1646            temp_reg = (MCG_SC_ATME_MASK | (irc_select << MCG_SC_ATMS_SHIFT)); //Select IRC to trim and enable trim machine
+   1647            MCG_SC |= temp_reg;
+   1648                  
+   1649            while (MCG_SC & MCG_SC_ATME_MASK) {}; //poll for ATME bit to clear
+   1650                  
+   1651            if (MCG_SC & MCG_SC_ATMF_MASK) // check if error flag set
+   1652            {
+   1653              SIM_CLKDIV1 = orig_div; // set SIM_CLKDIV1 back to original value
+   1654              return 8;
+   1655            } 
+   1656            else 
+   1657            {      
+   1658              if (!irc_select)
+   1659              {
+   1660                if ((MCG_C3 == 0xFF) || (MCG_C3 == 0))
+   1661                {
+   1662                  SIM_CLKDIV1 = orig_div; // set SIM_CLKDIV1 back to original value
+   1663                  return 9;
+   1664                }
+   1665              }
+   1666              else
+   1667              {
+   1668                if ((((MCG_C4 & MCG_C4_FCTRIM_MASK) >> MCG_C4_FCTRIM_SHIFT) == 0xF) ||
+   1669                    (((MCG_C4 & MCG_C4_FCTRIM_MASK) >> MCG_C4_FCTRIM_SHIFT) == 0))
+   1670                {
+   1671                  SIM_CLKDIV1 = orig_div; // set SIM_CLKDIV1 back to original value
+   1672                  return 10;
+   1673                }
+   1674              }
+   1675            }
+   1676            SIM_CLKDIV1 = orig_div; // set SIM_CLKDIV1 back to original value
+   1677            return 0;
+   1678          }// atc
+   1679          
+   1680          
+   1681          
+   1682          
+   1683          int fll_freq(int fll_ref)
+   1684          {
+   1685            int fll_freq_hz;
+   1686            
+   1687            if (MCG_C4 & MCG_C4_DMX32_MASK) // if DMX32 set
+   1688            {
+   1689              switch ((MCG_C4 & MCG_C4_DRST_DRS_MASK) >> MCG_C4_DRST_DRS_SHIFT) // determine multiplier based on DRS
+   1690              {
+   1691              case 0:
+   1692                fll_freq_hz = (fll_ref * 732);
+   1693                if (fll_freq_hz < 20000000) {return 0x33;}
+   1694                else if (fll_freq_hz > 25000000) {return 0x34;}
+   1695                break;
+   1696              case 1:
+   1697                fll_freq_hz = (fll_ref * 1464);
+   1698                if (fll_freq_hz < 40000000) {return 0x35;}
+   1699                else if (fll_freq_hz > 50000000) {return 0x36;}
+   1700                break;
+   1701              case 2:
+   1702                fll_freq_hz = (fll_ref * 2197);
+   1703                if (fll_freq_hz < 60000000) {return 0x37;}
+   1704                else if (fll_freq_hz > 75000000) {return 0x38;}
+   1705                break;
+   1706              case 3:
+   1707                fll_freq_hz = (fll_ref * 2929);
+   1708                if (fll_freq_hz < 80000000) {return 0x39;}
+   1709                else if (fll_freq_hz > 100000000) {return 0x3A;}
+   1710                break;
+   1711              }
+   1712            }
+   1713            else // if DMX32 = 0
+   1714            {
+   1715              switch ((MCG_C4 & MCG_C4_DRST_DRS_MASK) >> MCG_C4_DRST_DRS_SHIFT) // determine multiplier based on DRS
+   1716              {
+   1717              case 0:
+   1718                fll_freq_hz = (fll_ref * 640);
+   1719                if (fll_freq_hz < 20000000) {return 0x33;}
+   1720                else if (fll_freq_hz > 25000000) {return 0x34;}
+   1721                break;
+   1722              case 1:
+   1723                fll_freq_hz = (fll_ref * 1280);
+   1724                if (fll_freq_hz < 40000000) {return 0x35;}
+   1725                else if (fll_freq_hz > 50000000) {return 0x36;}
+   1726                break;
+   1727              case 2:
+   1728                fll_freq_hz = (fll_ref * 1920);
+   1729                if (fll_freq_hz < 60000000) {return 0x37;}
+   1730                else if (fll_freq_hz > 75000000) {return 0x38;}
+   1731                break;
+   1732              case 3:
+   1733                fll_freq_hz = (fll_ref * 2560);
+   1734                if (fll_freq_hz < 80000000) {return 0x39;}
+   1735                else if (fll_freq_hz > 100000000) {return 0x3A;}
+   1736                break;
+   1737              }
+   1738            }    
+   1739            return fll_freq_hz;
+   1740          } // fll_freq
+   1741          
+   1742          
+   1743          unsigned char what_mcg_mode(void)
+   1744          {
+   1745            // check if in FEI mode
+   1746            if ((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) &&      // check CLKS mux has selcted FLL output
+   1747                (MCG_S & MCG_S_IREFST_MASK) &&                                     // check FLL ref is internal ref clk
+   1748                (!(MCG_S & MCG_S_PLLST_MASK)))                                     // check PLLS mux has selected FLL
+   1749            {
+   1750              return FEI;                                                          // return FEI code
+   1751            }
+   1752            // Check MCG is in PEE mode
+   1753            else if ((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x3) && // check CLKS mux has selcted PLL output
+   1754                    (!(MCG_S & MCG_S_IREFST_MASK)) &&                              // check FLL ref is external ref clk
+   1755                    (MCG_S & MCG_S_PLLST_MASK))                                    // check PLLS mux has selected PLL 
+   1756            {
+   1757              return PEE;                                                          // return PEE code
+   1758            }
+   1759            // Check MCG is in PBE mode
+   1760            else if ((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) && // check CLKS mux has selcted external reference
+   1761                    (!(MCG_S & MCG_S_IREFST_MASK)) &&                              // check FLL ref is external ref clk
+   1762                    (MCG_S & MCG_S_PLLST_MASK) &&                                  // check PLLS mux has selected PLL
+   1763                    (!(MCG_C2 & MCG_C2_LP_MASK)))                                  // check MCG_C2[LP] bit is not set
+   1764            {
+   1765              return PBE;                                                          // return PBE code
+   1766            }
+   1767            // Check MCG is in FBE mode
+   1768            else if ((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) && // check CLKS mux has selcted external reference
+   1769                    (!(MCG_S & MCG_S_IREFST_MASK)) &&                              // check FLL ref is external ref clk
+   1770                    (!(MCG_S & MCG_S_PLLST_MASK)) &&                               // check PLLS mux has selected FLL
+   1771                    (!(MCG_C2 & MCG_C2_LP_MASK)))                                  // check MCG_C2[LP] bit is not set   
+   1772            {
+   1773              return FBE;                                                          // return FBE code
+   1774            }
+   1775            // Check MCG is in BLPE mode
+   1776            else if ((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) && // check CLKS mux has selcted external reference
+   1777                    (!(MCG_S & MCG_S_IREFST_MASK)) &&                              // check FLL ref is external ref clk
+   1778                    (MCG_C2 & MCG_C2_LP_MASK))                                     // check MCG_C2[LP] bit is set   
+   1779            {
+   1780              return BLPE;                                                         // return BLPE code
+   1781            }
+   1782            // check if in BLPI mode
+   1783            else if ((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x1) && // check CLKS mux has selcted int ref clk
+   1784                    (MCG_S & MCG_S_IREFST_MASK) &&                                 // check FLL ref is internal ref clk
+   1785                    (!(MCG_S & MCG_S_PLLST_MASK)) &&                               // check PLLS mux has selected FLL
+   1786                    (MCG_C2 & MCG_C2_LP_MASK))                                     // check LP bit is set
+   1787            {
+   1788              return BLPI;                                                         // return BLPI code
+   1789            }
+   1790            // check if in FBI mode
+   1791            else if ((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x1) && // check CLKS mux has selcted int ref clk
+   1792                    (MCG_S & MCG_S_IREFST_MASK) &&                                 // check FLL ref is internal ref clk
+   1793                    (!(MCG_S & MCG_S_PLLST_MASK)) &&                               // check PLLS mux has selected FLL
+   1794                    (!(MCG_C2 & MCG_C2_LP_MASK)))                                  // check LP bit is clear
+   1795            {  
+   1796              return FBI;                                                          // return FBI code 
+   1797            }
+   1798            // Check MCG is in FEE mode
+   1799            else if ((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) && // check CLKS mux has selcted FLL
+   1800                    (!(MCG_S & MCG_S_IREFST_MASK)) &&                              // check FLL ref is external ref clk
+   1801                    (!(MCG_S & MCG_S_PLLST_MASK)))                                 // check PLLS mux has selected FLL
+   1802            {
+   1803              return FEE;                                                          // return FEE code
+   1804            }
+   1805            else
+   1806            {
+   1807              return 0;                                                            // error condition
+   1808            }
+   1809          } // what_mcg_mode
+   1810          
+   1811          
+   1812          /********************************************************************/
+   1813          /* Functon name : clk_monitor_0
+   1814           *
+   1815           * This function simply enables or disables the OSC 0 clock monitor. This is
+   1816           * achieved by setting or clearing the MCG_C6[CME] bit. It is recommended to  
+   1817           * enable this monitor in external clock modes (FEE, FBE, BLPE, PBE and PEE.
+   1818           * It MUST be disabled in all other modes or a reset may be generated. It must
+   1819           * also be disabled if it is desired to enter VLPR from BLPE mode.
+   1820           *
+   1821           * Parameters: en_dis - enables (= 1) or disables (= 0) the OSC 0 clock monitor
+   1822           *
+   1823           * Return value : none
+   1824           */
+   1825          void clk_monitor_0(unsigned char en_dis)
+   1826          {         
+   1827            if (en_dis)
+   1828            {
+   1829              MCG_C6 |= MCG_C6_CME0_MASK;   
+   1830            }
+   1831            else
+   1832            {
+   1833              MCG_C6 &= ~MCG_C6_CME0_MASK;
+   1834            }
+   1835          }    // end clk_monitor_0
+   1836          
+   1837          /*
+   1838          int fei_pee(int crystal_val, unsigned char hgo_val, unsigned char erefs_val, signed char prdiv_val, signed char vdiv_val)
+   1839          {
+   1840            unsigned char frdiv_val;
+   1841            unsigned char temp_reg;
+   1842            unsigned char prdiv, vdiv;
+   1843            short i;
+   1844            int ref_freq;
+   1845            int pll_freq;
+   1846          
+   1847          // check if in FEI mode
+   1848            if (!((((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x0) && // check CLKS mux has selcted FLL output
+   1849                (MCG_S & MCG_S_IREFST_MASK) &&                                  // check FLL ref is internal ref clk
+   1850                (!(MCG_S & MCG_S_PLLST_MASK))))                                 // check PLLS mux has selected FLL
+   1851            {
+   1852              return 0x1;                                                     // return error code
+   1853            }
+   1854          
+   1855          // check external frequency is less than the maximum frequency
+   1856            if  (crystal_val > 50000000) {return 0x21;}
+   1857          
+   1858          // check crystal frequency is within spec. if crystal osc is being used as PLL ref
+   1859            if (erefs_val)
+   1860            {
+   1861              if ((crystal_val < 8000000) || (crystal_val > 32000000)) {return 0x22;} // return 1 if one of the available crystal options is not available
+   1862            }
+   1863          
+   1864          // make sure HGO will never be greater than 1. Could return an error instead if desired.
+   1865            if (hgo_val > 0)
+   1866            {
+   1867              hgo_val = 1; // force hgo_val to 1 if > 0
+   1868            }
+   1869          
+   1870          // Check PLL divider settings are within spec.
+   1871            if ((prdiv_val < 1) || (prdiv_val > 8)) {return 0x41;}
+   1872            if ((vdiv_val < 16) || (vdiv_val > 47)) {return 0x42;}
+   1873          
+   1874          // Check PLL reference clock frequency is within spec.
+   1875            ref_freq = crystal_val / prdiv_val;
+   1876            if ((ref_freq < 8000000) || (ref_freq > 32000000)) {return 0x43;}
+   1877          
+   1878          // Check PLL output frequency is within spec.
+   1879            pll_freq = (crystal_val / prdiv_val) * vdiv_val;
+   1880            if ((pll_freq < 180000000) || (pll_freq > 360000000)) {return 0x45;}
+   1881          
+   1882          // configure the MCG_C2 register
+   1883          // the RANGE value is determined by the external frequency. Since the RANGE parameter affects the FRDIV divide value
+   1884          // it still needs to be set correctly even if the oscillator is not being used
+   1885            if (crystal_val <= 40000)
+   1886            {
+   1887              MCG_C2 = MCG_C2_RANGE(0) | (hgo_val << MCG_C2_HGO_SHIFT) | (erefs_val << MCG_C2_EREFS_SHIFT);
+   1888            }
+   1889            else if (crystal_val <= 8000000)
+   1890            {
+   1891              MCG_C2 = MCG_C2_RANGE(1) | (hgo_val << MCG_C2_HGO_SHIFT) | (erefs_val << MCG_C2_EREFS_SHIFT);
+   1892            }
+   1893            else
+   1894            {
+   1895              MCG_C2 = MCG_C2_RANGE(2) | (hgo_val << MCG_C2_HGO_SHIFT) | (erefs_val << MCG_C2_EREFS_SHIFT);
+   1896            }
+   1897          
+   1898          // determine FRDIV based on reference clock frequency
+   1899          // since the external frequency has already been checked only the maximum frequency for each FRDIV value needs to be compared here.
+   1900            if (crystal_val <= 1250000) {frdiv_val = 0;}
+   1901            else if (crystal_val <= 2500000) {frdiv_val = 1;}
+   1902            else if (crystal_val <= 5000000) {frdiv_val = 2;}
+   1903            else if (crystal_val <= 10000000) {frdiv_val = 3;}
+   1904            else if (crystal_val <= 20000000) {frdiv_val = 4;}
+   1905            else {frdiv_val = 5;}
+   1906          
+   1907          // Select external oscillator and Reference Divider and clear IREFS to start ext osc
+   1908          // If IRCLK is required it must be enabled outside of this driver, existing state will be maintained
+   1909          // CLKS=2, FRDIV=frdiv_val, IREFS=0, IRCLKEN=0, IREFSTEN=0
+   1910            temp_reg = MCG_C1;
+   1911            temp_reg &= ~(MCG_C1_CLKS_MASK | MCG_C1_FRDIV_MASK | MCG_C1_IREFS_MASK); // Clear values in these fields
+   1912            temp_reg = MCG_C1_CLKS(2) | MCG_C1_FRDIV(frdiv_val); // Set the required CLKS and FRDIV values
+   1913            MCG_C1 = temp_reg;
+   1914          
+   1915          // if the external oscillator is used need to wait for OSCINIT to set
+   1916            if (erefs_val)
+   1917            {
+   1918              for (i = 0 ; i < 10000 ; i++)
+   1919              {
+   1920                if (MCG_S & MCG_S_OSCINIT_MASK) break; // jump out early if OSCINIT sets before loop finishes
+   1921              }
+   1922              if (!(MCG_S & MCG_S_OSCINIT_MASK)) return 0x23; // check bit is really set and return with error if not set
+   1923            }
+   1924          
+   1925          // wait for Reference clock Status bit to clear
+   1926            for (i = 0 ; i < 2000 ; i++)
+   1927            {
+   1928              if (!(MCG_S & MCG_S_IREFST_MASK)) break; // jump out early if IREFST clears before loop finishes
+   1929            }
+   1930            if (MCG_S & MCG_S_IREFST_MASK) return 0x11; // check bit is really clear and return with error if not set
+   1931          
+   1932          // Wait for clock status bits to show clock source is ext ref clk
+   1933            for (i = 0 ; i < 2000 ; i++)
+   1934            {
+   1935              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x2) break; // jump out early if CLKST shows EXT CLK slected before loop finishes
+   1936            }
+   1937            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x2) return 0x1A; // check EXT CLK is really selected and return with error if not
+   1938          
+   1939          // Now in FBE
+   1940          // It is recommended that the clock monitor is enabled when using an external clock as the clock source/reference.
+   1941          // It is enabled here but can be removed if this is not required.
+   1942            MCG_C6 |= MCG_C6_CME_MASK;
+   1943          
+   1944          // Configure MCG_C5
+   1945          // If the PLL is to run in STOP mode then the PLLSTEN bit needs to be OR'ed in here or in user code.
+   1946            temp_reg = MCG_C5;
+   1947            temp_reg &= ~MCG_C5_PRDIV_MASK;
+   1948            temp_reg |= MCG_C5_PRDIV(prdiv_val - 1);    //set PLL ref divider
+   1949            MCG_C5 = temp_reg;
+   1950          
+   1951          // Configure MCG_C6
+   1952          // The PLLS bit is set to enable the PLL, MCGOUT still sourced from ext ref clk
+   1953          // The loss of lock interrupt can be enabled by seperately OR'ing in the LOLIE bit in MCG_C6
+   1954            temp_reg = MCG_C6; // store present C6 value
+   1955            temp_reg &= ~MCG_C6_VDIV_MASK; // clear VDIV settings
+   1956            temp_reg |= MCG_C6_PLLS_MASK | MCG_C6_VDIV(vdiv_val - 24); // write new VDIV and enable PLL
+   1957            MCG_C6 = temp_reg; // update MCG_C6
+   1958          
+   1959          // wait for PLLST status bit to set
+   1960            for (i = 0 ; i < 2000 ; i++)
+   1961            {
+   1962              if (MCG_S & MCG_S_PLLST_MASK) break; // jump out early if PLLST sets before loop finishes
+   1963            }
+   1964            if (!(MCG_S & MCG_S_PLLST_MASK)) return 0x16; // check bit is really set and return with error if not set
+   1965          
+   1966          // Wait for LOCK bit to set
+   1967            for (i = 0 ; i < 2000 ; i++)
+   1968            {
+   1969              if (MCG_S & MCG_S_LOCK_MASK) break; // jump out early if LOCK sets before loop finishes
+   1970            }
+   1971            if (!(MCG_S & MCG_S_LOCK_MASK)) return 0x44; // check bit is really set and return with error if not set
+   1972          
+   1973          // now in PBE
+   1974          
+   1975            MCG_C1 &= ~MCG_C1_CLKS_MASK; // clear CLKS to switch CLKS mux to select PLL as MCG_OUT
+   1976          
+   1977          // Wait for clock status bits to update
+   1978            for (i = 0 ; i < 2000 ; i++)
+   1979            {
+   1980              if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) == 0x3) break; // jump out early if CLKST = 3 before loop finishes
+   1981            }
+   1982            if (((MCG_S & MCG_S_CLKST_MASK) >> MCG_S_CLKST_SHIFT) != 0x3) return 0x1B; // check CLKST is set correctly and return with error if not
+   1983          
+   1984          // Use actual PLL settings to calculate PLL frequency
+   1985            prdiv = ((MCG_C5 & MCG_C5_PRDIV_MASK) + 1);
+   1986            vdiv = ((MCG_C6 & MCG_C6_VDIV_MASK) + 24);
+   1987          
+   1988          // Now in PEE
+   1989            return (((crystal_val / prdiv) * vdiv) / 2); //MCGOUT equals PLL output frequency/2
+   1990          } // fei_pee
+   1991          */
+   1992          
+   1993          
+
+Errors: 1
+Warnings: 3

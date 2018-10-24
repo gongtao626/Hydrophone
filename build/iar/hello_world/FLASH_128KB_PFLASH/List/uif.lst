@@ -1,0 +1,396 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:19 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\common\ #
+#                    uif.c                                                    #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\common #
+#                    \uif.c" -D IAR -D TOWER -D TWR_K20D50M -lCN              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\uif.lst               #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\uif.o                  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\common\uif.c
+      1          /*
+      2           * File:    uif.c
+      3           * Purpose: Provide an interactive user interface
+      4           *              
+      5           * Notes:   The commands, set/show parameters, and prompt are configured 
+      6           *          at the project level
+      7           */
+      8          
+      9          #include "common.h"
+     10          #include "uif.h"
+     11          
+     12          /********************************************************************/
+     13          /*
+     14           * Global messages -- constant strings
+     15           */
+     16          const char HELPMSG[] =
+     17              "Enter 'help' for help.\n";
+     18          
+     19          const char INVARG[] =
+     20              "Error: Invalid argument: %s\n";
+     21          
+     22          const char INVALUE[] = 
+     23              "Error: Invalid value: %s\n";
+     24          
+     25          /*
+     26           * Strings used by this file only
+     27           */
+     28          static const char INVCMD[] =
+     29              "Error: No such command: %s\n";
+     30          
+     31          static const char HELPFORMAT[] = 
+     32              "%8s  %-25s %s %s\n";
+     33          
+     34          static const char SYNTAX[] = 
+     35              "Error: Invalid syntax for: %s\n";
+     36          
+     37          static const char INVOPT[] = 
+     38              "Error:  Invalid set/show option: %s\n";
+     39          
+     40          static const char OPTFMT[] = 
+     41              "%12s: ";
+     42          
+     43          static char cmdline1 [UIF_MAX_LINE];
+     44          static char cmdline2 [UIF_MAX_LINE];
+     45          
+     46          /********************************************************************/
+     47          char *
+     48          get_line (char *line)
+     49          {
+     50              int pos;
+     51              char ch;
+     52          
+     53              pos = 0;
+     54              ch = (char)getchar();
+     55              while ( (ch != 0x0D /* CR */) &&
+     56                      (ch != 0x0A /* LF/NL */) &&
+     57                      (pos < UIF_MAX_LINE))
+     58              {
+     59                  switch (ch)
+     60                  {
+     61                      case 0x08:      /* Backspace */
+     62                      case 0x7F:      /* Delete */
+     63                          if (pos > 0)
+     64                          {
+     65                              pos -= 1;
+     66                              putchar(0x08);    /* backspace */
+     67                              putchar(' ');
+     68                              putchar(0x08);    /* backspace */
+     69                          }
+     70                          break;
+     71                      default:
+     72                          if ((pos+1) < UIF_MAX_LINE)
+     73                          {
+     74                              if ((ch > 0x1f) && (ch < 0x80))
+     75                              {
+     76                                  line[pos++] = (char)ch;
+     77                                  putchar((char)ch);
+     78                              }
+     79                          }
+     80                          break;
+     81                  }
+     82                  ch = (int)getchar();
+     83              }
+     84              line[pos] = '\0';
+     85              putchar(0x0D);    /* CR */
+     86              putchar(0x0A);    /* LF */
+     87          
+     88              return line;
+     89          }
+     90          
+     91          /********************************************************************/
+     92          int
+     93          make_argv (char *cmdline, char *argv[])
+     94          {
+     95              int argc, i, in_text;
+     96          
+     97              /* 
+     98               * Break cmdline into strings and argv
+     99               * It is permissible for argv to be NULL, in which case
+    100               * the purpose of this routine becomes to count args
+    101               */
+    102              argc = 0;
+    103              i = 0;
+    104              in_text = FALSE;
+    105              while (cmdline[i] != '\0')  /* getline() must place 0x00 on end */
+    106              {
+    107                  if (((cmdline[i] == ' ')   ||
+    108                       (cmdline[i] == '\t')) )
+    109                  {
+    110                      if (in_text)
+    111                      {
+    112                          /* end of command line argument */
+    113                          cmdline[i] = '\0';
+    114                          in_text = FALSE;
+    115                      }
+    116                      else
+    117                      {
+    118                          /* still looking for next argument */
+    119                          
+    120                      }
+    121                  }
+    122                  else
+    123                  {
+    124                      /* got non-whitespace character */
+    125                      if (in_text)
+    126                      {
+    127                      }
+    128                      else
+    129                      {
+    130                          /* start of an argument */
+    131                          in_text = TRUE;
+    132                          if (argc < UIF_MAX_ARGS)
+    133                          {
+    134                              if (argv != NULL)
+    135                                  argv[argc] = &cmdline[i];
+    136                              argc++;
+    137                          }
+    138                          else
+    139                              /*return argc;*/
+    140                              break;
+    141                      }
+    142          
+    143                  }
+    144                  i++;    /* proceed to next character */
+    145              }
+    146              if (argv != NULL)
+    147                  argv[argc] = NULL;
+    148              return argc;
+    149          }
+    150          
+    151          /********************************************************************/
+    152          void
+    153          run_cmd (void)
+    154          {
+    155              /*
+    156               * Global array of pointers to emulate C argc,argv interface
+    157               */
+    158              int argc;
+    159              char *argv[UIF_MAX_ARGS + 1];   /* one extra for null terminator */
+    160          
+    161              get_line(cmdline1);
+    162          
+    163              if (!(argc = make_argv(cmdline1,argv)))
+    164              {
+    165                  /* no command entered, just a blank line */
+    166                  strcpy(cmdline1,cmdline2);
+    167                  argc = make_argv(cmdline1,argv);
+    168              }
+    169              cmdline2[0] = '\0';
+    170          
+    171              if (argc)
+    172              {
+    173                  int i;
+    174                  for (i = 0; i < UIF_NUM_CMD; i++)
+    175                  {
+    176                      if (strcasecmp(UIF_CMDTAB[i].cmd,argv[0]) == 0)
+    177                      {
+    178                          if (((argc-1) >= UIF_CMDTAB[i].min_args) &&
+    179                              ((argc-1) <= UIF_CMDTAB[i].max_args))
+    180                          {
+    181                              if (UIF_CMDTAB[i].flags & UIF_CMD_FLAG_REPEAT)
+    182                              {
+    183                                  strcpy(cmdline2,argv[0]);
+    184                              }
+    185                              UIF_CMDTAB[i].func(argc,argv);
+    186                              return;
+    187                          }
+    188                          else
+    189                          {
+    190                              printf(SYNTAX,argv[0]);
+    191                              return;
+    192                          }
+    193                      }
+    194                  }
+    195                  printf(INVCMD,argv[0]);
+    196                  printf(HELPMSG);
+    197              }
+    198          }
+    199          /********************************************************************/
+    200          uint32
+    201          get_value (char *s, int *success, int base)
+    202          {
+    203              uint32 value;
+    204              char *p;
+    205          
+    206              value = strtoul(s,&p,base);
+    207              if ((value == 0) && (p == s))
+    208              {
+    209                  *success = FALSE;
+    210                  return 0;
+    211              }
+    212              else
+    213              {
+    214                  *success = TRUE;
+    215                  return value;
+    216              }
+    217          }
+    218          /********************************************************************/
+    219          void
+    220          uif_cmd_help (int argc, char **argv)
+    221          {
+    222              int index;
+    223              
+    224              (void)argc;
+    225              (void)argv;
+    226              
+    227              printf("\n");
+    228              for (index = 0; index < UIF_NUM_CMD; index++)
+    229              {
+    230                  printf(HELPFORMAT,
+    231                      UIF_CMDTAB[index].cmd,
+    232                      UIF_CMDTAB[index].description,
+    233                      UIF_CMDTAB[index].cmd,
+    234                      UIF_CMDTAB[index].syntax);
+    235              }
+    236              printf("\n");
+    237          }
+    238          /********************************************************************/
+    239          void
+    240          uif_cmd_set (int argc, char **argv)
+    241          {
+    242              int index;
+    243          
+    244              printf("\n");
+    245              if (argc == 1)
+    246              {
+    247                  printf("Valid 'set' options:\n");
+    248                  for (index = 0; index < UIF_NUM_SETCMD; ++index)
+    249                  {
+    250                      printf(OPTFMT,UIF_SETCMDTAB[index].option);
+    251                      printf("%s\n",UIF_SETCMDTAB[index].syntax);
+    252                  }
+    253                  printf("\n");
+    254                  return;
+    255              }
+    256          
+    257              if (argc != 3)
+    258              {
+    259                  printf("Error: Invalid argument list\n");
+    260                  return;
+    261              }
+    262          
+    263              for (index = 0; index < UIF_NUM_SETCMD; index++)
+    264              {
+    265                  if (strcasecmp(UIF_SETCMDTAB[index].option,argv[1]) == 0)
+    266                  {
+    267                      if (((argc-1-1) >= UIF_SETCMDTAB[index].min_args) &&
+    268                          ((argc-1-1) <= UIF_SETCMDTAB[index].max_args))
+    269                      {
+    270                          UIF_SETCMDTAB[index].func(argc,argv);
+    271                          return;
+    272                      }
+    273                      else
+    274                      {
+    275                          printf(INVARG,argv[1]);
+    276                          return;
+    277                      }
+    278                  }
+    279              }
+    280              printf(INVOPT,argv[1]);
+    281          }
+    282          
+    283          /********************************************************************/
+    284          void
+    285          uif_cmd_show (int argc, char **argv)
+    286          {
+    287              int index;
+    288          
+    289              printf("\n");
+    290              if (argc == 1)
+    291              {
+    292                  /*
+    293                   * Show all Option settings
+    294                   */
+    295                  argc = 2;
+    296                  argv[2] = NULL;
+    297                  for (index = 0; index < UIF_NUM_SETCMD; index++)
+    298                  {
+    299                      printf(OPTFMT,UIF_SETCMDTAB[index].option);
+    300                      UIF_SETCMDTAB[index].func(argc,argv);
+    301                      printf("\n");
+    302                  }
+    303                  printf("\n");
+    304                  return;
+    305              }
+    306          
+    307              for (index = 0; index < UIF_NUM_SETCMD; index++)
+    308              {
+    309                  if (strcasecmp(UIF_SETCMDTAB[index].option,argv[1]) == 0)
+    310                  {
+    311                      if (((argc-1-1) >= UIF_SETCMDTAB[index].min_args) &&
+    312                          ((argc-1-1) <= UIF_SETCMDTAB[index].max_args))
+    313                      {
+    314                          printf(OPTFMT,UIF_SETCMDTAB[index].option);
+    315                          UIF_SETCMDTAB[index].func(argc,argv);
+    316                          printf("\n\n");
+    317                          return;
+    318                      }
+    319                      else
+    320                      {
+    321                          printf(INVARG,argv[1]);
+    322                          return;
+    323                      }
+    324                  }
+    325              }
+    326              printf(INVOPT,argv[1]);
+    327          }
+    328          
+    329          /********************************************************************/
+
+Errors: 1
+Warnings: none

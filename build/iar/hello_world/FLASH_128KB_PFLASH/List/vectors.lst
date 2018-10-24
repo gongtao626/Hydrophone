@@ -1,0 +1,370 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:20 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\cpu\vec #
+#                    tors.c                                                   #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\cpu\ve #
+#                    ctors.c" -D IAR -D TOWER -D TWR_K20D50M -lCN             #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\vectors.lst           #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\vectors.o              #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\cpu\vectors.c
+      1          /******************************************************************************
+      2          * File:    vectors.c
+      3          *
+      4          * Purpose: Configure interrupt vector table for Kinetis.
+      5          ******************************************************************************/
+      6          
+      7          #include "vectors.h"
+      8          #include "isr.h"
+      9          #include "common.h"
+     10          
+     11          /******************************************************************************
+     12          * Vector Table
+     13          ******************************************************************************/
+     14          typedef void (*vector_entry)(void);
+     15          
+     16          #if defined(IAR)
+     17            #pragma location = ".intvec"
+     18            const vector_entry  __vector_table[] = //@ ".intvec" =
+     19          #elif defined(CW)
+     20            #pragma define_section vectortable ".vectortable" ".vectortable" ".vectortable" far_abs R
+     21            #define VECTOR __declspec(vectortable)
+     22            const VECTOR vector_entry  __vector_table[] = //@ ".intvec" =
+     23          #endif
+     24          {
+     25             VECTOR_000,           /* Initial SP           */
+     26             VECTOR_001,           /* Initial PC           */
+     27             VECTOR_002,
+     28             VECTOR_003,
+     29             VECTOR_004,
+     30             VECTOR_005,
+     31             VECTOR_006,
+     32             VECTOR_007,
+     33             VECTOR_008,
+     34             VECTOR_009,
+     35             VECTOR_010,
+     36             VECTOR_011,
+     37             VECTOR_012,
+     38             VECTOR_013,
+     39             VECTOR_014,
+     40             VECTOR_015,
+     41             VECTOR_016,
+     42             VECTOR_017,
+     43             VECTOR_018,
+     44             VECTOR_019,
+     45             VECTOR_020,
+     46             VECTOR_021,
+     47             VECTOR_022,
+     48             VECTOR_023,
+     49             VECTOR_024,
+     50             VECTOR_025,
+     51             VECTOR_026,
+     52             VECTOR_027,
+     53             VECTOR_028,
+     54             VECTOR_029,
+     55             VECTOR_030,
+     56             VECTOR_031,
+     57             VECTOR_032,
+     58             VECTOR_033,
+     59             VECTOR_034,
+     60             VECTOR_035,
+     61             VECTOR_036,
+     62             VECTOR_037,
+     63             VECTOR_038,
+     64             VECTOR_039,
+     65             VECTOR_040,
+     66             VECTOR_041,
+     67             VECTOR_042,
+     68             VECTOR_043,
+     69             VECTOR_044,
+     70             VECTOR_045,
+     71             VECTOR_046,
+     72             VECTOR_047,
+     73             VECTOR_048,
+     74             VECTOR_049,
+     75             VECTOR_050,
+     76             VECTOR_051,
+     77             VECTOR_052,
+     78             VECTOR_053,
+     79             VECTOR_054,
+     80             VECTOR_055,
+     81             VECTOR_056,
+     82             VECTOR_057,
+     83             VECTOR_058,
+     84             VECTOR_059,
+     85             VECTOR_060,
+     86             VECTOR_061,
+     87             VECTOR_PADDING,
+     88             VECTOR_PADDING,
+     89             VECTOR_PADDING,
+     90             VECTOR_PADDING,
+     91             VECTOR_PADDING,
+     92             VECTOR_PADDING,
+     93             VECTOR_PADDING,
+     94             VECTOR_PADDING,
+     95             VECTOR_PADDING,
+     96             VECTOR_PADDING,
+     97             VECTOR_PADDING,
+     98             VECTOR_PADDING,
+     99             VECTOR_PADDING,
+    100             VECTOR_PADDING,
+    101             VECTOR_PADDING,
+    102             VECTOR_PADDING,
+    103             VECTOR_PADDING,
+    104             VECTOR_PADDING,
+    105             VECTOR_PADDING,
+    106             VECTOR_PADDING,
+    107             VECTOR_PADDING,
+    108             VECTOR_PADDING,
+    109             VECTOR_PADDING,
+    110             VECTOR_PADDING,
+    111             VECTOR_PADDING,
+    112             VECTOR_PADDING,
+    113             VECTOR_PADDING,
+    114             VECTOR_PADDING,
+    115             VECTOR_PADDING,
+    116             VECTOR_PADDING,
+    117             VECTOR_PADDING,
+    118             VECTOR_PADDING,
+    119             VECTOR_PADDING,
+    120             VECTOR_PADDING,
+    121             VECTOR_PADDING,
+    122             VECTOR_PADDING,
+    123             VECTOR_PADDING,
+    124             VECTOR_PADDING,
+    125             VECTOR_PADDING,
+    126             VECTOR_PADDING,
+    127             VECTOR_PADDING,
+    128             VECTOR_PADDING,
+    129             VECTOR_PADDING,
+    130             VECTOR_PADDING,
+    131             VECTOR_PADDING,
+    132             VECTOR_PADDING,
+    133             VECTOR_PADDING,
+    134             VECTOR_PADDING,
+    135             VECTOR_PADDING,
+    136             VECTOR_PADDING,
+    137             VECTOR_PADDING,
+    138             VECTOR_PADDING,
+    139             VECTOR_PADDING,
+    140             VECTOR_PADDING,
+    141             VECTOR_PADDING,
+    142             VECTOR_PADDING,
+    143             VECTOR_PADDING,
+    144             VECTOR_PADDING,
+    145             VECTOR_PADDING,
+    146             VECTOR_PADDING,
+    147             VECTOR_PADDING,
+    148             VECTOR_PADDING,
+    149             VECTOR_PADDING,
+    150             VECTOR_PADDING,
+    151             VECTOR_PADDING,
+    152             VECTOR_PADDING,
+    153             VECTOR_PADDING,
+    154             VECTOR_PADDING,
+    155             VECTOR_PADDING,
+    156             VECTOR_PADDING,
+    157             VECTOR_PADDING,
+    158             VECTOR_PADDING,
+    159             VECTOR_PADDING,
+    160             VECTOR_PADDING,
+    161             VECTOR_PADDING,
+    162             VECTOR_PADDING,
+    163             VECTOR_PADDING,
+    164             VECTOR_PADDING,
+    165             VECTOR_PADDING,
+    166             VECTOR_PADDING,
+    167             VECTOR_PADDING,
+    168             VECTOR_PADDING,
+    169             VECTOR_PADDING,
+    170             VECTOR_PADDING,
+    171             VECTOR_PADDING,
+    172             VECTOR_PADDING,
+    173             VECTOR_PADDING,
+    174             VECTOR_PADDING,
+    175             VECTOR_PADDING,
+    176             VECTOR_PADDING,
+    177             VECTOR_PADDING,
+    178             VECTOR_PADDING,
+    179             VECTOR_PADDING,
+    180             VECTOR_PADDING,
+    181             VECTOR_PADDING,
+    182             VECTOR_PADDING,
+    183             VECTOR_PADDING,
+    184             VECTOR_PADDING,
+    185             VECTOR_PADDING,
+    186             VECTOR_PADDING,
+    187             VECTOR_PADDING,
+    188             VECTOR_PADDING,
+    189             VECTOR_PADDING,
+    190             VECTOR_PADDING,
+    191             VECTOR_PADDING,
+    192             VECTOR_PADDING,
+    193             VECTOR_PADDING,
+    194             VECTOR_PADDING,
+    195             VECTOR_PADDING,
+    196             VECTOR_PADDING,
+    197             VECTOR_PADDING,
+    198             VECTOR_PADDING,
+    199             VECTOR_PADDING,
+    200             VECTOR_PADDING,
+    201             VECTOR_PADDING,
+    202             VECTOR_PADDING,
+    203             VECTOR_PADDING,
+    204             VECTOR_PADDING,
+    205             VECTOR_PADDING,
+    206             VECTOR_PADDING,
+    207             VECTOR_PADDING,
+    208             VECTOR_PADDING,
+    209             VECTOR_PADDING,
+    210             VECTOR_PADDING,
+    211             VECTOR_PADDING,
+    212             VECTOR_PADDING,
+    213             VECTOR_PADDING,
+    214             VECTOR_PADDING,
+    215             VECTOR_PADDING,
+    216             VECTOR_PADDING,
+    217             VECTOR_PADDING,
+    218             VECTOR_PADDING,
+    219             VECTOR_PADDING,
+    220             VECTOR_PADDING,
+    221             VECTOR_PADDING,
+    222             VECTOR_PADDING,
+    223             VECTOR_PADDING,
+    224             VECTOR_PADDING,
+    225             VECTOR_PADDING,
+    226             VECTOR_PADDING,
+    227             VECTOR_PADDING,
+    228             VECTOR_PADDING,
+    229             VECTOR_PADDING,
+    230             VECTOR_PADDING,
+    231             VECTOR_PADDING,
+    232             VECTOR_PADDING,
+    233             VECTOR_PADDING,
+    234             VECTOR_PADDING,
+    235             VECTOR_PADDING,
+    236             VECTOR_PADDING,
+    237             VECTOR_PADDING,
+    238             VECTOR_PADDING,
+    239             VECTOR_PADDING,
+    240             VECTOR_PADDING,
+    241             VECTOR_PADDING,
+    242             VECTOR_PADDING,
+    243             VECTOR_PADDING,
+    244             VECTOR_PADDING,
+    245             VECTOR_PADDING,
+    246             VECTOR_PADDING,
+    247             VECTOR_PADDING,
+    248             VECTOR_PADDING,
+    249             VECTOR_PADDING,
+    250             VECTOR_PADDING,
+    251             VECTOR_PADDING,
+    252             VECTOR_PADDING,
+    253             VECTOR_PADDING,
+    254             VECTOR_PADDING,
+    255             VECTOR_PADDING,
+    256             VECTOR_PADDING,
+    257             VECTOR_PADDING,
+    258             VECTOR_PADDING,
+    259             VECTOR_PADDING,
+    260             VECTOR_PADDING,
+    261             VECTOR_PADDING,
+    262             VECTOR_PADDING,
+    263             VECTOR_PADDING,
+    264             VECTOR_PADDING,
+    265             VECTOR_PADDING,
+    266             VECTOR_PADDING,
+    267             VECTOR_PADDING,
+    268             VECTOR_PADDING,
+    269             VECTOR_PADDING,
+    270             VECTOR_PADDING,
+    271             VECTOR_PADDING,
+    272             VECTOR_PADDING,
+    273             VECTOR_PADDING,
+    274             VECTOR_PADDING,
+    275             VECTOR_PADDING,
+    276             VECTOR_PADDING,
+    277             VECTOR_PADDING,
+    278             VECTOR_PADDING,
+    279             VECTOR_PADDING,
+    280             VECTOR_PADDING,
+    281             CONFIG_1,        /* Flash configuration field values */
+    282             CONFIG_2,        /* Flash configuration field values */
+    283             CONFIG_3,        /* Flash configuration field values */
+    284             CONFIG_4,        /* Flash configuration field values */
+    285          };
+    286          // VECTOR_TABLE end
+    287          /******************************************************************************
+    288          * default_isr(void)
+    289          *
+    290          * Default ISR definition.
+    291          *
+    292          * In:  n/a
+    293          * Out: n/a
+    294          ******************************************************************************/
+    295          void default_isr(void)
+    296          {
+    297             #define VECTORNUM                     (*(volatile uint8_t*)(0xE000ED04))
+    298          
+    299             printf("\n****default_isr entered on vector %d*****\r\n\n",VECTORNUM);
+    300             return;
+    301          }
+    302          /******************************************************************************/
+    303          /* End of "vectors.c" */
+
+Errors: 62
+Warnings: none

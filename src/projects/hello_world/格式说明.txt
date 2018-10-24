@@ -1,0 +1,73 @@
+0xAAEE 8*100(4个通道，100次一发) 0x0000~0xFFFF 每次加1，循环结束时为
+
+
+218.7 0-360
+22.9 +40~-40
+-0.8 +40~-40
+(+、高位为0时用空格符号代替，也就是0x20) "-"的ASCII码: 0x2D
+if(
+0x30~0x39
+命令响应：
+0xA3EE5501
+0xA3EE5502
+0xA3EE5503
+0xA3EE5504
+
+if ((rx[0] == 0xC3) && 
+	(rx[1] == 0xee) && 
+	(rx[2] == 0x55) ) 
+{
+	switch(rx[3])
+		case 0x01:
+			//TODO
+			TX[0] = 0xA3;
+			TX[1] = 0xEE; 
+			TX[2] = 0x55; 
+			TX[3] = 0x01;
+			break;
+		case 0x02:
+			//TODO
+			TX[0] = 0xA3;
+			TX[1] = 0xEE; 
+			TX[2] = 0x55; 
+			TX[3] = 0x02;
+			break;
+		case 0x03:
+			//TODO
+			TX[0] = 0xA3;
+			TX[1] = 0xEE; 
+			TX[2] = 0x55; 
+			TX[3] = 0x03;
+			break;
+		case 0x04:
+			TX[0] = 0xA3;
+			TX[1] = 0xEE; 
+			TX[2] = 0x55; 
+			TX[3] = 0x04;
+			//TODO
+			break;
+		default:
+			//TODO
+			break;
+}
+TX[0] = 0xA3;
+TX[1] = 0xEE; 
+TX[2] = 0x55; 
+TX[3] = 0x01;
+send(0xA3, 0xEE, 0x55, 0x01)
+命令内容：
+0xC3EE5501
+0xC3EE5502
+0xC3EE5503
+0xC3EE5504
+
+115200传输速度
+11520Byte
+一帧共816个字节，0.07083s，70.83ms/Byte
+
+系统cpu48M
+总线24M 
+spi：12M
+
+
+1.25 *48* 1000000

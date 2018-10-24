@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>hello_world_tower/pflash_128k</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>107</Column0><Column1>44</Column1><Column2>27</Column2><Column3>0</Column3></ColumnWidths>
+      </Workspace>
+      <Build>
+        
+        
+        
+        
+      <PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Debug-Log</Factory></Window><Window><Factory>Find-in-Files</Factory></Window></Windows></PreferedWindows><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1035</ColumnWidth1><ColumnWidth2>276</ColumnWidth2><ColumnWidth3>69</ColumnWidth3></Build>
+      <TerminalIO/>
+    <Debug-Log><PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Build</Factory></Window><Window><Factory>Find-in-Files</Factory></Window></Windows></PreferedWindows><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1381</ColumnWidth1></Debug-Log><Find-in-Files><PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Build</Factory></Window><Window><Factory>Debug-Log</Factory></Window></Windows></PreferedWindows><ColumnWidth0>496</ColumnWidth0><ColumnWidth1>70</ColumnWidth1><ColumnWidth2>850</ColumnWidth2></Find-in-Files></Static>
+    <Windows>
+      
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-1148-5489</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>hello_world_tower</ExpandedNode><ExpandedNode>hello_world_tower/cpu</ExpandedNode><ExpandedNode>hello_world_tower/drivers</ExpandedNode><ExpandedNode>hello_world_tower/drivers/lptmr</ExpandedNode><ExpandedNode>hello_world_tower/platforms</ExpandedNode><ExpandedNode>hello_world_tower/project</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd2><Tabs><Tab><Identity>TabID-25329-19141</Identity><TabName>Find in Files</TabName><Factory>Find-in-Files</Factory><Session/></Tab><Tab><Identity>TabID-17613-20105</Identity><TabName>Build</TabName><Factory>Build</Factory><Session/></Tab><Tab><Identity>TabID-24472-20385</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab></Tabs><SelectedTab>1</SelectedTab></Wnd2></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\src\drivers\spi\hw_spi.c</Filename><XPos>0</XPos><YPos>135</YPos><SelStart>7018</SelStart><SelEnd>7071</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\src\drivers\lptmr\lptmr.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>1255</SelStart><SelEnd>1255</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\src\projects\hello_world\isr.h</Filename><XPos>0</XPos><YPos>15</YPos><SelStart>869</SelStart><SelEnd>869</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\src\projects\hello_world\adc.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>419</SelStart><SelEnd>419</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\src\common\common.h</Filename><XPos>0</XPos><YPos>87</YPos><SelStart>1903</SelStart><SelEnd>1903</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\src\drivers\lptmr\lptmr.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>287</SelStart><SelEnd>287</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\src\cpu\vectors.h</Filename><XPos>0</XPos><YPos>105</YPos><SelStart>8587</SelStart><SelEnd>8587</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\src\platforms\tower.h</Filename><XPos>0</XPos><YPos>129</YPos><SelStart>4304</SelStart><SelEnd>4312</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\src\projects\hello_world\7606_hello_world.c</Filename><XPos>0</XPos><YPos>24</YPos><SelStart>840</SelStart><SelEnd>845</SelEnd></Tab><ActiveTab>8</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\src\cpu\sysinit.c</Filename><XPos>0</XPos><YPos>83</YPos><SelStart>384</SelStart><SelEnd>384</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\src\drivers\pit\hw_pit.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>536</SelStart><SelEnd>548</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-01479e08><key>iaridepm.enu1</key></Toolbar-01479e08></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>502</Bottom><Right>215</Right><x>-2</x><y>-2</y><xscreen>1108</xscreen><yscreen>620</yscreen><sizeHorzCX>865625</sizeHorzCX><sizeHorzCY>856354</sizeHorzCY><sizeVertCX>169531</sizeVertCX><sizeVertCY>696133</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>177</Bottom><Right>1282</Right><x>-2</x><y>-2</y><xscreen>1284</xscreen><yscreen>179</yscreen><sizeHorzCX>1003125</sizeHorzCX><sizeHorzCY>247238</sizeHorzCY><sizeVertCX>865625</sizeVertCX><sizeVertCY>856354</sizeVertCY></Rect></Wnd2></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+

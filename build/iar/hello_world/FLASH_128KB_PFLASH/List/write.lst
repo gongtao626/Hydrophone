@@ -1,0 +1,157 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:20 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\semihos #
+#                    ting\iar\write.c                                         #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\semiho #
+#                    sting\iar\write.c" -D IAR -D TOWER -D TWR_K20D50M -lCN   #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\write.lst             #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\write.o                #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\semihosting\iar\write.c
+      1          /*******************
+      2           *
+      3           * Copyright 1998-2003 IAR Systems.  All rights reserved.
+      4           *
+      5           * $Revision: 38614 $
+      6           *
+      7           * This is a template implementation of the "__write" function used by
+      8           * the standard library.  Replace it with a system-specific
+      9           * implementation.
+     10           *
+     11           * The "__write" function should output "size" number of bytes from
+     12           * "buffer" in some application-specific way.  It should return the
+     13           * number of characters written, or _LLIO_ERROR on failure.
+     14           *
+     15           * If "buffer" is zero then __write should perform flushing of
+     16           * internal buffers, if any.  In this case "handle" can be -1 to
+     17           * indicate that all handles should be flushed.
+     18           *
+     19           * The template implementation below assumes that the application
+     20           * provides the function "MyLowLevelPutchar".  It should return the
+     21           * character written, or -1 on failure.
+     22           *
+     23           ********************/
+     24          #include <yfuns.h>
+     25          #include "common.h"
+     26          #include "uart.h"
+     27          
+     28          #ifndef CONSOLE_SUPPORT
+     29          
+     30          _STD_BEGIN
+     31          
+     32          #pragma module_name = "?__write"
+     33          
+     34          void uart_putchar (UART_MemMapPtr, char);
+     35          
+     36          /*
+     37           * If the __write implementation uses internal buffering, uncomment
+     38           * the following line to ensure that we are called with "buffer" as 0
+     39           * (i.e. flush) when the application terminates.
+     40           */
+     41          
+     42          size_t __write(int handle, const unsigned char * buffer, size_t size)
+     43          {
+     44            /* Remove the #if #endif pair to enable the implementation */
+     45          #if 1    
+     46          
+     47            size_t nChars = 0;
+     48          
+     49            if (buffer == 0)
+     50            {
+     51              /*
+     52               * This means that we should flush internal buffers.  Since we
+     53               * don't we just return.  (Remember, "handle" == -1 means that all
+     54               * handles should be flushed.)
+     55               */
+     56              return 0;
+     57            }
+     58          
+     59            /* This template only writes to "standard out" and "standard err",
+     60             * for all other file handles it returns failure. */
+     61            if (handle != _LLIO_STDOUT && handle != _LLIO_STDERR)
+     62            {
+     63              return _LLIO_ERROR;
+     64            }
+     65          
+     66            for (/* Empty */; size != 0; --size)
+     67            {
+     68          #if 1
+     69              if( *buffer == '\n')
+     70                uart_putchar(TERM_PORT,'\r');//return carriage
+     71              uart_putchar(TERM_PORT,*buffer++);/*doesnt return error number*/
+     72          #endif
+     73              
+     74              ++nChars;
+     75            }
+     76          
+     77            return nChars;
+     78          
+     79          #else
+     80          
+     81            /* Always return error code when implementation is disabled. */
+     82            return _LLIO_ERROR;
+     83          
+     84          #endif
+     85          
+     86          }
+     87          
+     88          _STD_END
+     89          
+     90          #endif
+
+Errors: 1
+Warnings: none

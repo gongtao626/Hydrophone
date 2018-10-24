@@ -1,0 +1,500 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:19 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers #
+#                    \smc\smc.c                                               #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\driver #
+#                    s\smc\smc.c" -D IAR -D TOWER -D TWR_K20D50M -lCN         #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\smc.lst               #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\smc.o                  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers\smc\smc.c
+      1          /*
+      2           * File:        smc.c
+      3           * Purpose:     Provides routines for entering low power modes.
+      4           *
+      5           * Notes:	Since the wakeup mechanism for low power modes
+      6           *              will be application specific, these routines
+      7           *              do not include code to setup interrupts to exit
+      8           *              from the low power modes. The desired means of
+      9           *              low power mode exit should be configured before
+     10           *              calling any of these functions.
+     11           *
+     12           *              These routines do not include protection to
+     13           *              prevent illegal state transitions in the mode
+     14           *              controller, and all routines that write to the
+     15           *              PMPROT register write a value to allow all
+     16           *              possible low power modes (it is write once, so
+     17           *              if only the currently requested mode is enabled
+     18           *              a different mode couldn't be enabled later on).
+     19           *              
+     20           */
+     21          
+     22          #include "common.h"
+     23          #include "smc.h"
+     24          
+     25          /********************************************************************/
+     26          /* WAIT mode entry routine. Puts the processor into wait mode.
+     27           * In this mode the core clock is disabled (no code executing), but 
+     28           * bus clocks are enabled (peripheral modules are operational). 
+     29           *
+     30           * Mode transitions:
+     31           * RUN -> WAIT
+     32           * VLPR -> VLPW
+     33           *
+     34           * This function can be used to enter normal wait mode or VLPW
+     35           * mode. If you are executing in normal run mode when calling this
+     36           * function, then you will enter normal wait mode. If you are in VLPR
+     37           * mode when calling this function, then you will enter VLPW mode instead.
+     38           *
+     39           * NOTE: Some modules include a programmable option to disable them in 
+     40           * wait mode. If those modules are programmed to disable in wait mode, 
+     41           * they will not be able to generate interrupts to wake up the core.
+     42           *
+     43           * WAIT mode is exited using any enabled interrupt or RESET, so no
+     44           * exit_wait routine is needed. 
+     45           *
+     46          * If in VLPW mode, the statue of the SMC_PMCTRL[LPWUI] bit determines if 
+     47           * the processor exits to VLPR (LPWUI cleared) or normal run mode (LPWUI 
+     48           * set). The enable_lpwui() and disable_lpwui()functions can be used to set
+     49           * this bit to the desired option prior to calling enter_wait().
+     50           * 
+     51           * 
+     52           * Parameters:
+     53           * none
+     54           */
+     55          void enter_wait(void)
+     56          {
+     57              wait();
+     58          }
+     59          /********************************************************************/
+     60          /* STOP mode entry routine. Puts the processor into normal stop mode.
+     61           * In this mode core, bus and peripheral clocks are disabled.
+     62           *
+     63           * Mode transitions:
+     64           * RUN -> STOP
+     65           * VLPR -> VLPS
+     66           *
+     67           * This function can be used to enter normal stop mode or VLPS
+     68           * mode. If you are executing in normal run mode when calling this
+     69           * function, then you will enter normal stop mode. If you are in VLPR
+     70           * mode when calling this function, then you will enter VLPS mode instead.
+     71           *
+     72           * STOP mode is exited using any enabled interrupt or RESET, so no
+     73           * exit_stop routine is needed.
+     74           *
+     75           * Parameters:
+     76           * none
+     77           */
+     78          void enter_stop(void)
+     79          {
+     80              /* Set the STOPM field to 0b000 for normal STOP mode - Need to retain state of LPWUI bit 8 */
+     81              SMC_PMCTRL =  SMC_PMCTRL_STOPM(0);           // set STOPM = 0b000
+     82              stop();
+     83          }
+     84          /********************************************************************/
+     85          /* VLPR mode entry routine. Puts the processor into very low power
+     86           * run mode. In this mode all clocks are enabled, but the core, bus,
+     87           * and peripheral clocks are limited to 2MHz or less. The flash 
+     88           * clock is limited to 1MHz or less. 
+     89           *
+     90           * Mode transitions:
+     91           * RUN -> VLPR
+     92           *
+     93           * exit_vlpr() function or an interrupt with LPWUI set can be used 
+     94           * to switch from VLPR back to RUN. The enable_lpwui() and disable_lpwui()
+     95           * functions can be used to set LPWUI to the desired option prior to 
+     96           * calling enter_vlpr().
+     97           *
+     98           * Parameters:
+     99           * none
+    100           */
+    101          void enter_vlpr(char lpwui_value)
+    102          {
+    103             
+    104            if ((SMC_PMSTAT & SMC_PMSTAT_PMSTAT_MASK)== 4){
+    105              	 printf(" \n[enter_vlpr] Already in VLPR Mode ! ");
+    106                   return;
+    107                   }
+    108            SMC_PMPROT = SMC_PMPROT_AVLP_MASK;  // write oneif not all set make sure all enabled
+    109                                                 //this write-once bit allows the MCU to enter the
+    110                                                 //very low power modes: VLPR, VLPW, and VLPS.
+    111              
+    112             if(lpwui_value){
+    113                 SMC_PMCTRL = SMC_PMCTRL_LPWUI_MASK | SMC_PMCTRL_RUNM(2);   
+    114             } else {
+    115                 SMC_PMCTRL = (~SMC_PMCTRL_LPWUI_MASK) & SMC_PMCTRL_RUNM(2);  
+    116             }    
+    117                  
+    118              
+    119                /* Wait for VLPS regulator mode to be confirmed */
+    120          
+    121             while((PMC_REGSC & PMC_REGSC_REGONS_MASK) ==0x04){
+    122               printf(" \n[enter_vlpr] Waiting on REGONS to clear ! ");
+    123             }   // 0 Regulator in stop Reg mode
+    124                 // 1 MCU is in Run regulation mode
+    125             printf("[enter_vlpr] Now in VLPR at 19200 baud  \r\n");
+    126             
+    127                   while((SMC_PMSTAT & SMC_PMSTAT_PMSTAT_MASK) != 4){
+    128              	 printf(" \n[enter_vlpr] HALT PMSTAT does not indicate in VLPR Mode ! ");
+    129                   }
+    130          }
+    131          /********************************************************************/
+    132          /* VLPR mode exit routine. Puts the processor into normal run mode
+    133           * from VLPR mode. You can transition from VLPR to normal run using
+    134           * this function or an interrupt with LPWUI set. The enable_lpwui() 
+    135           * and disable_lpwui() functions can be used to set LPWUI to the 
+    136           * desired option prior to calling enter_vlpr().
+    137           *
+    138           * Mode transitions:
+    139           * VLPR -> RUN
+    140           *
+    141           * Parameters:
+    142           * none
+    143           */
+    144          void exit_vlpr(void)
+    145          {
+    146              /* check to make sure in VLPR before exiting    */
+    147              if  ((SMC_PMSTAT & SMC_PMSTAT_PMSTAT_MASK)== 4) {
+    148                
+    149                 /* Clear RUNM */
+    150                 SMC_PMCTRL &= ~(SMC_PMCTRL_RUNM(0x3));
+    151                                
+    152                 /* Wait for normal RUN regulation mode to be confirmed */                   
+    153                 // 0 MCU is not in run regulation mode
+    154                 // 1 MCU is in run regulation mode
+    155                 while(!(PMC_REGSC & PMC_REGSC_REGONS_MASK)){
+    156              	 printf(" \n[exit_vlpr] Waiting on REGONS bit to set to indicate Run regulation mode ! ");
+    157                   } 
+    158                 
+    159              }  //if in VLPR mode
+    160               // else if not in VLPR ignore call
+    161          }
+    162          /********************************************************************/
+    163          /* VLPS mode entry routine. Puts the processor into VLPS mode directly
+    164           * from normal run mode. 
+    165           *
+    166           * Mode transitions:
+    167           * RUN -> VLPS
+    168           *
+    169           * If VLPS mode is entered directly from normal RUN mode, then the 
+    170           * LPWUI bit is forced to 1 by hardware. This means that when an
+    171           * interrupt occurs you will exit to normal run mode instead of VLPR.
+    172           *
+    173           * If however VLPS mode is entered from VLPR the state of the LPWUI bit
+    174           * determines the state the MCU will return to upon exit from VLPS.If LPWUI is set
+    175           * and an interrupt occurs you will exit to normal run mode instead of VLPR. 
+    176           * If LPWUI is clear and an interrupt occurs you will exit to VLPR.
+    177           *
+    178           * Parameters:  value of LPWUI
+    179           * none
+    180           */
+    181          void enter_vlps(char lpwui_value)
+    182          {
+    183              /* Write to PMPROT to allow VLPS power modes */
+    184              SMC_PMPROT = SMC_PMPROT_AVLP_MASK;   // write oneif not all set make sure all enabled
+    185                                                 //this write-once bit allows the MCU to enter the
+    186                                                 //very low power modes: VLPR, VLPW, and VLPS.
+    187                  
+    188              /* Set the LPLLSM field to 0b010 for VLPS mode - Need to set state of LPWUI bit 8 */
+    189              if(lpwui_value){
+    190               SMC_PMCTRL = (SMC_PMCTRL & (SMC_PMCTRL_RUNM_MASK |SMC_PMCTRL_LPWUI_MASK)) |
+    191                            SMC_PMCTRL_STOPM(0x2) | 
+    192                            SMC_PMCTRL_LPWUI_MASK ;
+    193               } else {
+    194               SMC_PMCTRL = (SMC_PMCTRL & (SMC_PMCTRL_RUNM_MASK |~SMC_PMCTRL_LPWUI_MASK)) |
+    195                            SMC_PMCTRL_STOPM(0x2) ;
+    196               }  
+    197              /* Now execute the stop instruction to go into VLPS */
+    198              stop();
+    199          }
+    200          /********************************************************************/
+    201          /* LLS mode entry routine. Puts the processor into LLS mode from
+    202           * normal run mode or VLPR. 
+    203           *
+    204           * Mode transitions:
+    205           * RUN -> LLS
+    206           * VLPR -> LLS
+    207           *
+    208           * NOTE: LLS mode will always exit to RUN mode even if you were 
+    209           * in VLPR mode before entering LLS.
+    210           *
+    211           * Wakeup from LLS mode is controlled by the LLWU module. Most
+    212           * modules cannot issue a wakeup interrupt in LLS mode, so make
+    213           * sure to setup the desired wakeup sources in the LLWU before 
+    214           * calling this function.
+    215           *
+    216           * Parameters:
+    217           * none
+    218           */
+    219          void enter_lls(void)
+    220          {
+    221              /* Write to PMPROT to allow LLS power modes */
+    222              SMC_PMPROT = SMC_PMPROT_ALLS_MASK;   //this write-once bit allows the MCU to enter the
+    223                                                 //LLS low power mode
+    224              /* Set the LPLLSM field to 0b011 for LLS mode  */
+    225              SMC_PMCTRL = SMC_PMCTRL_STOPM(0x3) ; 
+    226              /* Now execute the stop instruction to go into LLS */
+    227              stop();
+    228          }
+    229          /********************************************************************/
+    230          /* VLLS3 mode entry routine. Puts the processor into VLLS3 mode from
+    231           * normal run mode or VLPR. 
+    232           *
+    233           * Mode transitions:
+    234           * RUN -> VLLS3
+    235           * VLPR -> VLLS3
+    236           *
+    237           * NOTE: VLLSx modes will always exit to RUN mode even if you were 
+    238           * in VLPR mode before entering VLLSx.
+    239           *
+    240           * Wakeup from VLLSx mode is controlled by the LLWU module. Most
+    241           * modules cannot issue a wakeup interrupt in VLLSx mode, so make
+    242           * sure to setup the desired wakeup sources in the LLWU before 
+    243           * calling this function.
+    244           *
+    245           * Parameters:
+    246           * none  
+    247           */
+    248          void enter_vlls3(void)
+    249          {
+    250              /* Write to PMPROT to allow VLLS3 power modes */
+    251              SMC_PMPROT = SMC_PMPROT_AVLLS_MASK;
+    252                  
+    253              /* Set the VLLSM field to 0b100 for VLLS3 mode - Need to retain state of LPWUI bit 8 */
+    254              SMC_PMCTRL = (SMC_PMCTRL & (SMC_PMCTRL_RUNM_MASK |SMC_PMCTRL_LPWUI_MASK)) |
+    255                            SMC_PMCTRL_STOPM(0x4) ; // retain LPWUI
+    256           
+    257              SMC_VLLSCTRL =  SMC_VLLSCTRL_VLLSM(3);           // set VLLSM = 0b11
+    258          
+    259              /* Now execute the stop instruction to go into VLLS3 */
+    260              stop();
+    261          }
+    262          /********************************************************************/
+    263          /* VLLS2 mode entry routine. Puts the processor into VLLS2 mode from
+    264           * normal run mode or VLPR. 
+    265           *
+    266           * Mode transitions:
+    267           * RUN -> VLLS2
+    268           * VLPR -> VLLS2
+    269           *
+    270           * NOTE: VLLSx modes will always exit to RUN mode even if you were 
+    271           * in VLPR mode before entering VLLSx.
+    272           *
+    273           * Wakeup from VLLSx mode is controlled by the LLWU module. Most
+    274           * modules cannot issue a wakeup interrupt in VLLSx mode, so make
+    275           * sure to setup the desired wakeup sources in the LLWU before 
+    276           * calling this function.
+    277           *
+    278           * Parameters:
+    279           * none  
+    280           */
+    281          void enter_vlls2(void)
+    282          {
+    283              /* Write to PMPROT to allow VLLS2 power modes */
+    284              SMC_PMPROT = SMC_PMPROT_AVLLS_MASK;
+    285                  
+    286              /* Set the VLLSM field to 0b100 for VLLS2 mode - Need to retain state of LPWUI bit 8 */
+    287              SMC_PMCTRL = (SMC_PMCTRL & (SMC_PMCTRL_RUNM_MASK |SMC_PMCTRL_LPWUI_MASK)) |
+    288                            SMC_PMCTRL_STOPM(0x4) ; // retain LPWUI
+    289           
+    290              SMC_VLLSCTRL =  SMC_VLLSCTRL_VLLSM(2);           // set VLLSM = 0b10
+    291                  
+    292              /* Now execute the stop instruction to go into VLLS2 */
+    293              stop();
+    294          }
+    295          /********************************************************************/
+    296          /* VLLS1 mode entry routine. Puts the processor into VLLS1 mode from
+    297           * normal run mode or VLPR. 
+    298           *
+    299           * Mode transitions:
+    300           * RUN -> VLLS1
+    301           * VLPR -> VLLS1
+    302           *
+    303           * NOTE: VLLSx modes will always exit to RUN mode even if you were 
+    304           * in VLPR mode before entering VLLSx.
+    305           *
+    306           * Wakeup from VLLSx mode is controlled by the LLWU module. Most
+    307           * modules cannot issue a wakeup interrupt in VLLSx mode, so make
+    308           * sure to setup the desired wakeup sources in the LLWU before 
+    309           * calling this function.
+    310           *
+    311           * Parameters:
+    312           * none  
+    313           */
+    314          void enter_vlls1(void)
+    315          {
+    316              /* Write to PMPROT to allow all possible power modes */
+    317              /* Set the VLLSM field to 0b100 for VLLS1 mode - Need to retain state of LPWUI bit 8 */
+    318              SMC_PMCTRL = (SMC_PMCTRL & (SMC_PMCTRL_RUNM_MASK |SMC_PMCTRL_LPWUI_MASK)) |
+    319                            SMC_PMCTRL_STOPM(0x4) ; // retain LPWUI
+    320          
+    321              SMC_VLLSCTRL =  SMC_VLLSCTRL_VLLSM(1);           // set VLLSM = 0b01
+    322                 
+    323              /* Now execute the stop instruction to go into VLLS1 */
+    324              stop();
+    325          }
+    326          
+    327          /********************************************************************/
+    328          /* VLLS0 mode entry routine. Puts the processor into VLLS0 mode from
+    329           * normal run mode or VLPR. 
+    330           *
+    331           * Mode transitions:
+    332           * RUN -> VLLS0
+    333           * VLPR -> VLLS0
+    334           *
+    335           * NOTE: VLLSx modes will always exit to RUN mode even if you were 
+    336           * in VLPR mode before entering VLLSx.
+    337           *
+    338           * Wakeup from VLLSx mode is controlled by the LLWU module. Most
+    339           * modules cannot issue a wakeup interrupt in VLLSx mode, so make
+    340           * sure to setup the desired wakeup sources in the LLWU before 
+    341           * calling this function.
+    342           *
+    343           * Parameters:
+    344           * none  
+    345           */
+    346          void enter_vlls0(void)
+    347          {
+    348              /* Write to PMPROT to allow all possible power modes */
+    349              /* Set the VLLSM field to 0b100 for VLLS1 mode - Need to retain state of LPWUI bit 8 */
+    350              SMC_PMCTRL = (SMC_PMCTRL & (SMC_PMCTRL_RUNM_MASK |SMC_PMCTRL_LPWUI_MASK)) |
+    351                            SMC_PMCTRL_STOPM(0x4) ; // retain LPWUI
+    352          
+    353              SMC_VLLSCTRL =  SMC_VLLSCTRL_VLLSM(0) ;    // set PORPO = 0b00
+    354               /* Now execute the stop instruction to go into VLLS1 */
+    355              printf("[enter_vlls0]SMC_PMPROT   = %#02X \r\n", (SMC_PMPROT))  ;
+    356              printf("[enter_vlls0]SMC_PMCTRL   = %#02X \r\n", (SMC_PMCTRL))  ;
+    357              printf("[enter_vlls0]SMC_VLLSCTRL   = %#02X \r\n", (SMC_VLLSCTRL))  ;
+    358              printf("[enter_vlls0]SMC_PMSTAT   = %#02X \r\n", (SMC_PMSTAT))  ;
+    359              printf("\n                                        ");
+    360              stop();
+    361          }
+    362          /********************************************************************/
+    363          /* VLLS0 mode entry routine. Puts the processor into VLLS0 mode from
+    364           * normal run mode or VLPR with the POR circuit disabled
+    365           *
+    366           * Mode transitions:
+    367           * RUN -> VLLS0
+    368           * VLPR -> VLLS0
+    369           *
+    370           * NOTE: VLLSx modes will always exit to RUN mode even if you were 
+    371           * in VLPR mode before entering VLLSx.
+    372           *
+    373           * Wakeup from VLLSx mode is controlled by the LLWU module. Most
+    374           * modules cannot issue a wakeup interrupt in VLLSx mode, so make
+    375           * sure to setup the desired wakeup sources in the LLWU before 
+    376           * calling this function.
+    377           *
+    378           * Parameters:
+    379           * none  
+    380           */
+    381          void enter_vlls0_nopor(void)
+    382          {
+    383              /* Write to PMPROT to allow all possible power modes */
+    384              /* Set the VLLSM field to 0b100 for VLLS1 mode - Need to retain state of LPWUI bit 8 */
+    385              SMC_PMCTRL = (SMC_PMCTRL & (SMC_PMCTRL_RUNM_MASK |SMC_PMCTRL_LPWUI_MASK)) |
+    386                            SMC_PMCTRL_STOPM(0x4) ; // retain LPWUI
+    387          
+    388              SMC_VLLSCTRL =  SMC_VLLSCTRL_VLLSM(0) | SMC_VLLSCTRL_PORPO_MASK;    // set PORPO = 0b01
+    389               /* Now execute the stop instruction to go into VLLS1 */
+    390              printf("[enter_vlls0_nopor]SMC_PMPROT   = %#02X \r\n", (SMC_PMPROT))  ;
+    391              printf("[enter_vlls0_nopor]SMC_PMCTRL   = %#02X \r\n", (SMC_PMCTRL))  ;
+    392              printf("[enter_vlls0_nopor]SMC_VLLSCTRL   = %#02X \r\n", (SMC_VLLSCTRL))  ;
+    393              printf("[enter_vlls0_nopor]SMC_PMSTAT   = %#02X \r\n", (SMC_PMSTAT))  ;
+    394              printf("\n                                        ");
+    395              stop();
+    396          }
+    397          /********************************************************************/
+    398          /* Enable low power wake up on interrupt. This function can be used
+    399           * to set the LPWUI bit. When this bit is set VLPx modes will exit
+    400           * to normal run mode. When this bit is cleared VLPx modes will exit
+    401           * to VLPR mode.
+    402           *
+    403           * The disable_lpwui() function can be used to clear the LPWUI bit.
+    404           *
+    405           * Parameters:
+    406           * none
+    407           */
+    408          
+    409             
+    410          
+    411          void enable_lpwui(void)
+    412          {
+    413              SMC_PMCTRL |= SMC_PMCTRL_LPWUI_MASK;
+    414              printf("[enable_lpwui]SMC_PMCTRL   = %#02X \r\n", (SMC_PMCTRL))  ;
+    415          }
+    416          /********************************************************************/
+    417          /* Disable low power wake up on interrupt. This function can be used
+    418           * to clear the LPWUI bit. When this bit is set VLPx modes will exit
+    419           * to normal run mode. When this bit is cleared VLPx modes will exit
+    420           * to VLPR mode.
+    421           *
+    422           * The enable_lpwui() function can be used to set the LPWUI bit.
+    423           *
+    424           * Parameters:
+    425           * none
+    426           */
+    427          void disable_lpwui(void)
+    428          {
+    429              SMC_PMCTRL &= ~SMC_PMCTRL_LPWUI_MASK;
+    430              printf("[disable_lpwui]SMC_PMCTRL   = %#02X \r\n", (SMC_PMCTRL))  ;
+    431          }
+    432          
+    433          /********************************************************************/
+
+Errors: 1
+Warnings: none

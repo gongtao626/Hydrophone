@@ -1,0 +1,2539 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <fileChecksum>2030317142</fileChecksum>
+  <configuration>
+    <name>FLASH_128KB_PFLASH</name>
+    <outputs>
+      <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\wdog.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\arm_cm4.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\io.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\sysinit.o</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Lib\IAR\iar_cortexM4l_math.a</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\wdog.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\write.pbi</file>
+      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\vectors.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Full.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\io.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\List\hello_world_tower.map</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\hw_spi.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\arm_cm4.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\startup.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\vectors.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\smc.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\lptmr.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\startup.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\sysinit.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\isr.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\start.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Exe\platinum_tower.srec</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\memtest.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Exe\hello_world_tower.srec</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\hello_world.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\mcg_ram.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\platinum_firebird.pbd</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\uart.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\uart.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\mcg.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\List\platinum.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\platinum_tower.pbd</file>
+      <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\pmc.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\hw_gpio.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\platinum.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\hello_world_tower.pbd</file>
+      <file>$TOOLKIT_DIR$\inc\c\yfuns.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\smc.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\common.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\assert.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\read.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\rcm.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\mcg_ram.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\platinum.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\uif.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\rtc.o</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\crt0.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\assert.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\io.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\assert.c</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\hello_boy.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\rtc.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\memtest.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\src\projects\hello_world\isr.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\projects\hello_world\hello_world.c</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\mcg.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\assert.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\llwu.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Exe\platinum_tower.out</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\pmc.o</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\io.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\memtest.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\memtest.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\startup.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\startup.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\uif.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\uif.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\arm_cm4.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\crt0.s</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\start.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\start.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\sysinit.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\sysinit.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\vectors.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\vectors.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\llwu\llwu.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\llwu\llwu.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\lptmr\lptmr.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\lptmr\lptmr.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg_ram.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg_ram.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\pmc\pmc.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\pmc\pmc.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\rcm\rcm.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\rcm\rcm.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\rtc\rtc.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\rtc\rtc.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\smc\smc.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\smc\smc.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\uart\uart.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\uart\uart.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\wdog\wdog.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\wdog\wdog.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\gpio\hw_gpio.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\gpio\hw_gpio.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\spi\hw_spi.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\spi\hw_spi.h</file>
+      <file>$PROJ_DIR$\..\config files\128KB_Pflash.icf</file>
+      <file>$PROJ_DIR$\..\iar.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\lptmr.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Exe\platinum_firebird.srec</file>
+      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Exe\platinum_firebird.out</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\uif.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\start.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\read.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\llwu.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Exe\hello_world_tower.out</file>
+      <file>$PROJ_DIR$\..\..\..\src\platforms\tower.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\projects\hello_boy\isr.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\projects\hello_boy\hello_boy.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\semihosting\iar\read.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\semihosting\iar\write.c</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\hw_spi.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\isr.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\hello_boy_tower.pbd</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Exe\hello_boy_tower.srec</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\hello_boy.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\arm_cm4.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\headers\MK20D5.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\List\crt0.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\hw_gpio.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\List\platinum.lst</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tlf.a</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\hello_world.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\write.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\rcm.o</file>
+      <file>$PROJ_DIR$\..\..\..\src\projects\platinum\platinum.c</file>
+    </outputs>
+    <file>
+      <name>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\platinum_firebird.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 3 60 14 123 115 39 54 65 55 43 53 122 64 49 28 24 26 37 56 21 2 10</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\platinum_tower.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 3 60 14 123 115 39 54 65 55 43 53 122 64 49 28 24 26 37 56 21 2 10</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\hello_world_tower.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 3 60 144 141 18 14 27 123 115 39 54 65 43 53 122 64 49 28 24 26 37 56 21 2 10</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\io.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 50</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 50 1 133 16 8 25 121 134 45 38 35 117 132 51 73 77</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\assert.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 60</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 50</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 50 1 133 16 8 25 121 134 45 38 35 117 132 51 73 77</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 15 124</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\projects\hello_world\isr.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 27</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\projects\hello_world\hello_world.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 144</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FLASH_128KB_PFLASH\Exe\platinum_tower.out</name>
+      <outputs>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 29</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 112 19 69 59 4 70 23 68 33 30 46 72 146 52 57 22 120 20 5 36 119 12 7 145 6 9 0 11 58</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\memtest.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 30</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 65</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 75</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 75</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\startup.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 24</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 50</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 50 1 133 16 8 25 121 134 45 38 35 117 132 51 73 77</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\uif.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 56</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 50</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 50 1 133 16 8 25 121 134 45 38 35 117 132 51 73 77 79</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\crt0.s</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 59 140</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\start.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 28</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 83</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 83 85</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\sysinit.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 26</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 85</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\vectors.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 87</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 87</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\llwu\llwu.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 123</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 88</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\lptmr\lptmr.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 115</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 91</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 39</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 93</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg_ram.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 54</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 95</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\pmc\pmc.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 43</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\rcm\rcm.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 53</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 99</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\rtc\rtc.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 64</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 101</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\smc\smc.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 49</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 103</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\uart\uart.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 105</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\wdog\wdog.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 2</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 107</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\gpio\hw_gpio.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 141</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 109</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 109</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\spi\hw_spi.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 111</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 111</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FLASH_128KB_PFLASH\Exe\platinum_firebird.out</name>
+      <outputs>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 116</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 112 19 69 59 4 70 23 68 33 30 46 72 146 52 57 22 120 20 5 36 119 12 7 145 6 9 0 11 58</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FLASH_128KB_PFLASH\Exe\hello_world_tower.out</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 15</file>
+        </tool>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 31 136</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 112 19 69 59 32 44 130 4 131 70 23 68 33 30 72 146 52 57 22 120 20 5 36 119 12 7 145 6 9 0 11 143</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\projects\hello_boy\isr.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 27</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\projects\hello_boy\hello_boy.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 137</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\semihosting\iar\read.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 122</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 48 45 133 16 8 13 25 121 134</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 48 45 133 16 8 25 121 134</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\semihosting\iar\write.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 10</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 48 45 133 16 8 13 25 121 134</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 48 45 133 16 8 25 121 134</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FLASH_128KB_PFLASH\Obj\hello_boy_tower.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 3 60 137 141 18 14 27 123 115 39 54 65 43 53 122 64 49 28 24 26 37 56 21 2 10</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\arm_cm4.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 3</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\projects\platinum\platinum.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 40 142 46</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 55</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 50 80 125 93 139 17 133 16 8 114 25 121 134 113 1 45 38 35 117 132 51 73 77 42</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 50 80 125 93 139 17 133 16 8 25 121 134 113 1 45 38 35 117 132 51 73 77 42</file>
+        </tool>
+      </inputs>
+    </file>
+    <forcedrebuild>
+      <name>[MULTI_TOOL]</name>
+      <tool>ILINK</tool>
+    </forcedrebuild>
+  </configuration>
+  <configuration>
+    <name>FLASH_128KB_PFLASH_32KB_DFLASH</name>
+    <outputs>
+      <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Lib\IAR\iar_cortexM4l_math.a</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\yfuns.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\uif.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\common.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\assert.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\rtc.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\memtest.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\arm_cm4.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\startup.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\mcg.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\vectors.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\sysinit.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\wdog.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\memtest.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\memtest.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\rcm.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\io.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\platinum_firebird.pbd</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\io.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\mcg.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\uart.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\mcg_ram.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\io.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\crt0.lst</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\headers\MK60DZ10.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\lptmr.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\crt0.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\arm_cm4.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\sysinit.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\platinum_tower.pbd</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\uart.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\read.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\write.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\mcg_ram.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\lptmr.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\start.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\src\build\iar\read.c</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\assert.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\src\projects\hello_world\isr.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\llwu.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\startup.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\read.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\llwu.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Exe\platinum_tower.out</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\assert.s</file>
+      <file>$PROJ_DIR$\..\..\..\src\projects\platinum\isr.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\smc.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\rcm.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\assert.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\startup.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\platinum.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\wdog.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Exe\hello_world_tower.out</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\mcg_ram.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\lptmr.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\mcg.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\vectors.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\startup.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\rcm.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\pmc.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\pmc.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\rcm.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\platinum.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\start.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Exe\platinum_firebird.out</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\mcg.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\uart.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\hello_world.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\llwu.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\vectors.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\read.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\uif.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\start.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\write.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\write.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Exe\hello_world_tower.srec</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\wdog.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\io.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\mcg_ram.o</file>
+      <file>$PROJ_DIR$\..\..\..\src\build\iar\write.c</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\platinum.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\smc.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\assert.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Exe\platinum_firebird.srec</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\sysinit.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\lptmr.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\memtest.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\smc.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\rtc.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\arm_cm4.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\sysinit.pbi</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\io.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\assert.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\projects\hello_world\hello_world.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\io.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\memtest.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\memtest.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\startup.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\startup.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\uif.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\uif.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\arm_cm4.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\crt0.s</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\start.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\start.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\sysinit.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\sysinit.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\vectors.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\vectors.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\llwu\llwu.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\llwu\llwu.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\lptmr\lptmr.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\lptmr\lptmr.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg_ram.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg_ram.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\pmc\pmc.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\pmc\pmc.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\rcm\rcm.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\rcm\rcm.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\rtc\rtc.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\rtc\rtc.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\smc\smc.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\smc\smc.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\uart\uart.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\uart\uart.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\wdog\wdog.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\wdog\wdog.h</file>
+      <file>$PROJ_DIR$\..\config files\128KB_Pflash_32KB_Dflash.icf</file>
+      <file>$PROJ_DIR$\..\iar.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\platforms\tower.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\semihosting\iar\read.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\semihosting\iar\write.c</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\hello_world.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\pmc.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\uif.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\rtc.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\wdog.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\vectors.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Exe\platinum_tower.srec</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\platinum_tower.map</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\write.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\rtc.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\start.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\platinum.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\uif.lst</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\arm_cm4.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\read.o</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\llwu.s</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\smc.o</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\arm_cm4.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\headers\MK20D5.h</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\pmc.pbi</file>
+      <file>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\List\uart.s</file>
+      <file>$PROJ_DIR$\..\..\..\src\projects\platinum\platinum.c</file>
+    </outputs>
+    <file>
+      <name>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\platinum_firebird.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 19 49 28 54 37 31 45 26 62 172 70 53 156 93 47 69 102 42 14 68 24 161</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Obj\platinum_tower.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 19 49 28 54 37 31 45 26 62 172 70 53 156 93 47 69 102 42 14 68 24 161</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\build\iar\read.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 43 82 167</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 53</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 13 12 151 6 3 144 8 146 152 15 114 147 127 36 7 143 1 10 9 145 150 16 107 111 11 139</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13 12 151 6 3 8 146 152 15 114 147 127 36 7 143 1 10 9 145 150 16 107 111 11 139</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Exe\platinum_tower.out</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 160</file>
+        </tool>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 159</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 142 39 60 38 89 51 66 67 90 98 164 154 27 167 17 169 75 61 23 32 155 81 88 85 2 4 0 5 103</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Exe\hello_world_tower.out</name>
+      <outputs>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 87</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FLASH_128KB_PFLASH_32KB_DFLASH\Exe\platinum_firebird.out</name>
+      <outputs>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 95</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 142 39 60 38 89 51 66 67 90 98 164 154 27 167 17 169 75 61 23 32 155 81 88 85 2 4 0 5 103</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\build\iar\write.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 44 86 85</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 161</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 13 12 151 6 3 144 8 146 152 15 114 147 127 36 7 143 1 10 9 145 150 16 107 111 11 139</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13 12 151 6 3 8 146 152 15 114 147 127 36 7 143 1 10 9 145 150 16 107 111 11 139</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\io.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 34 30 89</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 28</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 139</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 139</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\assert.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 56 94 60</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 49</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 160 55 64</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\projects\hello_world\hello_world.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 79</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 153</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\memtest.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 25 18 98</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 26</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 109</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 109</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\startup.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 20 52 61</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 69</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\uif.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 83 165 155</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 113</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\crt0.s</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 38 35</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\start.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 163 84 75</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 47</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 117 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 141 133 119</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 117 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 141 133 119</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\sysinit.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 96 40 23</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 102</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 119 139</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 119 139</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\vectors.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 158 22 81</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 68</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 121 57 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 121 50 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\llwu\llwu.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 168 80 51</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 54</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 122 139 133</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 122 139 133</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\lptmr\lptmr.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 46 97 66</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 125</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 125</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 21 77 67</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 125</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 125</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg_ram.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 33 65 90</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 45</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 129</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 129</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\pmc\pmc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 71 72 154</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 172</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 131 139</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 131 139</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\rcm\rcm.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 59 73 27</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 70</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 133</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 133</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\rtc\rtc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 162 100 17</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 156</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 135</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 135</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\smc\smc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 58 99 169</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 93</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 137</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 137</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\uart\uart.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 173 78 32</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 42</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 139</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 139</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\wdog\wdog.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 63 157 88</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 24</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11 141</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11 141</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\semihosting\iar\read.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 43 82 167</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 53</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 13 12 151 6 3 144 8 146 152 15 114 147 127 171 7 143 1 10 9 145 150 16 107 111 11 139</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13 12 151 6 3 8 146 152 15 114 147 127 171 7 143 1 10 9 145 150 16 107 111 11 139</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\semihosting\iar\write.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 44 86 85</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 161</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 13 12 151 6 3 144 8 146 152 15 114 147 127 171 7 143 1 10 9 145 150 16 107 111 11 139</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13 12 151 6 3 8 146 152 15 114 147 127 171 7 143 1 10 9 145 150 16 107 111 11 139</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\arm_cm4.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 166 101 39</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 19</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\projects\platinum\platinum.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 92 74 164</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 62</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15 114 147 127 171 7 151 6 3 144 8 146 152 143 1 12 10 9 145 150 16 107 111 11</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 114 147 127 171 7 151 6 3 8 146 152 143 1 12 10 9 145 150 16 107 111 11</file>
+        </tool>
+      </inputs>
+    </file>
+    <forcedrebuild>
+      <name>[MULTI_TOOL]</name>
+      <tool>ILINK</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>[REBUILD_ALL]</name>
+    </forcedrebuild>
+  </configuration>
+  <configuration>
+    <name>RAM_16KB</name>
+    <outputs>
+      <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Lib\IAR\iar_cortexM4l_math.a</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\yfuns.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\common.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\assert.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\headers\MK60DZ10.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\build\iar\read.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\projects\hello_world\isr.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\build\iar\write.c</file>
+      <file>$PROJ_DIR$\RAM_16KB\List\write.s</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\wdog.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\llwu.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\uif.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\lptmr.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\rtc.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\List\hello_world_tower.map</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\platinum_firebird.pbd</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\sysinit.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Exe\hello_world_tower.srec</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\uif.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\mcg.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Exe\platinum_firebird.out</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\io.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\pmc.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\startup.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\assert.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\smc.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\read.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\lptmr.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\arm_cm4.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\pmc.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\List\read.s</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\mcg_ram.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\start.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\io.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\mcg_ram.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\uart.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\vectors.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\List\write.lst</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\memtest.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\rcm.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\List\read.lst</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\platinum_tower.pbd</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\mcg.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Exe\platinum_tower.srec</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\crt0.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Exe\platinum_firebird.srec</file>
+      <file>$PROJ_DIR$\RAM_16KB\List\platinum.s</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\vectors.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\smc.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\platinum.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\llwu.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\arm_cm4.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\List\crt0.lst</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\hello_world.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\List\platinum.lst</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\rcm.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\wdog.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\memtest.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\platinum.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Exe\hello_world_tower.out</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\start.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Exe\platinum_tower.out</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\read.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\write.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\assert.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\hw_gpio.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\rtc.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\uart.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\hello_world.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\sysinit.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\startup.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\write.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\hw_spi.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\isr.pbi</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\isr.o</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\hw_spi.o</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\io.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\assert.c</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\hello_world_tower.pbd</file>
+      <file>$PROJ_DIR$\RAM_16KB\Obj\hw_gpio.o</file>
+      <file>$PROJ_DIR$\..\..\..\src\projects\hello_world\isr.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\projects\hello_world\hello_world.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\io.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\memtest.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\memtest.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\startup.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\startup.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\uif.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\common\uif.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\arm_cm4.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\crt0.s</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\start.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\start.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\sysinit.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\sysinit.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\vectors.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\vectors.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\llwu\llwu.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\llwu\llwu.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\lptmr\lptmr.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\lptmr\lptmr.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg_ram.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg_ram.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\pmc\pmc.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\pmc\pmc.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\rcm\rcm.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\rcm\rcm.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\rtc\rtc.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\rtc\rtc.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\smc\smc.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\smc\smc.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\uart\uart.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\uart\uart.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\wdog\wdog.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\wdog\wdog.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\gpio\hw_gpio.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\gpio\hw_gpio.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\spi\hw_spi.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\drivers\spi\hw_spi.h</file>
+      <file>$PROJ_DIR$\..\config files\16KB_RAM.icf</file>
+      <file>$PROJ_DIR$\..\iar.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\platforms\tower.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\semihosting\iar\read.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\semihosting\iar\write.c</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\arm_cm4.c</file>
+      <file>$PROJ_DIR$\..\..\..\src\cpu\headers\MK20D5.h</file>
+      <file>$PROJ_DIR$\..\..\..\src\projects\platinum\platinum.c</file>
+    </outputs>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\build\iar\read.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 42 52 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 74</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 13 12 143 6 3 136 8 138 144 14 102 139 115 16 7 135 1 10 9 137 142 15 95 99 11 127</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13 12 143 6 3 8 138 144 14 102 139 115 16 7 135 1 10 9 137 142 15 95 99 11 127</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\build\iar\write.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 20 49 75</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 83</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 13 12 143 6 3 136 8 138 144 14 102 139 115 16 7 135 1 10 9 137 142 15 95 99 11 127</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13 12 143 6 3 8 138 144 14 102 139 115 16 7 135 1 10 9 137 142 15 95 99 11 127</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\RAM_16KB\Obj\platinum_firebird.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 40 36 33 22 39 31 43 69 70 41 67 74 25 60 44 35 28 79 30 59 21 83</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\RAM_16KB\Exe\platinum_firebird.out</name>
+      <outputs>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 57</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 134 63 76 56 45 62 24 54 46 50 61 34 51 38 78 37 72 82 81 47 23 48 68 75 2 4 0 5 88</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\RAM_16KB\Obj\platinum_tower.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 40 36 33 22 39 31 43 69 70 41 67 74 25 60 44 35 28 79 30 59 21 83</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\RAM_16KB\Exe\hello_world_tower.out</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 26</file>
+        </tool>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 29</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 134 63 76 56 65 92 87 45 86 62 24 54 46 50 34 51 38 78 37 72 82 81 47 23 48 68 75 2 4 0 5 88</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\RAM_16KB\Exe\platinum_tower.out</name>
+      <outputs>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 55</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 134 63 76 56 45 62 24 54 46 50 61 34 51 38 78 37 72 82 81 47 23 48 68 75 2 4 0 5 88</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\io.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 45</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 33</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\assert.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 76</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 36</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 71 26</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\RAM_16KB\Obj\hello_world_tower.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 40 36 80 77 84 33 85 22 39 31 43 69 41 67 74 25 60 44 35 28 79 30 59 21 83</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\projects\hello_world\isr.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 86</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 85</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\projects\hello_world\hello_world.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 65</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 80</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\memtest.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 50</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 69</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\startup.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 82</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\common\uif.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 23</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 30</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113 101</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\crt0.s</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 56 64</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\start.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 72</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 105 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 105 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113 129 107</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\sysinit.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 81</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 28</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113 107</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\vectors.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 48</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 59</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 109 18 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 109 18 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\llwu\llwu.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 62</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 22</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113 110</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\lptmr\lptmr.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 24</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 39</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 54</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg_ram.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 46</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 43</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113 117</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\pmc\pmc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 34</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 41</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113 119</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\rcm\rcm.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 51</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 67</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113 121</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\rtc\rtc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 78</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113 123</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\smc\smc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 37</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 60</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113 125</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\uart\uart.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 47</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 79</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\wdog\wdog.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 68</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113 129</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\gpio\hw_gpio.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 92</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 77</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 131 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 131 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\spi\hw_spi.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 87</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 84</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 133 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 133 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\semihosting\iar\read.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 74</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 13 12 143 6 3 136 8 138 144 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13 12 143 6 3 8 138 144 14 102 139 115 135 1 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\semihosting\iar\write.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 75</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 83</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 13 12 143 6 3 136 8 138 144 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13 12 143 6 3 8 138 144 14 102 139 115 135 1 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\arm_cm4.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 63</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 40</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 135 1 143 6 3 8 138 144 12 10 9 137 142 15 95 99 11 127 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\src\projects\platinum\platinum.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 58 66 61</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 70</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 102 139 115 146 7 143 6 3 136 8 138 144 135 1 12 10 9 137 142 15 95 99 11</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 102 139 115 146 7 143 6 3 8 138 144 135 1 12 10 9 137 142 15 95 99 11</file>
+        </tool>
+      </inputs>
+    </file>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\common\io.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\common\assert.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\projects\hello_world\isr.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\projects\hello_world\hello_world.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\common\memtest.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\common\startup.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\common\uif.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\start.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\sysinit.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\vectors.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\llwu\llwu.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\lptmr\lptmr.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\mcg\mcg_ram.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\pmc\pmc.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\rcm\rcm.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\rtc\rtc.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\smc\smc.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\uart\uart.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\wdog\wdog.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\gpio\hw_gpio.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\drivers\spi\hw_spi.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\semihosting\iar\read.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\semihosting\iar\write.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\src\cpu\arm_cm4.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>[REBUILD_ALL]</name>
+    </forcedrebuild>
+  </configuration>
+</project>
+
+

@@ -1,0 +1,165 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:18 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\project #
+#                    s\hello_world\hello_world.c                              #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\projec #
+#                    ts\hello_world\hello_world.c" -D IAR -D TOWER -D         #
+#                    TWR_K20D50M -lCN "C:\Documents and                       #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\List\" -lB "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\List\" -o "C:\Documents and                 #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\hello_world.lst       #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\hello_world.o          #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\projects\hello_world\hello_world.c
+      1          /**
+      2            \mainpage 
+      3            \n Copyright (c) 2011 Freescale
+      4            \n Freescale Confidential Proprietary 
+      5            \brief 
+      6            \author   	Freescale Semiconductor
+      7            \author    
+      8            \version      m.n
+      9            \date         Sep 14, 2011
+     10            
+     11            Put here all the information needed of the Project. Basic configuration as well as information on
+     12            the project definition will be very useful 
+     13          */
+     14          /****************************************************************************************************/
+     15          /*                                                                                                  */
+     16          /* All software, source code, included documentation, and any implied know-how are property of      */
+     17          /* Freescale Semiconductor and therefore considered CONFIDENTIAL INFORMATION.                       */
+     18          /* This confidential information is disclosed FOR DEMONSTRATION PURPOSES ONLY.                      */
+     19          /*                                                                                                  */
+     20          /* All Confidential Information remains the property of Freescale Semiconductor and will not be     */
+     21          /* copied or reproduced without the express written permission of the Discloser, except for copies  */
+     22          /* that are absolutely necessary in order to fulfill the Purpose.                                   */
+     23          /*                                                                                                  */
+     24          /* Services performed by FREESCALE in this matter are performed AS IS and without any warranty.     */
+     25          /* CUSTOMER retains the final decision relative to the total design and functionality of the end    */
+     26          /* product.                                                                                         */
+     27          /* FREESCALE neither guarantees nor will be held liable by CUSTOMER for the success of this project.*/
+     28          /*                                                                                                  */
+     29          /* FREESCALE disclaims all warranties, express, implied or statutory including, but not limited to, */
+     30          /* implied warranty of merchantability or fitness for a particular purpose on any hardware,         */
+     31          /* software ore advise supplied to the project by FREESCALE, and or any product resulting from      */
+     32          /* FREESCALE services.                                                                              */
+     33          /* In no event shall FREESCALE be liable for incidental or consequential damages arising out of     */
+     34          /* this agreement. CUSTOMER agrees to hold FREESCALE harmless against any and all claims demands or */
+     35          /* actions by anyone on account of any damage,or injury, whether commercial, contractual, or        */
+     36          /* tortuous, rising directly or indirectly as a result of the advise or assistance supplied CUSTOMER*/ 
+     37          /* in connectionwith product, services or goods supplied under this Agreement.                      */
+     38          /*                                                                                                  */
+     39          /****************************************************************************************************/
+     40          
+     41          /*****************************************************************************************************
+     42          * Include files
+     43          *****************************************************************************************************/
+     44          #include "common.h"
+     45          
+     46          /*****************************************************************************************************
+     47          * Declaration of module wide FUNCTIONs - NOT for use in other modules
+     48          *****************************************************************************************************/
+     49          
+     50          /*****************************************************************************************************
+     51          * Definition of module wide MACROs / #DEFINE-CONSTANTs - NOT for use in other modules
+     52          *****************************************************************************************************/
+     53          
+     54          /*****************************************************************************************************
+     55          * Declaration of module wide TYPEs - NOT for use in other modules
+     56          *****************************************************************************************************/
+     57          
+     58          /*****************************************************************************************************
+     59          * Definition of module wide VARIABLEs - NOT for use in other modules
+     60          *****************************************************************************************************/
+     61          
+     62          /*****************************************************************************************************
+     63          * Definition of module wide (CONST-) CONSTANTs - NOT for use in other modules
+     64          *****************************************************************************************************/
+     65          
+     66          /*****************************************************************************************************
+     67          * Code of project wide FUNCTIONS
+     68          *****************************************************************************************************/
+     69          
+     70          
+     71          #include "common.h"
+     72          
+     73          /**
+     74           * \brief   main
+     75           * \author  
+     76           * \param  none
+     77           * \return none
+     78           * \todo
+     79           * \warning
+     80           */  
+     81          int main (void)
+     82          {
+     83          	char ch;
+     84          
+     85          #ifdef KEIL
+     86          	start();
+     87          #endif
+     88                  
+     89            	printf("\nRunning the hello_world project in K2050MHz family\n");
+     90          
+     91          	while(1)
+     92          	{
+     93          		ch = getchar();
+     94          		putchar(ch);
+     95          	} 
+     96          }
+     97          /********************************************************************/
+
+Errors: 1
+Warnings: none

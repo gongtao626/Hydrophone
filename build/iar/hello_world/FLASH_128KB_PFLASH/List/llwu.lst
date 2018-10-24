@@ -1,0 +1,433 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:18 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers #
+#                    \llwu\llwu.c                                             #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\driver #
+#                    s\llwu\llwu.c" -D IAR -D TOWER -D TWR_K20D50M -lCN       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\llwu.lst              #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\llwu.o                 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers\llwu\llwu.c
+      1          /*!
+      2           * \file    llwu.c
+      3           * \brief   common LLWU routines
+      4           *
+      5           * This file defines the functions/interrupt handlers/macros used for LLWU to be used as wakeup source.
+      6           * And some common initializations.
+      7           *
+      8           * \version $Revision: 1.0 $
+      9           * \author  Philip Drake(rxaa60)
+     10           ***/
+     11          
+     12          #include "common.h"
+     13          #include "llwu.h"
+     14          #include "mcg.h"
+     15          #include "uart.h"
+     16          #include "rcm.h"
+     17          
+     18          extern int re_init_clk;
+     19          extern int mcg_clk_hz;
+     20          extern int mcg_clk_khz;
+     21          extern int core_clk_khz;
+     22          
+     23          
+     24          /*******************************************************************************
+     25          *
+     26          *   PROCEDURE NAME:
+     27          *       llwu_reset_enable -
+     28          *
+     29          *******************************************************************************/
+     30          void llwu_reset_enable(void)
+     31          {
+     32              printf(" LLWU Reset pin enabled as wakeup source from Low power modes \n");
+     33              LLWU_RST = LLWU_RST_LLRSTE_MASK;   //no reset filter for now
+     34          }
+     35          
+     36          
+     37          /*******************************************************************************
+     38          *
+     39          *   PROCEDURE NAME:
+     40          *       llwu_configure -
+     41          *
+     42          *******************************************************************************/
+     43          /* function: llwu_configure
+     44          
+     45             description: Set up the LLWU for wakeup the MCU from LLS and VLLSx modes
+     46             from the selected pin or module.
+     47          
+     48             inputs:
+     49             pin_en - unsigned integer, bit position indicates the pin is enabled.
+     50                      More than one bit can be set to enable more than one pin at a time.
+     51          
+     52             rise_fall - 0x00 = External input disabled as wakeup
+     53                         0x01 - External input enabled as rising edge detection
+     54                         0x02 - External input enabled as falling edge detection
+     55                         0x03 - External input enablge as any edge detection
+     56             module_en - unsigned char, bit position indicates the module is enabled.
+     57                         More than one bit can be set to enabled more than one module
+     58          
+     59             for example:  if bit 0 and 1 need to be enabled as rising edge detect call this  routine with
+     60             pin_en = 0x0003 and rise_fall = 0x02
+     61          
+     62             Note: to set up one set of pins for rising and another for falling, 2 calls to this
+     63                   function are required, 1st for rising then the second for falling.
+     64          
+     65          */
+     66          void llwu_configure(unsigned int pin_en, unsigned char rise_fall, unsigned char module_en )
+     67          {
+     68              uint8 temp;
+     69          
+     70              temp = LLWU_PE1;
+     71              if( pin_en & 0x0001)
+     72              {
+     73                  temp |= LLWU_PE1_WUPE0(rise_fall);
+     74                  printf(" LLWU configured pins PTE1/UART1_RX/I2C1_SCL /SPI1_SIN to be an LLWU wakeup source \n");
+     75                  LLWU_F1 |= LLWU_F1_WUF0_MASK;   // write one to clear the flag
+     76              }
+     77              if( pin_en & 0x0002)
+     78              {
+     79                  temp |= LLWU_PE1_WUPE1(rise_fall);
+     80                  printf(" LLWU configured pins PTE2/SPI1_SCK/SDHC0_DCLK to be an LLWU wakeup source \n");
+     81                  LLWU_F1 |= LLWU_F1_WUF1_MASK;   // write one to clear the flag
+     82              }
+     83              if( pin_en & 0x0004)
+     84              {
+     85                  temp |= LLWU_PE1_WUPE2(rise_fall);
+     86                  printf(" LLWU configured pins PTE4/SPI1_PCS0/SDHC0_D3 to be an LLWU wakeup source \n");
+     87                  LLWU_F1 |= LLWU_F1_WUF2_MASK;   // write one to clear the flag
+     88              }
+     89              if( pin_en & 0x0008)
+     90              {
+     91                  temp |= LLWU_PE1_WUPE3(rise_fall);
+     92                  printf(" LLWU configured pins PTA4/FTM0_CH1/NMI/EZP_CS to be an LLWU wakeup source \n");
+     93                  LLWU_F1 |= LLWU_F1_WUF3_MASK;   // write one to clear the flag
+     94              }
+     95              LLWU_PE1 = temp;
+     96          
+     97              temp = LLWU_PE2;
+     98              if( pin_en & 0x0010)
+     99              {
+    100                  temp |= LLWU_PE2_WUPE4(rise_fall);
+    101                  printf(" LLWU configured pins PTA13/FTM1_CH1 /FTM1_QD_PHB to be an LLWU wakeup source \n");
+    102                  LLWU_F1 |= LLWU_F1_WUF4_MASK;   // write one to clear the flag
+    103              }
+    104              if( pin_en & 0x0020)
+    105              {
+    106                  temp |= LLWU_PE2_WUPE5(rise_fall);
+    107                  printf(" LLWU configured pins PTB0/I2C0_SCL/FTM1_CH0/FTM1_QD_PHA to be an LLWU wakeup source \n");
+    108                  LLWU_F1 |= LLWU_F1_WUF5_MASK;   // write one to clear the flag
+    109              }
+    110              if( pin_en & 0x0040)
+    111              {
+    112                  temp |= LLWU_PE2_WUPE6(rise_fall);
+    113                  printf(" LLWU configured pins PTC1/UART1_RTS/FTM0_CH0 to be an LLWU wakeup source \n");
+    114                  LLWU_F1 |= LLWU_F1_WUF6_MASK;   // write one to clear the flag
+    115              }
+    116              if( pin_en & 0x0080)
+    117              {
+    118                  temp |= LLWU_PE2_WUPE7(rise_fall);
+    119                  printf(" LLWU configured pins PTC3/UART1_RX/FTM0_CH2 to be an LLWU wakeup source \n");
+    120                  LLWU_F1 |= LLWU_F1_WUF7_MASK;   // write one to clear the flag
+    121              }
+    122              LLWU_PE2 = temp;
+    123          
+    124              temp = LLWU_PE3;
+    125              if( pin_en & 0x0100)
+    126              {
+    127                  temp |= LLWU_PE3_WUPE8(rise_fall);
+    128                  printf(" LLWU configured pins PTC4/SPI0_PCS0/FTM0_CH3 to be an LLWU wakeup source \n");
+    129                  LLWU_F2 |= LLWU_F2_WUF8_MASK;   // write one to clear the flag
+    130              }
+    131              if( pin_en & 0x0200)
+    132              {
+    133                  temp |= LLWU_PE3_WUPE9(rise_fall);
+    134                  printf(" LLWU configured pins PTC5/SPI0_SCK/I2S0_RXD0 to be an LLWU wakeup source \n");
+    135                  LLWU_F2 |= LLWU_F2_WUF9_MASK;   // write one to clear the flag
+    136              }
+    137              if( pin_en & 0x0400)
+    138              {
+    139                  temp |= LLWU_PE3_WUPE10(rise_fall);
+    140                  printf(" LLWU configured pins PTC6/PDB0_EXTRG to be an LLWU wakeup source \n");
+    141                  LLWU_F2 |= LLWU_F2_WUF10_MASK;   // write one to clear the flag
+    142              }
+    143              if( pin_en & 0x0800)
+    144              {
+    145                  temp |= LLWU_PE3_WUPE11(rise_fall);
+    146                  printf(" LLWU configured pins PTC11/I2S0_RXD1 to be an LLWU wakeup source \n");
+    147                  LLWU_F2 |= LLWU_F2_WUF11_MASK;   // write one to clear the flag
+    148              }
+    149              LLWU_PE3 = temp;
+    150          
+    151              temp = LLWU_PE4;
+    152              if( pin_en & 0x1000)
+    153              {
+    154                  temp |= LLWU_PE4_WUPE12(rise_fall);
+    155                  printf(" LLWU configured pins PTD0/SPI0_PCS0/UART2_RTS to be an LLWU wakeup source \n");
+    156                  LLWU_F2 |= LLWU_F2_WUF12_MASK;   // write one to clear the flag
+    157              }
+    158              if( pin_en & 0x2000)
+    159              {
+    160                  temp |= LLWU_PE4_WUPE13(rise_fall);
+    161                  printf(" LLWU configured pins PTD2/UART2_RX to be an LLWU wakeup source \n");
+    162                  LLWU_F2 |= LLWU_F2_WUF13_MASK;   // write one to clear the flag
+    163              }
+    164              if( pin_en & 0x4000)
+    165              {
+    166                  temp |= LLWU_PE4_WUPE14(rise_fall);
+    167                  printf(" LLWU configured pins PTD4/UART0_RTS/FTM0_CH4/EWM_IN to be an LLWU wakeup source \n");
+    168                  LLWU_F2 |= LLWU_F2_WUF14_MASK;   // write one to clear the flag
+    169              }
+    170              if( pin_en & 0x8000)
+    171              {
+    172                  temp |= LLWU_PE4_WUPE15(rise_fall);
+    173                  printf(" LLWU configured pins PTD6/UART0_RX/FTM0_CH6/FTM0_FLT0 to be an LLWU wakeup source \n");
+    174                  LLWU_F2 |= LLWU_F2_WUF15_MASK;   // write one to clear the flag
+    175              }
+    176              LLWU_PE4 = temp;
+    177          
+    178              LLWU_ME = module_en;  //Set up modules to wakeup up
+    179          
+    180              printf("LLWU PE1   = 0x%02X,    ",   (LLWU_PE1)) ;
+    181              printf("LLWU PE2   = 0x%02X\n",      (LLWU_PE2)) ;
+    182              printf("LLWU PE3   = 0x%02X,    ",   (LLWU_PE3)) ;
+    183              printf("LLWU PE4   = 0x%02X\n",      (LLWU_PE4)) ;
+    184              printf("LLWU ME    = 0x%02X,    ",    (LLWU_ME)) ;
+    185              printf("LLWU F1    = 0x%02X\n",       (LLWU_F1)) ;
+    186              printf("LLWU F2    = 0x%02X,    ",    (LLWU_F2)) ;
+    187              printf("LLWU F3    = 0x%02X\n",       (LLWU_F3)) ;
+    188              printf("LLWU FILT1 = 0x%02X,    ", (LLWU_FILT1)) ;
+    189              printf("LLWU FILT2 = 0x%02X\n",    (LLWU_FILT2)) ;
+    190              printf("LLWU RST   = 0x%02X\n",      (LLWU_RST)) ;
+    191                //function ends
+    192          }
+    193          
+    194          
+    195          /*******************************************************************************
+    196          *
+    197          *   PROCEDURE NAME:
+    198          *       llwu_configure_filter -
+    199          *
+    200          *******************************************************************************/
+    201          void llwu_configure_filter(unsigned int wu_pin_num, unsigned char filter_en, unsigned char rise_fall )
+    202          {
+    203             //wu_pin_num is the pin number to be written to FILTSEL.  wu_pin_num is not the same as pin_en.
+    204              uint8 temp;
+    205          
+    206              printf("\nEnabling Filter %x on WU Pin %x for WU sense %x \n",filter_en, wu_pin_num, rise_fall);
+    207          
+    208               temp = 0;
+    209               //first clear filter values and clear flag by writing a 1
+    210               LLWU_FILT1 = LLWU_FILT1_FILTF_MASK;
+    211               LLWU_FILT2 = LLWU_FILT2_FILTF_MASK;
+    212          
+    213               if(filter_en == 1)
+    214               {
+    215                   //clear the flag bit and set the others
+    216                   temp |= (LLWU_FILT1_FILTF_MASK) | (LLWU_FILT1_FILTE(rise_fall) | LLWU_FILT1_FILTSEL(wu_pin_num));
+    217                   LLWU_FILT1 = temp;
+    218          
+    219               }else if (filter_en == 2)
+    220               {
+    221                   //clear the flag bit and set the others
+    222                   temp |= (LLWU_FILT2_FILTF_MASK) | (LLWU_FILT2_FILTE(rise_fall) | LLWU_FILT2_FILTSEL(wu_pin_num));
+    223                   LLWU_FILT2 = temp;
+    224               }else
+    225               {
+    226                   printf("\nError - invalid filter number %x\n",filter_en);
+    227               }
+    228          }
+    229          
+    230          
+    231          /*******************************************************************************
+    232          *
+    233          *   PROCEDURE NAME:
+    234          *       llwu_isr - Interrupt handler for LLWU
+    235          *
+    236          *******************************************************************************/
+    237          void llwu_isr(void)
+    238          {
+    239            char  ch;
+    240          
+    241          //  GPIOE_PSOR = 0x04000000;             // set Port E 26 indicate wakeup - set it in llwu_isr
+    242          //  GPIOE_PCOR = 0x04000000;             // clear Port E 26 indicating sleep
+    243          //  GPIOE_PSOR = 0x04000000;             // set Port E 26 indicate wakeup - set it in llwu_isr
+    244          //  GPIOE_PCOR = 0x04000000;             // clear Port E 26 indicating  wakeup from sleep
+    245          //   GPIOB_PSOR = 0x00080000;             // set Port B19
+    246          //   GPIOB_PCOR = 0x00080000;             // clear Port B19
+    247          //   GPIOB_PSOR = 0x00080000;             // set Port B19
+    248          //   GPIOB_PCOR = 0x00080000;             // clear Port B19
+    249          
+    250          //  outsrs();
+    251          //   printf("[LLWU ISR]\n");
+    252             if (LLWU_F1 & LLWU_F1_WUF0_MASK) {
+    253                 LLWU_F1 |= LLWU_F1_WUF0_MASK;   // write one to clear the flag
+    254          //       printf("\n[LLWU ISR]  ****WUF0 was set *****\r\n");
+    255             }
+    256             if (LLWU_F1 & LLWU_F1_WUF1_MASK) {
+    257          //       printf("\n [LLWU ISR] ****WUF1 was set *****\r\n");
+    258                 LLWU_F1 |= LLWU_F1_WUF2_MASK;   // write one to clear the flag
+    259             }
+    260             if (LLWU_F1 & LLWU_F1_WUF2_MASK) {
+    261          //       printf("\n [LLWU ISR] ****WUF2 was set *****\r\n");
+    262                 LLWU_F1 |= LLWU_F1_WUF2_MASK;   // write one to clear the flag
+    263             }
+    264             if (LLWU_F1 & LLWU_F1_WUF3_MASK){
+    265          //       printf("\n [LLWU ISR] ****WUF3 was set *****\r\n");
+    266                 LLWU_F1 |= LLWU_F1_WUF3_MASK;   // write one to clear the flag
+    267              }
+    268             if (LLWU_F1 & LLWU_F1_WUF4_MASK) {
+    269           //      printf("\n [LLWU ISR] ****WUF4 was set *****\r\n");
+    270                 LLWU_F1 |= LLWU_F1_WUF4_MASK;   // write one to clear the flag
+    271             }
+    272             if (LLWU_F1 & LLWU_F1_WUF5_MASK) {
+    273          //       printf("\n [LLWU ISR] ****WUF5 was set *****\r\n");
+    274                 LLWU_F1 |= LLWU_F1_WUF5_MASK;   // write one to clear the flag
+    275             }
+    276             if (LLWU_F1 & LLWU_F1_WUF6_MASK) {
+    277          //       printf("\n [LLWU ISR] ****WUF6 was set *****\r\n");
+    278                 LLWU_F1 |= LLWU_F1_WUF6_MASK;   // write one to clear the flag
+    279              }
+    280             if (LLWU_F1 & LLWU_F1_WUF7_MASK) {
+    281          //       printf("\n [LLWU ISR] ****WUF7 was set from PTC3 input  *****\r\n");
+    282                 LLWU_F1 |= LLWU_F1_WUF7_MASK;   // write one to clear the flag
+    283             }
+    284             if (LLWU_F2 & LLWU_F2_WUF8_MASK) {
+    285           //      printf("\n [LLWU ISR] ****WUF8 was set *****\r\n");
+    286                 LLWU_F2 |= LLWU_F2_WUF8_MASK;   // write one to clear the flag
+    287             }
+    288             if (LLWU_F2 & LLWU_F2_WUF9_MASK) {
+    289          //       printf("\n [LLWU ISR] ****WUF9 was set *****\r\n");
+    290                 LLWU_F2 |= LLWU_F2_WUF9_MASK;   // write one to clear the flag
+    291             }
+    292             if (LLWU_F2 & LLWU_F2_WUF10_MASK) {
+    293          //       printf("\n [LLWU ISR] ****WUF10 was set *****\r\n");
+    294                 LLWU_F2 |= LLWU_F2_WUF10_MASK;   // write one to clear the flag
+    295             }
+    296             if (LLWU_F2 & LLWU_F2_WUF11_MASK) {
+    297           //      printf("\n [LLWU ISR] ****WUF11 was set *****\r\n");
+    298                 LLWU_F2 |= LLWU_F2_WUF11_MASK;   // write one to clear the flag
+    299             }
+    300             if (LLWU_F2 & LLWU_F2_WUF12_MASK) {
+    301          //       printf("\n [LLWU ISR] ****WUF12 was set *****\r\n");
+    302                 LLWU_F2 |= LLWU_F2_WUF12_MASK;   // write one to clear the flag
+    303             }
+    304             if (LLWU_F2 & LLWU_F2_WUF13_MASK) {
+    305          //       printf("[LLWU ISR] ****WUF13 was set *****\r\n");
+    306                 LLWU_F2 |= LLWU_F2_WUF13_MASK;   // write one to clear the flag
+    307             }
+    308             if (LLWU_F2 & LLWU_F2_WUF14_MASK) {
+    309          //       printf("[LLWU ISR] RTS\n");
+    310                 SIM_SCGC5 |= SIM_SCGC5_PORTD_MASK; // turn on port D ajj per alister
+    311                 LLWU_F2 |= LLWU_F2_WUF14_MASK;   // write one to clear the flag
+    312                 PORTD_PCR4 |= PORT_PCR_ISF_MASK  ;   //  clear Flag if there
+    313             }
+    314             if (LLWU_F2 & LLWU_F2_WUF15_MASK) {
+    315          //       printf("[LLWU ISR] UART0\n");
+    316                 SIM_SCGC5 |= SIM_SCGC5_PORTD_MASK; // turn on port D ajj per alister
+    317                 ch = uart_getchar(UART0_BASE_PTR);
+    318                 out_char(ch);
+    319                 LLWU_F2 |= LLWU_F2_WUF15_MASK;   // write one to clear the flag
+    320                 PORTD_PCR6  |= PORT_PCR_ISF_MASK  ;   //  clear Flag if there
+    321             }
+    322             if (LLWU_F3 & LLWU_F3_MWUF0_MASK) {
+    323          //       printf("[LLWU ISR] LPT0\n");
+    324          //       LPTMR0_CSR |=  LPTMR_CSR_TCF_MASK;   // write 1 to TCF to clear the LPT timer compare flag
+    325          //       LPTMR0_CSR = ( LPTMR_CSR_TEN_MASK | LPTMR_CSR_TIE_MASK | LPTMR_CSR_TCF_MASK  );
+    326                 LLWU_F3 |= LLWU_F3_MWUF0_MASK;   // write one to clear the flag
+    327             }
+    328             if (LLWU_F3 & LLWU_F3_MWUF1_MASK) {
+    329          //       printf("\n [LLWU ISR] ****WUF3_MWUF1 IF  CMP0  *****\r\n");
+    330                 LLWU_F3 |= LLWU_F3_MWUF1_MASK;   // write one to clear the flag
+    331             }
+    332             if (LLWU_F3 & LLWU_F3_MWUF2_MASK) {
+    333          //       printf("\n [LLWU ISR] ****WUF3_MWUF2 IF  CMP1 *****\r\n");
+    334                 LLWU_F3 |= LLWU_F3_MWUF2_MASK;   // write one to clear the flag
+    335             }
+    336             if (LLWU_F3 & LLWU_F3_MWUF3_MASK) {
+    337          //       printf("\n [LLWU ISR] ****WUF3_MWUF3 IF CMP2/CMP3  *****\r\n");
+    338                 LLWU_F3 |= LLWU_F3_MWUF3_MASK;   // write one to clear the flag
+    339             }
+    340             if (LLWU_F3 & LLWU_F3_MWUF4_MASK) {
+    341          //       printf("\n [LLWU ISR] ****WUF3_MWUF4 IF TSI  *****\r\n");
+    342                 LLWU_F3 |= LLWU_F3_MWUF4_MASK;   // write one to clear the flag
+    343             }
+    344             if (LLWU_F3 & LLWU_F3_MWUF5_MASK) {
+    345          //       printf("\n [LLWU ISR] ****WUF3_MWUF5 IF RTC Alarm  *****\r\n");
+    346                 LLWU_F3 |= LLWU_F3_MWUF5_MASK;   // write one to clear the flag
+    347             }
+    348             if (LLWU_F3 & LLWU_F3_MWUF6_MASK) {
+    349          //       printf("\n [LLWU ISR] ****WUF3_MWUF6 IF DryIce(Tamper Detect)  *****\r\n");
+    350                 LLWU_F3 |= LLWU_F3_MWUF6_MASK;   // write one to clear the flag
+    351             }
+    352             if (LLWU_F3 & LLWU_F3_MWUF7_MASK) {
+    353          //       printf("[LLWU ISR] RTC\n");
+    354                 LLWU_F3 |= LLWU_F3_MWUF7_MASK;   // write one to clear the flag
+    355             }
+    356          
+    357             if(LLWU_FILT1 & LLWU_FILT1_FILTF_MASK){
+    358          
+    359                 LLWU_FILT1 |= LLWU_FILT1_FILTF_MASK;
+    360             }
+    361             if(LLWU_FILT2 & LLWU_FILT2_FILTF_MASK){
+    362          
+    363                 LLWU_FILT2 |= LLWU_FILT2_FILTF_MASK;
+    364             }
+    365          
+    366          }
+
+Errors: 1
+Warnings: none

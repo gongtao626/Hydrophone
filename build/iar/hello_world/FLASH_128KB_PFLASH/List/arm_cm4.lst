@@ -1,0 +1,252 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:17 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\cpu\arm #
+#                    _cm4.c                                                   #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\cpu\ar #
+#                    m_cm4.c" -D IAR -D TOWER -D TWR_K20D50M -lCN             #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\arm_cm4.lst           #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\arm_cm4.o              #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\cpu\arm_cm4.c
+      1          /*
+      2           * File:		arm_cm4.c
+      3           * Purpose:		Generic high-level routines for ARM Cortex M4 processors
+      4           *
+      5           * Notes:
+      6           */
+      7          
+      8          #include "common.h"
+      9          
+     10          /***********************************************************************/
+     11          /*
+     12           * Configures the ARM system control register for STOP (deep sleep) mode
+     13           * and then executes the WFI instruction to enter the mode.
+     14           *
+     15           * Parameters:
+     16           * none
+     17           *
+     18           * Note: Might want to change this later to allow for passing in a parameter
+     19           *       to optionally set the sleep on exit bit.
+     20           */
+     21          
+     22          void stop (void)
+     23          {
+     24          	/* Set the SLEEPDEEP bit to enable deep sleep mode (STOP) */
+     25          	SCB_SCR |= SCB_SCR_SLEEPDEEP_MASK;	
+     26          
+     27          	/* WFI instruction will start entry into STOP mode */
+     28          #ifndef KEIL
+     29          	asm("WFI");
+     30          #else
+     31          	__wfi();
+     32          #endif
+     33          }
+     34          /***********************************************************************/
+     35          /*
+     36           * Configures the ARM system control register for WAIT (sleep) mode
+     37           * and then executes the WFI instruction to enter the mode.
+     38           *
+     39           * Parameters:
+     40           * none
+     41           *
+     42           * Note: Might want to change this later to allow for passing in a parameter
+     43           *       to optionally set the sleep on exit bit.
+     44           */
+     45          
+     46          void wait (void)
+     47          {
+     48          	/* Clear the SLEEPDEEP bit to make sure we go into WAIT (sleep) mode instead
+     49          	 * of deep sleep.
+     50          	 */
+     51          	SCB_SCR &= ~SCB_SCR_SLEEPDEEP_MASK;	
+     52          
+     53          	/* WFI instruction will start entry into WAIT mode */
+     54          #ifndef KEIL
+     55          	asm("WFI");
+     56          #else
+     57              __wfi();
+     58          #endif
+     59          }
+     60          /***********************************************************************/
+     61          /*
+     62           * Change the value of the vector table offset register to the specified value.
+     63           *
+     64           * Parameters:
+     65           * vtor     new value to write to the VTOR
+     66           */
+     67          
+     68          void write_vtor (int vtor)
+     69          {
+     70                  /* Write the VTOR with the new value */
+     71                  SCB_VTOR = vtor;	
+     72          }
+     73          /***********************************************************************/
+     74          /*
+     75           * Initialize the NVIC to enable the specified IRQ.
+     76           * 
+     77           * NOTE: The function only initializes the NVIC to enable a single IRQ. 
+     78           * Interrupts will also need to be enabled in the ARM core. This can be 
+     79           * done using the EnableInterrupts macro.
+     80           *
+     81           * Parameters:
+     82           * irq    irq number to be enabled (the irq number NOT the vector number)
+     83           */
+     84          
+     85          void enable_irq (int irq)
+     86          {
+     87              int div;
+     88              
+     89              /* Make sure that the IRQ is an allowable number. Right now up to 61 is 
+     90               * used.
+     91               */
+     92              if (irq > 61)
+     93                  printf("\nERR! Invalid IRQ value passed to enable irq function!\n");
+     94              
+     95              /* Determine which of the NVICISERs corresponds to the irq */
+     96              div = irq/32;
+     97              
+     98              switch (div)
+     99              {
+    100              	case 0x0:
+    101                        NVICICPR0 = 1 << (irq%32);
+    102                        NVICISER0 = 1 << (irq%32);
+    103                        break;
+    104              	case 0x1:
+    105                        NVICICPR1 = 1 << (irq%32);
+    106                        NVICISER1 = 1 << (irq%32);
+    107                        break;
+    108              	case 0x2:
+    109                        NVICICPR2 = 1 << (irq%32);
+    110                        NVICISER2 = 1 << (irq%32);
+    111                        break;
+    112              }              
+    113          }
+    114          /***********************************************************************/
+    115          /*
+    116           * Initialize the NVIC to disable the specified IRQ.
+    117           * 
+    118           * NOTE: The function only initializes the NVIC to disable a single IRQ. 
+    119           * If you want to disable all interrupts, then use the DisableInterrupts
+    120           * macro instead. 
+    121           *
+    122           * Parameters:
+    123           * irq    irq number to be disabled (the irq number NOT the vector number)
+    124           */
+    125          
+    126          void disable_irq (int irq)
+    127          {
+    128              int div;
+    129              
+    130              /* Make sure that the IRQ is an allowable number. Right now up to 91 is 
+    131               * used.
+    132               */
+    133              if (irq > 91)
+    134                  printf("\nERR! Invalid IRQ value passed to disable irq function!\n");
+    135              
+    136              /* Determine which of the NVICICERs corresponds to the irq */
+    137              div = irq/32;
+    138              
+    139              switch (div)
+    140              {
+    141              	case 0x0:
+    142                         NVICICER0 = 1 << (irq%32);
+    143                        break;
+    144              	case 0x1:
+    145                        NVICICER1 = 1 << (irq%32);
+    146                        break;
+    147              	case 0x2:
+    148                        NVICICER2 = 1 << (irq%32);
+    149                        break;
+    150              }              
+    151          }
+    152          /***********************************************************************/
+    153          /*
+    154           * Initialize the NVIC to set specified IRQ priority.
+    155           * 
+    156           * NOTE: The function only initializes the NVIC to set a single IRQ priority. 
+    157           * Interrupts will also need to be enabled in the ARM core. This can be 
+    158           * done using the EnableInterrupts macro.
+    159           *
+    160           * Parameters:
+    161           * irq    irq number to be enabled (the irq number NOT the vector number)
+    162           * prio   irq priority. 0-15 levels. 0 max priority
+    163           */
+    164          
+    165          void set_irq_priority (int irq, int prio)
+    166          {
+    167              /*irq priority pointer*/
+    168              uint8 *prio_reg;
+    169              
+    170              /* Make sure that the IRQ is an allowable number. Right now up to 91 is 
+    171               * used.
+    172               */
+    173              if (irq > 91)
+    174                  printf("\nERR! Invalid IRQ value passed to priority irq function!\n");
+    175          
+    176              if (prio > 15)
+    177                  printf("\nERR! Invalid priority value passed to priority irq function!\n");
+    178              
+    179              /* Determine which of the NVICIPx corresponds to the irq */
+    180              prio_reg = (uint8 *)(((uint32)&NVICIP0) + irq);
+    181              /* Assign priority to IRQ */
+    182              *prio_reg = ( (prio&0xF) << (8 - ARM_INTERRUPT_LEVEL_BITS) );             
+    183          }
+    184          /***********************************************************************/
+    185          
+
+Errors: 1
+Warnings: none

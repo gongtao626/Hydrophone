@@ -1,0 +1,338 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:19 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\cpu\sta #
+#                    rt.c                                                     #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\cpu\st #
+#                    art.c" -D IAR -D TOWER -D TWR_K20D50M -lCN               #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\start.lst             #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\start.o                #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\cpu\start.c
+      1          /****************************************************************************************************/
+      2          /**
+      3          \file       start.c
+      4          \brief      kinetis startup routines
+      5          \author     Freescale Semiconductor
+      6          \author     
+      7          \version    1.0
+      8          \date       Sep 14, 2011
+      9          \warning    need to check with Si
+     10           
+     11          */
+     12          #include "start.h"
+     13          #include "common.h"
+     14          #include "wdog.h"
+     15          #include "rcm.h"
+     16          #include "sysinit.h"
+     17          
+     18          /********************************************************************/
+     19          /*!
+     20           * \brief   Kinetis Start
+     21           * \return  None
+     22           *
+     23           * This function calls all of the needed starup routines and then 
+     24           * branches to the main process.
+     25           */
+     26          void start(void)
+     27          {
+     28          	/* Disable the watchdog timer */
+     29          	wdog_disable();
+     30                  
+     31          	/* Copy any vector or data sections that need to be in RAM */
+     32          	common_startup();
+     33                  
+     34          	/* Perform processor initialization */
+     35          	sysinit();
+     36          
+     37                  /* Determine the last cause(s) of reset */
+     38                  outSRS();
+     39          
+     40          	/* Determine specific Kinetis device and revision */
+     41          	cpu_identify();
+     42          
+     43          #ifndef KEIL	
+     44          	/* Jump to main process */
+     45          	main();
+     46          
+     47          	/* No actions to perform after this so wait forever */
+     48          	while(1);
+     49          #endif
+     50          }
+     51          /********************************************************************/
+     52          /*!
+     53           * \brief   Kinetis CPU Identify
+     54           * \params  None
+     55           *
+     56           * This is primarly a reporting function that displays information
+     57           * about the specific CPU to the default terminal including:
+     58           * - Kinetis family
+     59           * - package
+     60           * - die revision
+     61           * - P-flash size
+     62           * - Ram size
+     63           \warning   flash_identify() not implemented
+     64           */
+     65          void cpu_identify (void)
+     66          {
+     67              /* Determine the Kinetis family */
+     68              printf("\n FAM_ID = 0x%x",(SIM_SDID & SIM_SDID_FAMID_MASK)>>SIM_SDID_FAMID_SHIFT);
+     69              switch((SIM_SDID & SIM_SDID_FAMID_MASK)>>SIM_SDID_FAMID_SHIFT) 
+     70           //    switch((SIM_SDID & SIM_SDID_DIEID(0x7))>>SIM_SDID_DIEID_SHIFT)   for P3
+     71              { 
+     72                        
+     73                       
+     74              	case 0x0:
+     75              		printf("\nK10-");
+     76              		break;
+     77              	case 0x1:
+     78              		printf("\nK20-");
+     79              		break;
+     80              	case 0x2:
+     81              		printf("\nK30-");
+     82              		break;
+     83              	case 0x3:
+     84              		printf("\nK40-");
+     85              		break;
+     86              	case 0x4:
+     87              		printf("\nK60-");
+     88              		break;
+     89          	default:
+     90          		printf("\nUnrecognized Kinetis family device.\n");  
+     91          		break;  	
+     92              }
+     93          
+     94              printf("\n PIN_ID = 0x%x",(SIM_SDID & SIM_SDID_PINID_MASK)>>SIM_SDID_PINID_SHIFT);
+     95           
+     96              /* Determine the package size */
+     97              switch((SIM_SDID & SIM_SDID_PINID_MASK)>>SIM_SDID_PINID_SHIFT) 
+     98              {  
+     99              	case 0x2:
+    100              		printf("32pin\n");
+    101              		break;
+    102              	case 0x4:
+    103              		printf("48pin\n");
+    104              		break;
+    105              	case 0x5:
+    106              		printf("64pin\n");
+    107              		break;
+    108              	case 0x6:
+    109              		printf("80pin\n");
+    110              		break;
+    111              	case 0x7:
+    112              		printf("81pin\n");
+    113              		break;
+    114              	case 0x8:
+    115              		printf("100pin\n");
+    116              		break;
+    117              	case 0x9:
+    118              		printf("104pin\n");
+    119              		break;
+    120              	case 0xA:
+    121              		printf("144pin\n");
+    122              		break;
+    123              	case 0xC:
+    124              		printf("196pin\n");
+    125              		break;
+    126              	case 0xE:
+    127              		printf("256pin\n");
+    128              		break;
+    129          	default:
+    130          		printf("\nUnrecognized Kinetis package code .\n");  
+    131          		break;  	
+    132              }                
+    133          
+    134                 printf("\n REV_ID = 0x%x \n",(SIM_SDID & SIM_SDID_REVID_MASK)>>SIM_SDID_REVID_SHIFT);
+    135           
+    136              /* Determine the revision ID */
+    137              switch((SIM_SDID & SIM_SDID_REVID_MASK)>>SIM_SDID_REVID_SHIFT) 
+    138              {
+    139                  case 0x0:
+    140                          printf("Silicon rev 1.0\n");
+    141                          break;
+    142                  case 0x1:
+    143                          printf("Silicon rev 1.1\n");
+    144                          break;
+    145                  case 0x2:
+    146                          printf("Silicon rev 1.2\n");
+    147                          break;
+    148                  default:
+    149                          printf("\nThis version of software doesn't recognize the revision code.");
+    150                          break;
+    151              }
+    152          
+    153                /* Determine the flash revision */
+    154              flash_identify();   
+    155          
+    156          
+    157              /* Determine the RAM size */
+    158             printf("\n RAM_SIZE_ID = 0x%x \n",(SIM_SOPT1 & SIM_SOPT1_RAMSIZE_MASK)>>SIM_SOPT1_RAMSIZE_SHIFT);
+    159          
+    160              switch((SIM_SOPT1 & SIM_SOPT1_RAMSIZE_MASK)>>SIM_SOPT1_RAMSIZE_SHIFT)
+    161              {
+    162                
+    163             	case 0x1:
+    164              		printf("8 kBytes of RAM\n\n");
+    165              		break;
+    166              	case 0x3:
+    167              		printf("16 kBytes of RAM\n\n");
+    168              		break;    
+    169             //LP following are not present on P0     
+    170              	case 0x5:
+    171              		printf("32 kBytes of RAM\n\n");
+    172              		break;
+    173              	case 0x7:
+    174              		printf("64 kBytes of RAM\n\n");
+    175              		break;
+    176              	case 0x8:
+    177              		printf("96 kBytes of RAM\n\n");
+    178              		break;
+    179              	case 0x9:
+    180              		printf("128 kBytes of RAM\n\n");
+    181              		break;
+    182                      
+    183          		default:
+    184          			printf(" ERR!! Undefined RAM size\n\n");  
+    185          			break;  		
+    186              }
+    187          }
+    188          
+    189          
+    190          /********************************************************************/
+    191          /*!
+    192           * \brief   flash Identify
+    193           * \return  None
+    194           *
+    195           * This is primarly a reporting function that displays information
+    196           * about the specific flash parameters and flash version ID for 
+    197           * the current device. These parameters are obtained using a special
+    198           * flash command call "read resource." The first four bytes returned
+    199           * are the flash parameter revision, and the second four bytes are
+    200           * the flash version ID.
+    201           */
+    202          void flash_identify (void)
+    203          {
+    204          
+    205             #if 1
+    206            
+    207              FTFL_FSTAT = 0x70;    
+    208              
+    209                
+    210                
+    211              /* Get the flash parameter version */
+    212              /* Write the flash FCCOB registers with the values for a Read resource command */
+    213              FTFL_FCCOB0 = 0x03;   
+    214              FTFL_FCCOB1 = 0x00;
+    215              FTFL_FCCOB2 = 0x00;
+    216              FTFL_FCCOB3 = 0x00;
+    217              FTFL_FCCOB8 = 0x01;       // Resource Select Code   1= Version ID 8 bytes.
+    218          
+    219              /* Launch command */
+    220              SpSub();
+    221          
+    222              printf("Flash parameter version %d.%d.%d.%d\n",FTFL_FCCOB4,FTFL_FCCOB5,FTFL_FCCOB6,FTFL_FCCOB7);
+    223          
+    224              /* Get the flash version ID */
+    225              /* Write the flash FCCOB registers with the values for a read resource command */
+    226              FTFL_FCCOB0 = 0x03;
+    227              FTFL_FCCOB1 = 0x00;
+    228              FTFL_FCCOB2 = 0x00;
+    229              FTFL_FCCOB3 = 0x04;
+    230              FTFL_FCCOB8 = 0x01;    
+    231          
+    232              /* Launch command */
+    233              SpSub();
+    234          
+    235              printf("Flash version ID %d.%d.%d.%d\n",FTFL_FCCOB4,FTFL_FCCOB5,FTFL_FCCOB6,FTFL_FCCOB7);  
+    236          
+    237              /* Clear all of the flags in the flash status register */
+    238              
+    239              FTFL_FSTAT = !FTFL_FSTAT_CCIF_MASK | FTFL_FSTAT_RDCOLERR_MASK | FTFL_FSTAT_ACCERR_MASK | FTFL_FSTAT_FPVIOL_MASK;
+    240              #endif
+    241              
+    242          }
+    243          /********************************************************************/
+    244          
+    245          /*******************************************************************************
+    246           * Function:        SpSub
+    247           *
+    248           * Description:     Execute the Flash write while running out of SRAM
+    249           *
+    250           * Returns:         none
+    251           *
+    252           * Notes:
+    253           *
+    254           *******************************************************************************/
+    255          #if defined(__IAR_SYSTEMS_ICC__)
+    256          __ramfunc
+    257          #elif defined(CW)
+    258          __relocate_code__
+    259          #endif
+    260          void 
+    261          SpSub(void)
+    262          {
+    263              /* All required FCCOBx registers are written, so launch the command */
+    264              FTFL_FSTAT = FTFL_FSTAT_CCIF_MASK;
+    265              /* Wait for the command to complete */
+    266              while(!(FTFL_FSTAT & FTFL_FSTAT_CCIF_MASK)){};
+    267              
+    268          }
+    269          /* Leave this immediately after SpSub */
+    270          void SpSubEnd(void) {}
+    271          
+
+Errors: 3
+Warnings: none

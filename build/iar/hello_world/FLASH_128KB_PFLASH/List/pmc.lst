@@ -1,0 +1,182 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:19 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers #
+#                    \pmc\pmc.c                                               #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\driver #
+#                    s\pmc\pmc.c" -D IAR -D TOWER -D TWR_K20D50M -lCN         #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\pmc.lst               #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\pmc.o                  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers\pmc\pmc.c
+      1          /*
+      2           * File:        pmc.c
+      3           * Purpose:     Provides routines for entering low power modes.
+      4           *
+      5           * Notes:	Since the wakeup mechanism for low power modes
+      6           *              will be application specific, these routines
+      7           *              do not include code to setup interrupts to exit
+      8           *              from the low power modes. The desired means of
+      9           *              low power mode exit should be configured before
+     10           *              calling any of these functions.
+     11           *
+     12           *              These routines do not include protection to
+     13           *              prevent illegal state transitions in the mode
+     14           *              controller, and all routines that write to the
+     15           *              PMPROT register write a value to allow all
+     16           *              possible low power modes (it is write once, so
+     17           *              if only the currently requested mode is enabled
+     18           *              a different mode couldn't be enabled later on).
+     19           *              
+     20           */
+     21          
+     22          #include "common.h"
+     23          #include "pmc.h"
+     24          #include "mcg.h"
+     25          #include "uart.h"
+     26          int i;
+     27          
+     28          //******************************************************************************
+     29          void LVD_Initalize(unsigned char lvd_select, 
+     30                             unsigned char lvd_reset_enable,
+     31                             unsigned char lvd_int_enable, 
+     32                             unsigned char lvw_select,
+     33                             unsigned char lvw_int_enable){
+     34              PMC_LVDSC1 =  PMC_LVDSC1_LVDACK_MASK | 
+     35                           (lvd_reset_enable) |   //enable LVD Reset ?
+     36          	          lvd_int_enable |      //LVD Interrupt ?
+     37          	          PMC_LVDSC1_LVDV(lvd_select)   ;        //select high or low LVD
+     38              PMC_LVDSC2  = PMC_LVDSC2_LVWACK_MASK | 
+     39                           (lvw_int_enable) |    //LVW interrupt?
+     40                            PMC_LVDSC2_LVWV(lvw_select);  // select LVW level 1,2,3 or 4
+     41          }                  
+     42          //******************************************************************************
+     43          
+     44          void LVD_Init(void)
+     45          {
+     46          /* setup LVD
+     47          Low-Voltage Detect Voltage Select
+     48          Selects the LVD trip point voltage (VLVD).
+     49          00 Low trip point selected (VLVD = VLVDL)
+     50          01 High trip point selected (VLVD = VLVDH)
+     51          10 Reserved
+     52          11 Reserved
+     53            */
+     54          //	PMC_LVDSC1 &= ~PMC_LVDSC1_LVDRE_MASK ;   //Disable LVD Reset
+     55          	PMC_LVDSC1 =  PMC_LVDSC1_LVDRE_MASK |   //enable LVD Reset
+     56          	             //  PMC_LVDSC1_LVDIE_MASK |
+     57          	               PMC_LVDSC1_LVDV(1);   //Enable LVD Reset High level
+     58          
+     59          //PMC_LVDSC1 |= PMC_LVDSC1_LVDV_MASK & 0x01;  
+     60          // PMC_LVDSC1 &= PMC_LVDSC1_LVDV_MASK & 0b00;  //Low Trip point 1.54 V
+     61           
+     62          //PMC_LVDSC2  = PMC_LVDSC2_LVWACK_MASK | 
+     63          //              PMC_LVDSC2_LVWV(0)|
+     64          //              PMC_LVDSC2_LVWIE_MASK;    
+     65          //PMC_LVDSC2  = 0x40; //0b01000000 low trip point LVWV
+     66          //PMC_LVDSC2  = PMC_LVDSC2_LVWACK_MASK | 
+     67          //              PMC_LVDSC2_LVWV(1)|
+     68          //              PMC_LVDSC2_LVWIE_MASK;    
+     69          //PMC_LVDSC2  = 0x41; //0b01000001 mid1 trip point LVWV
+     70          //PMC_LVDSC2  = PMC_LVDSC2_LVWACK_MASK | 
+     71          //              PMC_LVDSC2_LVWV(2)|
+     72          //              PMC_LVDSC2_LVWIE_MASK;    
+     73          //PMC_LVDSC2  = 0x42; //0b01000010 mid2 trip point LVWV
+     74          PMC_LVDSC2  = PMC_LVDSC2_LVWACK_MASK | 
+     75                        PMC_LVDSC2_LVWV(3) ;
+     76                        //PMC_LVDSC2_LVWIE_MASK ;    //enable warning interrupt
+     77          //PMC_LVDSC2  = 0x43; //0b01000011 high trip point LVWV   
+     78          
+     79          // ack to clear initial flags
+     80          PMC_LVDSC1 |= PMC_LVDSC1_LVDACK_MASK; 
+     81          PMC_LVDSC2 |= PMC_LVDSC2_LVWACK_MASK;
+     82          
+     83          /* 
+     84          LVWV if LVD high range selected
+     85          2.621
+     86          2.72
+     87          2.82
+     88          2.92
+     89          LVDV if LVD low range selected
+     90          1.74
+     91          1.84
+     92          1.94
+     93          
+     94          
+     95          */
+     96          }
+     97          void pmc_lvd_isr(void)
+     98          {
+     99           
+    100            if (PMC_LVDSC1 &PMC_LVDSC1_LVDF_MASK){
+    101             printf("[LVD_isr]LV DETECT interrupt occurred");
+    102            }
+    103            if (PMC_LVDSC2 &PMC_LVDSC2_LVWF_MASK){
+    104             printf("[LVD_isr]LV WARNING interrupt occurred");
+    105            }
+    106           
+    107           // ack to clear initial flags
+    108           PMC_LVDSC1 |= PMC_LVDSC1_LVDACK_MASK; 
+    109           PMC_LVDSC2 |= PMC_LVDSC2_LVWACK_MASK;
+    110          
+    111          }
+    112          
+    113          
+    114          
+    115          
+
+Errors: 1
+Warnings: none

@@ -1,0 +1,237 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:17 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers #
+#                    \rcm\rcm.c                                               #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\driver #
+#                    s\rcm\rcm.c" -D IAR -D TOWER -D TWR_K20D50M -lCN         #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\rcm.lst               #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\rcm.o                  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers\rcm\rcm.c
+      1          /*
+      2           * File:        rcm.c
+      3           * Purpose:     Provides routines for the reset controller module
+      4           *              
+      5           */
+      6          
+      7          #include "common.h"
+      8          #include "rcm.h"
+      9          
+     10          /* OutSRS routine - checks the value in the SRS registers and sends
+     11           * messages to the terminal announcing the status at the start of the 
+     12           * code.
+     13           */
+     14          void outSRS(void){                         //[outSRS]
+     15          
+     16            
+     17            /* 	if (RCM_SRS1 & RCM_SRS1_TAMPER_MASK)
+     18          		printf("Tamper Detect Reset\n");*/
+     19            
+     20          	if (RCM_SRS1 & RCM_SRS1_SACKERR_MASK)
+     21          		printf("Stop Mode Acknowledge Error Reset\n");
+     22          	if (RCM_SRS1 & RCM_SRS1_EZPT_MASK)
+     23          		printf("EzPort Reset\n");
+     24          	if (RCM_SRS1 & RCM_SRS1_MDM_AP_MASK)
+     25          		printf("MDM-AP Reset\n");
+     26          	if (RCM_SRS1 & RCM_SRS1_SW_MASK)
+     27          		printf("Software Reset\n");
+     28          	if (RCM_SRS1 & RCM_SRS1_LOCKUP_MASK)
+     29          		printf("Core Lockup Event Reset\n");
+     30          	if (RCM_SRS1 & RCM_SRS1_JTAG_MASK)
+     31          		printf("JTAG Reset\n");
+     32          	
+     33          	if (RCM_SRS0 & RCM_SRS0_POR_MASK)
+     34          		printf("Power-on Reset\n");
+     35          	if (RCM_SRS0 & RCM_SRS0_PIN_MASK)
+     36          		printf("External Pin Reset\n");
+     37          	if (RCM_SRS0 & RCM_SRS0_WDOG_MASK)
+     38          		printf("Watchdog(COP) Reset\n");
+     39          	if (RCM_SRS0 & RCM_SRS0_LOC_MASK)
+     40          		printf("Loss of Clock Reset\n");
+     41          	if (RCM_SRS0 & RCM_SRS0_LVD_MASK)
+     42          		printf("Low-voltage Detect Reset\n");
+     43          	if (RCM_SRS0 & RCM_SRS0_WAKEUP_MASK)
+     44                  {
+     45                    printf("[outSRS]Wakeup bit set from low power mode exit\n");
+     46                    printf("[outSRS]SMC_PMPROT   = %#02X \r\n", (SMC_PMPROT))  ;
+     47                    printf("[outSRS]SMC_PMCTRL   = %#02X \r\n", (SMC_PMCTRL))  ;
+     48                    printf("[outSRS]SMC_VLLSCTRL   = %#02X \r\n", (SMC_VLLSCTRL))  ;
+     49                    printf("[outSRS]SMC_PMSTAT   = %#02X \r\n", (SMC_PMSTAT))  ;
+     50          
+     51                    if ((SMC_PMCTRL & SMC_PMCTRL_STOPM_MASK)== 3)
+     52                      printf("[outSRS] LLS exit \n") ;
+     53                    if (((SMC_PMCTRL & SMC_PMCTRL_STOPM_MASK)== 4) && ((SMC_VLLSCTRL & SMC_VLLSCTRL_VLLSM_MASK)== 0))
+     54                      printf("[outSRS] VLLS0 exit \n") ;
+     55                    if (((SMC_PMCTRL & SMC_PMCTRL_STOPM_MASK)== 4) && ((SMC_VLLSCTRL & SMC_VLLSCTRL_VLLSM_MASK)== 1))
+     56                      printf("[outSRS] VLLS1 exit \n") ;
+     57                    if (((SMC_PMCTRL & SMC_PMCTRL_STOPM_MASK)== 4) && ((SMC_VLLSCTRL & SMC_VLLSCTRL_VLLSM_MASK)== 2))
+     58                      printf("[outSRS] VLLS2 exit \n") ;
+     59                    if (((SMC_PMCTRL & SMC_PMCTRL_STOPM_MASK)== 4) && ((SMC_VLLSCTRL & SMC_VLLSCTRL_VLLSM_MASK)== 3))
+     60                      printf("[outSRS] VLLS3 exit \n") ; 
+     61          	}
+     62          
+     63                  if ((RCM_SRS0 == 0) && (RCM_SRS1 == 0)) 
+     64                  {
+     65          	       printf("[outSRS]RCM_SRS0 is ZERO   = %#02X \r\n", (RCM_SRS0))  ;
+     66          	       printf("[outSRS]RCM_SRS1 is ZERO   = %#02X \r\n", (RCM_SRS1))  ;	 
+     67                  }
+     68            }
+     69          
+     70          void outsrs(void){
+     71          	char i;
+     72          	/* OutSRS routine - checks the value in the SRS registers and sends
+     73          	 * messages to two pins that indicate the bits set in the two SRS  
+     74          	 * registers.  PORT C19 and PORT E26 are used in this driver
+     75                   * initialized in Port_init(); 
+     76          	 */ 
+     77          	//	void outSRS(void){                         //[outSRS]
+     78                  //used for wakeup testing
+     79                  PORTB_PCR19 = (PORT_PCR_MUX(01) |    //  GPIO
+     80                        PORT_PCR_IRQC(0x00) |  //  falling edge enable
+     81                        PORT_PCR_DSE_MASK);    // enable high drive strength
+     82                  GPIOB_PDDR  |= 0x00080000;           // set Port B 19 as output
+     83                  GPIOB_PCOR =   0x00080000;           // set Port B 19 indicate wakeup - clears it in llwu_isr
+     84                  //used for wakeup testing
+     85                  PORTB_PCR18 = (PORT_PCR_MUX(01) |    //  GPIO
+     86                                 PORT_PCR_IRQC(0x00) |  //  falling edge enable
+     87                                 PORT_PCR_DSE_MASK);    // enable high drive strength
+     88                  GPIOB_PDDR  |= 0x00040000;           // set Port B18 as output
+     89                  GPIOB_PSOR   = 0x00040000;             // set Port B18 SRS output outsrs uses this pin
+     90          	
+     91           	if (RCM_SRS0 & RCM_SRS0_POR_MASK){
+     92          		for (i=0;i<8;i++){
+     93                                    GPIOB_PTOR = 0x00080000;           
+     94                                    GPIOB_PTOR = 0x00080000;           
+     95          		}
+     96          	}
+     97          	if (RCM_SRS0 & RCM_SRS0_PIN_MASK){
+     98          			for (i=0;i<7;i++){
+     99                                    GPIOB_PTOR = 0x00080000;           
+    100                                    GPIOB_PTOR = 0x00080000;           
+    101          			}
+    102          	}
+    103          	if (RCM_SRS0 & RCM_SRS0_WDOG_MASK){
+    104          			for (i=0;i<6;i++){
+    105                                    GPIOB_PTOR = 0x00080000;           
+    106                                    GPIOB_PTOR = 0x00080000;           
+    107          			}
+    108          	}
+    109          	if (RCM_SRS0 & RCM_SRS0_LOC_MASK){
+    110          			for (i=0;i<3;i++){
+    111                                    GPIOB_PTOR = 0x00080000;           
+    112                                    GPIOB_PTOR = 0x00080000;           
+    113          			}
+    114          	}
+    115          	if (RCM_SRS0 & RCM_SRS0_LVD_MASK){
+    116          			for (i=0;i<2;i++){
+    117                                    GPIOB_PTOR = 0x00080000;           
+    118                                    GPIOB_PTOR = 0x00080000;           
+    119          			}
+    120          	}
+    121          	if (RCM_SRS0 & RCM_SRS0_WAKEUP_MASK){
+    122                                    GPIOB_PTOR = 0x00080000;           
+    123                                    GPIOB_PTOR = 0x00080000;           
+    124          	}
+    125                  GPIOB_PCOR   = 0x00040000;             // set Port B18 SRS output outsrs uses this pin
+    126          
+    127          /*	if (RCM_SRS1 & RCM_SRS1_TAMPER_MASK){
+    128          			for (i=0;i<8;i++){
+    129                                    GPIOB_PTOR = 0x00080000;           
+    130                                    GPIOB_PTOR = 0x00080000;           
+    131          			}
+    132          	}*/
+    133                  
+    134                  
+    135          	if (RCM_SRS1 & RCM_SRS1_SACKERR_MASK){
+    136          			for (i=0;i<6;i++){
+    137                                    GPIOB_PTOR = 0x00080000;           
+    138                                    GPIOB_PTOR = 0x00080000;           
+    139          			}
+    140          	}
+    141          	if (RCM_SRS1 & RCM_SRS1_EZPT_MASK){
+    142          			for (i=0;i<5;i++){
+    143                                    GPIOB_PTOR = 0x00080000;           
+    144                                    GPIOB_PTOR = 0x00080000;           
+    145          			}
+    146          	}
+    147          	if (RCM_SRS1 & RCM_SRS1_MDM_AP_MASK){
+    148          			for (i=0;i<4;i++){
+    149                                    GPIOB_PTOR = 0x00080000;           
+    150                                    GPIOB_PTOR = 0x00080000;           
+    151          			}
+    152          	}
+    153          	if (RCM_SRS1 & RCM_SRS1_SW_MASK){
+    154          			for (i=0;i<3;i++){
+    155                                    GPIOB_PTOR = 0x00080000;           
+    156                                    GPIOB_PTOR = 0x00080000;           
+    157          			}
+    158          	}
+    159          	if (RCM_SRS1 & RCM_SRS1_LOCKUP_MASK){
+    160          			for (i=0;i<2;i++){
+    161                                    GPIOB_PTOR = 0x00080000;           
+    162                                    GPIOB_PTOR = 0x00080000;           
+    163          			}
+    164          	}
+    165          	if (RCM_SRS1 & RCM_SRS1_JTAG_MASK){
+    166                                    GPIOB_PTOR = 0x00080000;           
+    167                                    GPIOB_PTOR = 0x00080000;           
+    168          	}
+    169           	GPIOB_PSOR = 0x000C0000;   // output SRS1 done
+    170          }
+
+Errors: 1
+Warnings: none

@@ -1,0 +1,120 @@
+###############################################################################
+#                                                                             #
+#                                                       21/Sep/2012  08:53:18 #
+# IAR ANSI C/C++ Compiler V6.40.2.23884/W32 EVALUATION for ARM                #
+# Copyright 1999-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers #
+#                    \mcg\mcg_ram.c                                           #
+#    Command line =  "C:\Documents and Settings\kk\桌面\kinetis_sc\src\driver #
+#                    s\mcg\mcg_ram.c" -D IAR -D TOWER -D TWR_K20D50M -lCN     #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\FLASH_128KB_PFLASH\List\" -lB "C:\Documents  #
+#                    and Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FL #
+#                    ASH_128KB_PFLASH\List\" -o "C:\Documents and             #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\FLASH_ #
+#                    128KB_PFLASH\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\INC\c\DLib_Config_Full.h" -I              #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\projects\hello_world\" -I       #
+#                    "C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\ #
+#                    hello_world\..\..\..\src\common\" -I "C:\Documents and   #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\" -I "C:\Documents and                        #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\cpu\headers\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\uart\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\mcg\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\wdog\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rcm\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\rtc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\smc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\llwu\" -I "C:\Documents and               #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\lptmr\" -I "C:\Documents and              #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\drivers\pmc\" -I "C:\Documents and                #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\..\ #
+#                    ..\src\platforms\" -I "C:\Documents and                  #
+#                    Settings\kk\桌面\kinetis_sc\build\iar\hello_world\..\"   #
+#                    -On --ropi --use_c++_inline -I "C:\Program Files\IAR     #
+#                    Systems\Embedded Workbench 6.4                           #
+#                    Evaluation\arm\CMSIS\Include\" -D ARM_MATH_CM4           #
+#    List file    =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\List\mcg_ram.lst           #
+#    Object file  =  C:\Documents and Settings\kk\桌面\kinetis_sc\build\iar\h #
+#                    ello_world\FLASH_128KB_PFLASH\Obj\mcg_ram.o              #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\kk\桌面\kinetis_sc\src\drivers\mcg\mcg_ram.c
+      1          /*
+      2           * File:    mcg_ram.c
+      3           * Purpose: function copied to RAM at runtime
+      4           *
+      5           * Notes:
+      6           * Assumes the MCG mode is in the default FEI mode out of reset
+      7           * One of 4 clocking options can be selected.
+      8           * One of 16 crystal values can be used
+      9           */
+     10          
+     11          #include "common.h"
+     12          #include "mcg_ram.h"
+     13          
+     14          #if (defined(IAR))
+     15          __ramfunc void set_sys_dividers
+     16          #elif (defined(CW))
+     17          __relocate_code__ void set_sys_dividers
+     18          #elif (defined(GNU))
+     19          void __attribute ((section(".relocate_code"))) set_sys_dividers
+     20          #else/*MULTI and KEIL*/
+     21          void set_sys_dividers
+     22          #endif
+     23          (uint32 outdiv1, uint32 outdiv2, uint32 outdiv3, uint32 outdiv4)
+     24          {
+     25           /*
+     26            * This routine must be placed in RAM. It is a workaround for errata e2448.
+     27            * Flash prefetch must be disabled when the flash clock divider is changed.
+     28            * This cannot be performed while executing out of flash.
+     29            * There must be a short delay after the clock dividers are changed before prefetch
+     30            * can be re-enabled.
+     31            */
+     32            uint32 temp_reg;
+     33            uint8 i;
+     34            
+     35            temp_reg = FMC_PFAPR; // store present value of FMC_PFAPR
+     36            
+     37            // set M0PFD through M7PFD to 1 to disable prefetch
+     38            FMC_PFAPR |= /*FMC_PFAPR_M7PFD_MASK | FMC_PFAPR_M6PFD_MASK | FMC_PFAPR_M5PFD_MASK
+     39                       | FMC_PFAPR_M4PFD_MASK | */FMC_PFAPR_M3PFD_MASK | FMC_PFAPR_M2PFD_MASK
+     40                       | FMC_PFAPR_M1PFD_MASK | FMC_PFAPR_M0PFD_MASK;
+     41            
+     42            // set clock dividers to desired value  
+     43            SIM_CLKDIV1 = SIM_CLKDIV1_OUTDIV1(outdiv1) | SIM_CLKDIV1_OUTDIV2(outdiv2) 
+     44                        | /*SIM_CLKDIV1_OUTDIV3(outdiv3) |*/ SIM_CLKDIV1_OUTDIV4(outdiv4);
+     45          
+     46            // wait for dividers to change
+     47            for (i = 0 ; i < outdiv4 ; i++)
+     48            {}
+     49            
+     50            FMC_PFAPR = temp_reg; // re-store original value of FMC_PFAPR
+     51            
+     52            return;
+     53          } // set_sys_dividers
+
+Errors: 3
+Warnings: none
